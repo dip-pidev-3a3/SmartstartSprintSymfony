@@ -1,6 +1,15 @@
 <html>
 <head>
     <style>
+        div.gfg {
+            margin:5px;
+            padding:5px;
+
+            width: 420px;
+            height: 200px;
+            overflow: auto;
+            text-align:justify;
+        }
 
         #noti_Container {
             position:relative;
@@ -89,40 +98,40 @@
         }
     </style>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
-        <ul>
-            <li id="noti_Container">
-                <div id="noti_Counter"></div>   <!--SHOW NOTIFICATIONS COUNT.-->
+    <ul>
+        <li id="noti_Container">
+            <div id="noti_Counter"></div>   <!--SHOW NOTIFICATIONS COUNT.-->
 
-                <!--A CIRCLE LIKE BUTTON TO DISPLAY NOTIFICATION DROPDOWN.-->
-                <div id="noti_Button"> <center><i class="fas fa-bell" style="color: yellow"></i></center></div>
+            <!--A CIRCLE LIKE BUTTON TO DISPLAY NOTIFICATION DROPDOWN.-->
+            <div id="noti_Button"> <center><i class="fas fa-bell" style="color: darkred"></i></center></div>
 
-                <!--THE NOTIFICAIONS DROPDOWN BOX.-->
-                <div id="notifications">
-                    <h3>Notifications</h3>
-                    <div style="height:300px;">
-                        <ul>
-                            {% for item in notificationList %}
-                                <li>
-                                    <b>{{ item.notification }}</b>
-                                    <br>
-                                    seen : {{ item.seen }}
-                                    <form action="{{ mgilet_notification_generate_path('notification_mark_as_seen', item.notifiableEntity, item.notification) }}"
-                                          method="post">
-                                        <button type="submit">Mark as seen</button>
-                                    </form>
-                                    <form action="{{ mgilet_notification_generate_path('notification_mark_as_unseen', item.notifiableEntity, item.notification) }}"
-                                          method="post">
-                                        <button type="submit">Mark as unseen</button>
-                                    </form>
-                                </li>
-                            {% endfor %}
-                        </ul>
-                    </div>
-                    <div class="seeAll"><a href="#">See All</a></div>
+            <!--THE NOTIFICAIONS DROPDOWN BOX.-->
+            <div id="notifications" >
+                <h3>Notifications</h3>
+                <div class="gfg">
+                    <ul>
+                        {% for item in notificationList %}
+                            <li>
+                                <b>{{ item.notification }}</b>
+                                <br>
+                                seen : {{ item.seen }}
+                                <form action="{{ mgilet_notification_generate_path('notification_mark_as_seen', item.notifiableEntity, item.notification) }}"
+                                      method="post">
+                                    <button type="submit">Mark as seen</button>
+                                </form>
+                                <form action="{{ mgilet_notification_generate_path('notification_mark_as_unseen', item.notifiableEntity, item.notification) }}"
+                                      method="post">
+                                    <button type="submit">Mark as unseen</button>
+                                </form>
+                            </li>
+                        {% endfor %}
+                    </ul>
                 </div>
-            </li>
+                <div class="seeAll"><a href="#">See All</a></div>
+            </div>
+        </li>
 
-        </ul>
+    </ul>
 
 </head>
 
@@ -141,7 +150,7 @@
             // TOGGLE (SHOW OR HIDE) NOTIFICATION WINDOW.
             $('#notifications').fadeToggle('fast', 'linear', function () {
                 if ($('#notifications').is(':hidden')) {
-                    $('#noti_Button').css('background-color', '#2E467C');
+                    $('#noti_Button').css('background-color', '#FFF');
                 }
                 // CHANGE BACKGROUND COLOR OF THE BUTTON.
                 else $('#noti_Button').css('background-color', '#FFF');
