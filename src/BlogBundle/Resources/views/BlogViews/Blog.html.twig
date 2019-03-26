@@ -26,71 +26,12 @@
                 <span class="txt29 m-l-10 m-r-10">/</span>
 
                 <a href="{{ path('blog_ListPosts') }}" class="txt27">
-
+                    BLOG
                 </a>
-
-        {% if app.user!=null %}
-
-
-            <center><div class="btn-group btn-group-justified">
-            <a href="#addEmployeeModal" class="btn3 flex-c-m size13 txt11 trans-0-4 m-l-r-auto"
-               data-toggle="modal"><i class="material-icons">&#xE147;</i>   Add A Post</a>
-            <a href="{{ path('blog_Managment') }}" class="btn3 flex-c-m size13 txt11 trans-0-4 m-l-r-auto"
-               ><i class="fas fa-tasks"></i> Blog Manager</a>
-
-        </div></center>
-
-        <!-- Add Modal HTML -->
-        <div id="addEmployeeModal" class="modal fade">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    {{ form_start(form) }}
-
-
-
-
-
-
-                    <div class="modal-header">
-                        <h4 class="modal-title">Add A Post</h4>
-                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                    </div>
-                    <div class="modal-body">
-                        <div class="form-group">
-                            <label>Post Content</label>
-                            {{ form_widget(form.postContent, { 'attr': {'class': 'form-control', 'type' : 'textarea'} }) }}
-
-                        </div>
-                        <div class="form-group">
-                            <label>Post Type</label>
-                            {{ form_widget(form.postType, { 'attr': {'class': 'form-control', 'style':'font-size: 12px'} }) }}
-
-                        </div>
-                        <div class="form-group">
-                            <label>Article Title</label>
-                            {{ form_widget(form.articleTitle, { 'attr': {'class': 'form-control', 'type' : 'textarea'} }) }}
-
-                        </div>
-                        <div class="form-group">
-                            <label>Article Content</label>
-                            {{ form_widget(form.articleContent)}}
-
-                        </div>
-                        <div class="form-group">
-                            <label>Your Image</label>
-                            {{ form_widget(form.image, { 'attr': {'class': 'form-control', 'style':'font-size: 12px'} }) }}
-
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
-                        <input type="submit" onclick="myFunction()" id="form" name="form" class="btn btn-success" id="addb" value="Add">
-                    </div>
-                    {{ form_end(form) }}
-                </div>
             </div>
         </div>
-        {% endif %}
+
+
 
 
         <div class="container">
@@ -264,9 +205,69 @@
                 <div style="word-wrap: break-word" class="col-md-4 col-lg-3">
                     <div style="word-wrap: break-word" class="sidebar2 p-t-80 p-b-80 p-l-20 p-l-0-md p-t-0-md">
                         <!-- Search -->
-                        <div class="search-sidebar2 size12 bo2 pos-relative">
-                            <input class="input-search-sidebar2 txt10 p-l-20 p-r-55" type="text" name="search" placeholder="Search">
-                            <button class="btn-search-sidebar2 flex-c-m ti-search trans-0-4"></button>
+                        <div>
+                            {% if app.user!=null %}
+
+
+                                <div class="right">
+                                        <a href="#addEmployeeModal" style="color: green"
+                                           data-toggle="modal"><i class="fas fa-plus-circle"></i> Add A Post</a><br>
+                                        <a href="{{ path('blog_Managment') }}" style="color: darkred"
+                                        ><i class="fas fa-tasks" style="size: 14px"></i> Blog Manager</a>
+
+                                    </div>
+
+                                <!-- Add Modal HTML -->
+                                <div id="addEmployeeModal" class="modal fade">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            {{ form_start(form) }}
+
+
+
+
+
+
+                                            <div class="modal-header">
+                                                <h4 class="modal-title">Add A Post</h4>
+                                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <div class="form-group">
+                                                    <label>Post Content</label>
+                                                    {{ form_widget(form.postContent, { 'attr': {'class': 'form-control', 'type' : 'textarea'} }) }}
+
+                                                </div>
+                                                <div class="form-group">
+                                                    <label>Post Type</label>
+                                                    {{ form_widget(form.postType, { 'attr': {'class': 'form-control', 'style':'font-size: 12px'} }) }}
+
+                                                </div>
+                                                <div class="form-group">
+                                                    <label>Article Title</label>
+                                                    {{ form_widget(form.articleTitle, { 'attr': {'class': 'form-control', 'type' : 'textarea'} }) }}
+
+                                                </div>
+                                                <div class="form-group">
+                                                    <label>Article Content</label>
+                                                    {{ form_widget(form.articleContent)}}
+
+                                                </div>
+                                                <div class="form-group">
+                                                    <label>Your Image</label>
+                                                    {{ form_widget(form.image, { 'attr': {'class': 'form-control', 'style':'font-size: 12px'} }) }}
+
+                                                </div>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
+                                                <input type="submit" onclick="myFunction()" id="form" name="form" class="btn btn-success" id="addb" value="Add">
+                                            </div>
+                                            {{ form_end(form) }}
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endif %}
                         </div>
 
                         <!-- Categories -->

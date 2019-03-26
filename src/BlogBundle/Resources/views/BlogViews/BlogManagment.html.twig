@@ -15,18 +15,26 @@
 
                 <ul class="list-group">
                     <li class="list-group-item" style="color: midnightblue;font-size: small;font-family: Montserrat-Bold">Profile</li>
-                    <li class="list-group-item text-right"><span class="pull-left"><strong>First Post</strong></span> 2.13.2014</li>
-                    <li class="list-group-item text-right"><span class="pull-left"><strong>Last Post</strong></span> Yesterday</li>
+                    <li class="list-group-item text-right"><span class="pull-left"><strong>First Post</strong></span> {{ first|join }}</li>
+                    <li class="list-group-item text-right"><span class="pull-left"><strong>Last Post</strong></span> {{ last|join }}</li>
                     <li class="list-group-item text-right"><span class="pull-left"><strong>Username</strong></span>{{ app.user.username }}</li>
 
                 </ul>
+
+
+
+
+
                 <br>
 
                 <ul class="list-group">
                     <li class="list-group-item" style="color: midnightblue;font-size: small;font-family: Montserrat-Bold">Number Of Posts Per Category</li>
-                    <li class="list-group-item text-right"><span class="pull-left"><strong>First Post</strong></span> 2.13.2014</li>
-                    <li class="list-group-item text-right"><span class="pull-left"><strong>Last Post</strong></span> Yesterday</li>
-                    <li class="list-group-item text-right"><span class="pull-left"><strong>Real name</strong></span> Joseph Doe</li>
+                    <li class="list-group-item text-right"><span class="pull-left"><strong>NEWSJACKING</strong></span>{{ n|join }}</li>
+                    <li class="list-group-item text-right"><span class="pull-left"><strong>INSTRUCTIONAL</strong></span>{{ i|join }}</li>
+                    <li class="list-group-item text-right"><span class="pull-left"><strong>PERSONAL SPOTLIGHT</strong></span>{{ p|join }}</li>
+                    <li class="list-group-item text-right"><span class="pull-left"><strong>CHEAT SHEET</strong></span>{{ c|join }}</li>
+                    <li class="list-group-item text-right"><span class="pull-left"><strong>MEDIA</strong></span>{{ m|join }}</li>
+                    <li class="list-group-item text-right"><span class="pull-left"><strong>ENTERTAINING</strong></span>{{ e|join }}</li>
 
                 </ul>
 
@@ -35,8 +43,8 @@
 
                 <ul class="list-group">
                     <li class="list-group-item" style="color: midnightblue;font-size: small;font-family: Montserrat-Bold">Numbers</li>
-                    <li class="list-group-item text-right"><span class="pull-left"><strong>Likes</strong></span> 0</li>
-                    <li class="list-group-item text-right"><span class="pull-left"><strong>Comments</strong></span> 0</li>
+                    <li class="list-group-item text-right"><span class="pull-left"><strong>Likes</strong></span>{{ l|join }}</li>
+                    <li class="list-group-item text-right"><span class="pull-left"><strong>Comments</strong></span> {{ com|join }}</li>
 
 
                 </ul>
@@ -83,7 +91,10 @@
                                 <h5 class="mt-0">{{ blogposts.articleTitle }}</h5>
                                 {{ blogposts.articleContent|raw }}
                             </div>
-                            <div class="right" st>
+                            <div class="right">
+                                <a href="{{ path('blog_delete',{('postId'):blogposts.postId}) }}" class="delete"><i class="fas fa-trash-alt" data-toggle="tooltip" title="Delete" style="color: darkred"></i></a>
+
+                                <a href="{{ path('Update_BlogPost',{('postId'):blogposts.postId}) }}"><i class="fas fa-edit" data-toggle="tooltip" title="Edit"style="color: green"></i></a><br><br>
                                 <i class="far fa-calendar" style="color: midnightblue;"></i> {{ blogposts.postDate|date("m/d/Y")}}
                                 <br>
                                 <i class="far fa-thumbs-up" style="color:midnightblue"></i>
@@ -97,10 +108,14 @@
                         {% endfor %}
 
                     </div><!--/tab-pane-->
-                </div>
+                </div> <center><div class="pagination flex-l-m flex-w m-l--6 p-t-25">
+                        <center>{{ pagination(v, 'page') }}</center></div></center>
+                <br><br>
             </div>
 
-        </div><!--/col-9-->
+
+        </div>
+        <!--/col-9-->
     </div>
 
 

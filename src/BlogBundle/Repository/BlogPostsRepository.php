@@ -149,4 +149,106 @@ class BlogPostsRepository extends EntityRepository
         $query->setMaxResults($max);
         return $query->getResult();
     }
+    public function CountPostsByCat($cat,$id)
+    {
+        $conn = $this->getEntityManager()
+            ->getConnection();
+        $sql = "SELECT count(*) FROM `blogposts` WHERE Author_id='$id' and post_type="."'". $cat."'";
+
+        try {
+            $stmt = $conn->prepare($sql);
+        } catch (DBALException $e) {
+        }
+        $stmt->execute();
+        return $stmt->fetch();
+
+    }
+    public function CountAllLikes($id)
+{
+    $conn = $this->getEntityManager()
+        ->getConnection();
+    $sql = " SELECT
+      SUM(blogposts.post_likes_count)
+      FROM
+      blogposts WHERE Author_id=".$id;
+
+    try {
+        $stmt = $conn->prepare($sql);
+    } catch (DBALException $e) {
+    }
+    $stmt->execute();
+    return $stmt->fetch();
+
+}
+    public function CountAllComs($id)
+    {
+        $conn = $this->getEntityManager()
+            ->getConnection();
+        $sql = " SELECT
+      SUM(blogposts.post_comment_count)
+      FROM
+      blogposts WHERE Author_id=".$id;
+
+        try {
+            $stmt = $conn->prepare($sql);
+        } catch (DBALException $e) {
+        }
+        $stmt->execute();
+        return $stmt->fetch();
+
+    }
+    public function findByAuthor($page = 1, $max = 15,$id)
+    {
+        $dql = $this->createQueryBuilder('blogpost')->where("blogpost.author =$id");
+        $dql->orderBy('blogpost.postDate', 'DESC');
+
+        $firstResult = ($page - 1) * $max;
+
+        $query = $dql->getQuery();
+        $query->setFirstResult($firstResult);
+        $query->setMaxResults($max);
+
+        $paginator = new Paginator($query);
+
+        if (($paginator->count() <= $firstResult) && $page != 1) {
+            throw new NotFoundHttpException('Page not found');
+        }
+
+        return $paginator;
+    }
+    public function LastPost($id)
+    {
+        $conn = $this->getEntityManager()
+            ->getConnection();
+        $sql = "SELECT blogposts.post_date
+        FROM blogposts
+        WHERE post_date = (SELECT MAX(blogposts.post_date) FROM blogposts) And Author_id=".$id." Limit 1";
+
+        try {
+            $stmt = $conn->prepare($sql);
+        } catch (DBALException $e) {
+        }
+        $stmt->execute();
+        return $stmt->fetch();
+
+
+    }
+    public function FirstPost($id)
+    {
+        $conn = $this->getEntityManager()
+            ->getConnection();
+        $sql = "SELECT blogposts.post_date
+        FROM blogposts
+        WHERE post_date = (SELECT MIN(blogposts.post_date) FROM blogposts) And Author_id=".$id." Limit 1";
+
+        try {
+            $stmt = $conn->prepare($sql);
+        } catch (DBALException $e) {
+        }
+        $stmt->execute();
+        return $stmt->fetch();
+
+
+    }
+
 }

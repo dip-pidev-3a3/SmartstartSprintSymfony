@@ -273,14 +273,29 @@ class BlogPostsController extends Controller
         );
         return $this->render('@Blog/BlogViews/PostsByCat.html.twig',array('v'=>$listUser,'popular'=>$popular,'form'=>$form->createView()));
     }
-    public function ManagerAction()
+    public function ManagerAction(Request $request)
     { $user=new FosUser();
 
         $user = $this->container->get('security.token_storage')->getToken()->getUser();
+        $em=$this->getDoctrine()->getRepository(Blogposts::class);
+        $news=$em->CountPostsByCat("NewsjackingPost",$user->getId());
+        $media=$em->CountPostsByCat("MediaPost",$user->getId());
+        $en=$em->CountPostsByCat("Entertaining",$user->getId());
+        $In=$em->CountPostsByCat("InstructionalPost",$user->getId());
+        $ch=$em->CountPostsByCat("CheatSheetPost",$user->getId());
+        $per=$em->CountPostsByCat("PersonalSpotlightPost",$user->getId());
+        $likes=$em->CountAllLikes($user->getId());
+        $comments=$em->CountAllComs($user->getId());
+        $first=$em->FirstPost($user->getId());
+        $last=$em->LastPost($user->getId());
 
         $popular=$this->getDoctrine()->getRepository(Blogposts::class)->findMostPopularPostsByUser(3,$user->getId());
-        $posts=$this->getDoctrine()->getRepository(Blogposts::class)->findBy(['author' => $user->getId()]);
-        return $this->render('@Blog/BlogViews/BlogManagment.html.twig',array('pop'=>$popular,'v'=>$posts));
+        $posts=$em->findByAuthor(
+            $request->query->getInt('page', 1),
+            7,$user->getId()
+        );
+        return $this->render('@Blog/BlogViews/BlogManagment.html.twig',array('pop'=>$popular,'v'=>$posts,'n'=>$news,'m'=>$media
+        ,'e'=>$en,'i'=>$In,'c'=>$ch,'p'=>$per,'l'=>$likes,'com'=>$comments,'first'=>$first,'last'=>$last));
     }
     public function sendNotification(Request $request)
     {
