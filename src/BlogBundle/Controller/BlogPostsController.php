@@ -312,6 +312,10 @@ class BlogPostsController extends Controller
 
         
     }
+    public function Suggest()
+    {
+
+    }
 
 
 }

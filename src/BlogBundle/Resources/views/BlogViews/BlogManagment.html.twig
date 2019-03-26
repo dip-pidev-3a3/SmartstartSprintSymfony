@@ -48,6 +48,49 @@
 
 
                 </ul>
+                {% if l|join>1000 %}
+                    <br>
+                    <ul class="list-group">
+                        <li class="list-group-item" style="color: midnightblue;font-size: small;font-family: Montserrat-Bold">Profits</li>
+                        <li class="list-group-item text-right"><span class="pull-left"><strong>Likes</strong></span>{{ l|join }}</li>
+                        <li class="list-group-item text-right"><span class="pull-left"><strong>Comments</strong></span> {{ com|join }}</li>
+                    </ul>
+                        <br>
+
+                        <!-- Button to Open the Modal -->
+                        <center><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
+                    <i class="fas fa-money-check-alt">  Ask For Your Money</i>
+                        </button></center>
+
+                        <!-- The Modal -->
+                        <div class="modal fade" id="myModal">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+
+                                    <!-- Modal Header -->
+                                    <div class="modal-header">
+                                        <h4 class="modal-title">Modal Heading</h4>
+                                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                    </div>
+
+                                    <!-- Modal body -->
+                                    <div class="modal-body">
+                                        Modal body..
+                                    </div>
+
+                                    <!-- Modal footer -->
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+
+                {% endif %}
+                {% if l|join<1000 %}
+                <br><br>Vous devez Debloquer les 1000 Likes pour rentabiliser votre Blog
+                {% endif %}
 
 
             </div><!--/col-3-->
