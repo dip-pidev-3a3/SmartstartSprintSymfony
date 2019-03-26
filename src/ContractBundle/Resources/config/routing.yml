@@ -1,0 +1,10 @@
+my_contracts:
+    path:     /myContracts
+    defaults: { _controller: ContractBundle:Default:index }
+delete_contract:
+    path:     /contract/delete/{id}
+    defaults: { _controller: ContractBundle:Default:delete }
+my_low_contracts:
+    path:     /myLowContracts
+    defaults: { _controller: ContractBundle:Default:low }
+

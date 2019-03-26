@@ -1,0 +1,107 @@
+{% extends "SmartStartBase.html.twig" %}
+{% block title %}Detail blog{% endblock %}
+{% block body %}
+
+    <section class="bg-title-page flex-c-m p-t-160 p-b-80 p-l-15 p-r-15" style="background-image: url({{ asset('assets/images/blog-banner.png') }});">
+        <h2 class="tit6 t-center">
+            Blog
+        </h2>
+    </section>
+
+
+    <!-- Content page -->
+    <section>
+        <div class="bread-crumb bo5-b p-t-17 p-b-17">
+            <div class="container">
+                <a href="{{ path('blog_ListPosts') }}" class="txt27">
+                    Home
+                </a>
+
+                <span class="txt29 m-l-10 m-r-10">/</span>
+
+                <a href="{{ path('blog_ListPosts') }}" class="txt27">
+                    Blog
+                </a>
+
+                <span class="txt29 m-l-10 m-r-10">/</span>
+                <a href="" class="txt27">
+                    Update your post
+                </a>
+
+                <span class="txt29">
+				</span>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="row ">
+                <div class="col-md-8 col-lg-9">
+                    <div class="p-t-80 p-b-124 bo5-r p-r-50 h-full p-r-0-md bo-none-md">
+                        <!-- Block4 -->
+                        <div class="blo4 p-b-63">
+                            <!-- - -->
+                            <div class="pic-blo4 hov-img-zoom bo-rad-10 pos-relative">
+
+
+                                <div class="date-blo4 flex-col-c-m">
+									<span class="txt30 m-b-4">
+
+
+									</span>
+
+                                    <span class="txt31">
+									</span>
+                                </div>
+                            </div>
+
+
+                        </div>
+                        {{ form_start(form) }}
+                        <div class="form-group">
+                            <label>Post Content</label>
+                            {{ form_widget(form.postContent, { 'attr': {'class': 'form-control', 'type' : 'textarea'} }) }}
+
+                        </div>
+                        <div class="form-group">
+                            <label>Post Type</label>
+                            {{ form_widget(form.postType, { 'attr': {'class': 'form-control', 'style':'font-size: 12px'} }) }}
+
+                        </div>
+                        <div class="form-group">
+                            <label>Article Title</label>
+                            {{ form_widget(form.articleTitle, { 'attr': {'class': 'form-control', 'type' : 'textarea'} }) }}
+
+                        </div>
+                        <div class="form-group">
+                            <label>Article Content</label>
+                            {{ form_widget(form.articleContent) }}
+
+                        </div>
+                        <div class="form-group">
+                            <label>Your Image</label>
+                            {{ form_widget(form.image, { 'attr': {'class': 'form-control', 'style':'font-size: 12px'} }) }}
+
+                        </div>
+                        <button type="submit" class="btn3 flex-c-m size31 txt11 trans-0-4" id="addb">
+                            Save Changes
+                        </button>
+                    </div>
+
+
+                    {{ form_end(form) }}
+
+
+
+
+                    </div>
+                </div>
+
+
+                </div>
+            </div>
+
+    </section>
+    <script src="//cdn.ckeditor.com/4.11.3/full/ckeditor.js"></script><script>
+    CKEDITOR.replace('editor1');
+</script>
+{% endblock %}

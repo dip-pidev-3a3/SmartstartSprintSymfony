@@ -1,0 +1,103 @@
+
+
+
+<!DOCTYPE html>
+<html lang="en" >
+{% block title %}{% endblock %}
+
+<head>
+    <meta charset="UTF-8">
+    <title>SmartStart Login </title>
+
+    <link rel="stylesheet" href="{{ asset('https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css') }}">
+
+    <link rel='stylesheet' href="{{ asset('https://fonts.googleapis.com/css?family=Roboto:400,100,300,500,700,900|RobotoDraft:400,100,300,500,700,900') }}">
+    <link rel='stylesheet' href="{{ asset('https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css') }}">
+
+    <link rel="stylesheet" href="{{ asset('fosassets/css/style.css')}}">
+
+
+</head>
+<style type="text/css">
+body{
+background-image: image({{ asset('fosassets/background1.jpg') }});
+background: midnightblue;
+font-family: 'Roboto', sans-serif;
+}
+</style>
+
+<body background="/fosassets/background.jpg">
+
+
+<!-- Mixins-->
+<!-- Pen Title-->
+{% block content %}
+<div class="pen-title">
+</div>
+<div class="container">
+    <div class="card"></div>
+    <div class="card">
+        <h1 class="title">Login</h1>
+
+        {% block fos_user_content %}
+
+        <form>
+            <div class="input-container">
+                <input type="#{type}" id="#{label}" required="required"/>
+                <label for="#{label}">Username</label>
+                <div class="bar"></div>
+            </div>
+            <div class="input-container">
+                <input type="#{type}" id="#{label}" required="required"/>
+                <label for="#{label}">Password</label>
+                <div class="bar"></div>
+            </div>
+            <div class="button-container">
+                <button><span>Go</span></button>
+            </div>
+            <div class="footer"><a href="#">Forgot your password?</a></div>
+        </form>
+        {% endblock %}
+    </div>
+    <div class="card alt">
+        <div class="toggle"></div>
+        <h1 class="title">Register
+            <div class="close"></div>
+        </h1>
+        <form>
+            <div class="input-container">
+                <input type="#{type}" id="#{label}" required="required"/>
+                <label for="#{label}">Username</label>
+                <div class="bar"></div>
+            </div>
+            <div class="input-container">
+                <input type="#{type}" id="#{label}" required="required"/>
+                <label for="#{label}">Password</label>
+                <div class="bar"></div>
+            </div>
+            <div class="input-container">
+                <input type="#{type}" id="#{label}" required="required"/>
+                <label for="#{label}">Repeat Password</label>
+                <div class="bar"></div>
+            </div>
+            <div class="button-container">
+                <button><span>Next</span></button>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}
+<!-- Portfolio--><a id="portfolio" href="{{ asset('http://andytran.me/') }}" title="View my portfolio!"><i class="fa fa-link"></i></a>
+<!-- CodePen--><a id="codepen" href="{{ asset('https://codepen.io/andytran/') }}" title="Follow me!"><i class="fa fa-codepen"></i></a>
+<script src="{{ asset('http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js') }}"></script>
+
+
+
+<script src="{{ asset('fosassets/js/index.js') }}"></script>
+
+
+
+
+</body>
+
+</html>

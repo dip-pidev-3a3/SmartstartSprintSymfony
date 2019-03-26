@@ -1,0 +1,6 @@
+opportunity_homepage:
+    path:     /home
+    defaults: { _controller: OpportunityBundle:Default:index }
+opportunity_detailblog:
+    path:     /detail
+    defaults: { _controller: OpportunityBundle:Default:detail }

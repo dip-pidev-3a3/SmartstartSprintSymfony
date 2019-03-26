@@ -1,0 +1,47 @@
+{% extends "BaseAdmin.html.twig" %}
+{% block title %}Detail{% endblock %}
+{% block body %}
+<!-- Page Content -->
+<div class="container">
+
+    <!-- Portfolio Item Heading -->
+    <h2 class="my-4" style="font-family: Montserrat-Bold;color: midnightblue;font-size: xx-large"> Article Title : {{ v.ArticleTitle }}
+        <small style="font-family: Montserrat-Bold;color: darkred">{{ v.postDate|date("m/d/Y")}}</small>
+    </h2>
+    <br><br>
+
+    <!-- Portfolio Item Row -->
+    <div class="row">
+
+        <div class="col-md-8">
+            <img class="img-fluid" src="{{ asset('uploads/images/' ~ v.image) }}" alt="" width="750" height="500">
+        </div>
+
+        <div class="col-md-4" style="word-wrap:break-word">
+            <h3  style="color: midnightblue;font-family: Montserrat-Bold;word-wrap:break-word;font-size: xx-large">Article Content</h3>
+            <p style="word-wrap:break-word;font-family: Montserrat-Regular;font-size: medium;color: #000;">{{ v.articleContent|raw }}</p>
+            <h3 style="color: midnightblue;font-family: Montserrat-Bold;word-wrap:break-word;font-size: xx-large">Post Details</h3>
+            <ul>
+                <li style="color: #000;">Author : {{ v.author.username }}</li>
+                <li style="color: #000;">Type : {{ v.postType }}</li>
+                <li style="color: #000;">Comments {{ v.postCommentCount }} Comments</li>
+                <li style="color: #000;">Likes : {{ v.postLikesCount }} Likes</li>
+            </ul>
+        </div>
+
+    </div>
+    <!-- /.row -->
+
+    <!-- Related Projects Row -->
+    
+
+    <div class="row">
+
+
+
+    </div>
+    <!-- /.row -->
+
+</div>
+<!-- /.container -->
+{% endblock %}

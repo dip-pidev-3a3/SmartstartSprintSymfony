@@ -1,0 +1,107 @@
+{% extends "SmartStartBase.html.twig" %}
+{% block title %}Blog Managment{% endblock %}
+{% block body %}
+    <!-- Title Page -->
+    <section class="bg-title-page flex-c-m p-t-160 p-b-80 p-l-15 p-r-15" style="background-image: url({{ asset('assets/images/blog-banner.png') }});">
+        <h2 class="tit6 t-center">
+        </h2>
+    </section>
+    <br><br>
+
+    <div class="container">
+
+        <div class="row">
+            <div class="col-sm-3"><!--left col-->
+
+                <ul class="list-group">
+                    <li class="list-group-item" style="color: midnightblue;font-size: small;font-family: Montserrat-Bold">Profile</li>
+                    <li class="list-group-item text-right"><span class="pull-left"><strong>First Post</strong></span> 2.13.2014</li>
+                    <li class="list-group-item text-right"><span class="pull-left"><strong>Last Post</strong></span> Yesterday</li>
+                    <li class="list-group-item text-right"><span class="pull-left"><strong>Username</strong></span>{{ app.user.username }}</li>
+
+                </ul>
+                <br>
+
+                <ul class="list-group">
+                    <li class="list-group-item" style="color: midnightblue;font-size: small;font-family: Montserrat-Bold">Number Of Posts Per Category</li>
+                    <li class="list-group-item text-right"><span class="pull-left"><strong>First Post</strong></span> 2.13.2014</li>
+                    <li class="list-group-item text-right"><span class="pull-left"><strong>Last Post</strong></span> Yesterday</li>
+                    <li class="list-group-item text-right"><span class="pull-left"><strong>Real name</strong></span> Joseph Doe</li>
+
+                </ul>
+
+
+                <br>
+
+                <ul class="list-group">
+                    <li class="list-group-item" style="color: midnightblue;font-size: small;font-family: Montserrat-Bold">Numbers</li>
+                    <li class="list-group-item text-right"><span class="pull-left"><strong>Likes</strong></span> 0</li>
+                    <li class="list-group-item text-right"><span class="pull-left"><strong>Comments</strong></span> 0</li>
+
+
+                </ul>
+
+
+            </div><!--/col-3-->
+            <div class="col-sm-9">
+
+
+
+                <div class="tab-content">
+                    <div class="tab-pane active" id="home">
+                        <div id="carousel-example-2" class="carousel slide carousel-fade z-depth-1-half" data-ride="carousel">
+                            <!--Indicators-->
+                            <ol class="carousel-indicators">
+                                <li data-target="#carousel-example-2" data-slide-to="0" class="active"></li>
+                                <li data-target="#carousel-example-2" data-slide-to="1"></li>
+                                <li data-target="#carousel-example-2" data-slide-to="2"></li>
+                            </ol>
+                            <!--/.Indicators-->
+                            <!--Slides-->
+
+                            <!--/.Slides-->
+                            <!--Controls-->
+                            <a class="carousel-control-prev" href="#carousel-example-2" role="button" data-slide="prev">
+                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                <span class="sr-only">Previous</span>
+                            </a>
+                            <a class="carousel-control-next" href="#carousel-example-2" role="button" data-slide="next">
+                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                <span class="sr-only">Next</span>
+                            </a>
+                            <!--/.Controls-->
+                        </div>
+
+
+
+                        <h4>Your Posts</h4>
+                        <br><hr>
+                         {% for blogposts in v %}
+                        <div class="media">
+                            <img class="mr-3" src="{{ asset('uploads/images/' ~ blogposts.image) }}" width="64" height="64" alt="Generic placeholder image">
+                            <div class="media-body">
+                                <h5 class="mt-0">{{ blogposts.articleTitle }}</h5>
+                                {{ blogposts.articleContent|raw }}
+                            </div>
+                            <div class="right" st>
+                                <i class="far fa-calendar" style="color: midnightblue;"></i> {{ blogposts.postDate|date("m/d/Y")}}
+                                <br>
+                                <i class="far fa-thumbs-up" style="color:midnightblue"></i>
+                                <span class="js-likes" style="color: midnightblue">{{ blogposts.postLikesCount }}</span>
+                                <span class="js-label" style="color: midnightblue">Like</span>
+                                <br>
+                                <i class="fas fa-comments" style="color:midnightblue"></i> {{ blogposts.postCommentCount }} Comments
+                            </div>
+                        </div>
+                             <br><hr>
+                        {% endfor %}
+
+                    </div><!--/tab-pane-->
+                </div>
+            </div>
+
+        </div><!--/col-9-->
+    </div>
+
+
+{% endblock %}

@@ -1,0 +1,36 @@
+blog_homepage:
+    path:     /
+    defaults: { _controller: BlogBundle:Default:index }
+blog_detailblog:
+    path:     /detail
+    defaults: { _controller: BlogBundle:Default:detail }
+blog_AddBlogPost:
+    path:     /AddPost
+    defaults: { _controller: BlogBundle:BlogPosts:AddBlogPost }
+blog_delete:
+    path:     /deletepost/{postId}
+    defaults: { _controller: BlogBundle:BlogPosts:Delete }
+blog_ListPosts:
+    path:     /listposts
+    defaults: { _controller: BlogBundle:BlogPosts:list }
+blog_Detail:
+    path:     /DetailPost/{postId}
+    defaults: { _controller: BlogBundle:BlogPosts:DetailPost }
+blog_Managment:
+    path:     /BlogManager
+    defaults: { _controller: BlogBundle:BlogPosts:Manager }
+blog_Like:
+    path:     /Like/{postId}/{id}
+    defaults: { _controller: BlogBundle:BlogPosts:Like }
+Update_BlogPost:
+    path:     /UpdatePost/{postId}
+    defaults: { _controller: BlogBundle:BlogPosts:Update }
+Blog_PostCat:
+    path:     /PostCat/{cat}
+    defaults: { _controller: BlogBundle:BlogPosts:PostsByCat }
+blog_AddComment:
+    path:     /AddComment
+    defaults: { _controller: BlogBundle:Comments:AddComment }
+blog_deleteComment:
+    path:     /deleteComment/{commentId}
+    defaults: { _controller: BlogBundle:Comments:Delete }

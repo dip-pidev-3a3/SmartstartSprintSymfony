@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+    <title>{% block title %}{% endblock %}</title>
+    {% block stylesheets %}
+        <meta charset="UTF-8" />
+        <link href="{{ asset('assets/css/googleapis.css') }}" rel="stylesheet">
+        <!--===============================================================================================-->
+        <link rel="icon" type="image/png" href="{{ asset('assets/images/icons/favicon.png') }}"/>
+        <!--===============================================================================================-->
+        <link rel="stylesheet" type="text/css" href="{{ asset('assets/vendor/bootstrap/css/bootstrap.min.css') }}">
+        <!--===============================================================================================-->
+        <link rel="stylesheet" type="text/css" href="{{ asset('assets/fonts/font-awesome-4.7.0/css/font-awesome.min.css') }}">
+        <!--===============================================================================================-->
+        <link rel="stylesheet" type="text/css" href="{{ asset('assets/fonts/themify/themify-icons.css') }}">
+        <!--===============================================================================================-->
+        <link rel="stylesheet" type="text/css" href="{{ asset('assets/vendor/animate/animate.css') }}">
+        <!--===============================================================================================-->
+        <link rel="stylesheet" type="text/css" href="{{ asset('assets/vendor/css-hamburgers/hamburgers.min.css') }}">
+        <!--===============================================================================================-->
+        <link rel="stylesheet" type="text/css" href="{{ asset('assets/vendor/animsition/css/animsition.min.css') }}">
+        <!--===============================================================================================-->
+        <link rel="stylesheet" type="text/css" href="{{ asset('assets/vendor/select2/select2.min.css') }}">
+
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <!--===============================================================================================-->
+        <link rel="stylesheet" type="text/css" href="{{ asset('assets/vendor/daterangepicker/daterangepicker.css') }} ">
+        <!--===============================================================================================-->
+        <link rel="stylesheet" type="text/css" href="{{ asset('assets/vendor/slick/slick.css') }}">
+        <!--===============================================================================================-->
+        <link rel="stylesheet" type="text/css" href="{{ asset('assets/vendor/lightbox2/css/lightbox.min.css') }}">
+        <!--===============================================================================================-->
+        <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/util.css') }}">
+        <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/main.css') }}">
+
+    {% endblock %}
+
+</head>
+<body class="animsition">
+
+<!-- Header -->
+<header>
+
+
+    <!-- Header desktop -->
+    <div class="wrap-menu-header gradient1 trans-0-4">
+
+        <div class="container h-full">
+
+            <div class="wrap_header trans-0-3">
+                {% if app.user!=null %}
+                    {{ mgilet_notification_render(app.user,{ 'template': '@Blog/BlogViews/notification.html.twig'}) }}
+                {% endif %}
+                <div class="logo">
+                    <a href="">
+                        <img src="{{ asset('assets/images/icons/logo.png') }}" alt="IMG-LOGO" data-logofixed="{{ asset('assets/images/icons/logo2.png') }}">
+                    </a>
+                </div>
+
+                <!-- Menu -->
+                <div class="wrap_menu p-l-45 p-l-0-xl">
+                    <nav class="menu">
+                        <ul class="main_menu">
+
+                            <li>
+                                <a href="{{ path('homepage') }}">Home</a>
+                            </li>
+
+                            <li>
+                                <a href="">Menu</a>
+                            </li>
+
+                            <li>
+                                <a href="{{ path('my_contracts') }}">Contracts</a>
+
+                            </li>
+
+                            <li>
+                                <a href="">Gallery</a>
+                            </li>
+
+                            <li>
+                                <a href="">About</a>
+                            </li>
+
+                            <li>
+                                <a href="{{ path('blog_ListPosts')}}">Blog</a>
+                            </li>
+
+                            <li>
+                                <a href="">Contact</a>
+
+                            </li>
+
+                        </ul>
+                    </nav>
+                </div>
+
+                <!-- Social -->
+                <div class="social flex-w flex-l-m p-r-20">
+                    <a href="#"><i class="fab fa-tripadvisor"></i></a>
+                    <a href="#"><i class="fab fa-facebook m-l-21" aria-hidden="true"></i></a>
+                    <a href="#"><i class="fab fa-twitter m-l-21" aria-hidden="true"></i></a>
+
+                    <button class="btn-show-sidebar m-l-33 trans-0-4"></button>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Sidebar -->
+<aside class="sidebar trans-0-4">
+    <!-- Button Hide sidebar -->
+    <button class="btn-hide-sidebar ti-close color0-hov trans-0-4"></button>
+
+    <!-- - -->
+    <ul class="menu-sidebar p-t-95 p-b-70">
+        <li class="t-center m-b-13">
+            <a href="homepage" class="txt19">Home</a>
+        </li>
+
+        <li class="t-center m-b-13">
+            <a href="" class="txt19">Menu</a>
+        </li>
+
+        <li class="t-center m-b-13">
+            <a href="" class="txt19">Reservation</a>
+        </li>
+
+        <li class="t-center m-b-13">
+            <a href="" class="txt19">Gallery</a>
+        </li>
+
+        <li class="t-center m-b-13">
+            <a href="" class="txt19">About</a>
+        </li>
+
+        <li class="t-center m-b-13">
+            <a href="{{ path('blog_ListPosts')}}" class="txt19">Blog</a>
+        </li>
+
+        <li class="t-center m-b-33">
+            <a href="" class="txt19">Contact</a>
+        </li>
+
+        {% if is_granted("ROLE_USER") %}
+            <li class="t-center">
+                <a href="{{  path('fos_user_security_logout')}}" class="btn3 flex-c-m size13 txt11 trans-0-4 m-l-r-auto">Logout</a>
+            </li>
+        {% else %}
+            <li class="t-center">
+                <a href="{{ path('fos_user_security_login') }}" class="btn3 flex-c-m size13 txt11 trans-0-4 m-l-r-auto">Login</a>
+            </li>
+        {% endif %}
+
+    </ul>
+
+    <!-- - -->
+    <div class="gallery-sidebar t-center p-l-60 p-r-60 p-b-40">
+        <!-- - -->
+        <h4 class="txt20 m-b-33">
+            Gallery
+        </h4>
+
+        <!-- Gallery -->
+        <div class="wrap-gallery-sidebar flex-w">
+            <a class="item-gallery-sidebar wrap-pic-w" href="{{ asset('assets/images/photo-gallery-01.jpg') }}" data-lightbox="gallery-footer">
+                <img src="{{ asset('assets/images/photo-gallery-thumb-01.jpg') }}" alt="GALLERY">
+            </a>
+
+            <a class="item-gallery-sidebar wrap-pic-w" href="i{{ asset('assets/images/photo-gallery-02.jpg') }}" data-lightbox="gallery-footer">
+                <img src="{{ asset('assets/images/photo-gallery-thumb-02.jpg') }}" alt="GALLERY">
+            </a>
+
+            <a class="item-gallery-sidebar wrap-pic-w" href="{{ asset('assets/images/photo-gallery-03.jpg') }}" data-lightbox="gallery-footer">
+                <img src="{{ asset('assets/images/photo-gallery-thumb-03.jpg') }}" alt="GALLERY">
+            </a>
+
+            <a class="item-gallery-sidebar wrap-pic-w" href="{{ asset('assets/images/photo-gallery-05.jpg') }}" data-lightbox="gallery-footer">
+                <img src="{{ asset('assets/images/photo-gallery-thumb-05.jpg') }}" alt="GALLERY">
+            </a>
+
+            <a class="item-gallery-sidebar wrap-pic-w" href="{{ asset('assets/images/photo-gallery-06.jpg') }}" data-lightbox="gallery-footer">
+                <img src="{{ asset('assets/images/photo-gallery-thumb-06.jpg') }}" alt="GALLERY">
+            </a>
+
+            <a class="item-gallery-sidebar wrap-pic-w" href="{{ asset('assets/images/photo-gallery-07.jpg') }}" data-lightbox="gallery-footer">
+                <img src="{{ asset('assets/images/photo-gallery-thumb-07.jpg') }}" alt="GALLERY">
+            </a>
+
+            <a class="item-gallery-sidebar wrap-pic-w" href="{{ asset('assets/images/photo-gallery-09.jpg') }}" data-lightbox="gallery-footer">
+                <img src="{{ asset('assets/images/photo-gallery-thumb-09.jpg') }}" alt="GALLERY">
+            </a>
+
+            <a class="item-gallery-sidebar wrap-pic-w" href="{{ asset('assets/images/photo-gallery-10.jpg') }}" data-lightbox="gallery-footer">
+                <img src="{{ asset('assets/images/photo-gallery-thumb-10.jpg') }}" alt="GALLERY">
+            </a>
+
+            <a class="item-gallery-sidebar wrap-pic-w" href="{{ asset('assets/images/photo-gallery-11.jpg') }}" data-lightbox="gallery-footer">
+                <img src="{{ asset('assets/images/photo-gallery-thumb-11.jpg') }}" alt="GALLERY">
+            </a>
+        </div>
+    </div>
+</aside>
+
+
+
+{% block body %}{% endblock %}
+
+<footer class="bg1">
+    <div class="container p-t-40 p-b-70">
+        <div class="row">
+            <div class="col-sm-6 col-md-4 p-t-50">
+                <!-- - -->
+                <h4 class="txt13 m-b-33">
+                    Contact Us
+                </h4>
+
+                <ul class="m-b-70">
+                    <li class="txt14 m-b-14">
+                        <i class="fas fa-map-marker-alt"></i>
+                        8th floor, 379 Hudson St, New York, NY 10018
+                    </li>
+
+                    <li class="txt14 m-b-14">
+                        <i class="far fa-phone"></i>
+                        (+1) 96 716 6879
+                    </li>
+
+                    <li class="txt14 m-b-14">
+                        <i class="far fa-file-contract"></i>                        contact@site.com
+                    </li>
+                </ul>
+
+                <!-- - -->
+                <h4 class="txt13 m-b-32">
+                    Opening Times
+                </h4>
+
+                <ul>
+                    <li class="txt14">
+                        09:30 AM – 11:00 PM
+                    </li>
+
+                    <li class="txt14">
+                        Every Day
+                    </li>
+                </ul>
+            </div>
+
+            <div class="col-sm-6 col-md-4 p-t-50">
+                <!-- - -->
+                <h4 class="txt13 m-b-33">
+                    Latest twitter
+                </h4>
+
+                <div class="m-b-25">
+                        <span class="fs-13 color2 m-r-5">
+                            <i class="fab fa-twitter" aria-hidden="true"></i>
+                        </span>
+                    <a href="#" class="txt15">
+                        @colorlib
+                    </a>
+
+                    <p class="txt14 m-b-18">
+                        Activello is a good option. It has a slider built into that displays the featured image in the slider.
+                        <a href="#" class="txt15">
+                            https://buff.ly/2zaSfAQ
+                        </a>
+                    </p>
+
+                    <span class="txt16">
+                            21 Dec 2017
+                        </span>
+                </div>
+
+                <div>
+                        <span class="fs-13 color2 m-r-5">
+                            <i class="fab fa-twitter" aria-hidden="true"></i>
+                        </span>
+                    <a href="#" class="txt15">
+                        @colorlib
+                    </a>
+
+                    <p class="txt14 m-b-18">
+                        Activello is a good option. It has a slider built into that displays
+                        <a href="#" class="txt15">
+                            https://buff.ly/2zaSfAQ
+                        </a>
+                    </p>
+
+                    <span class="txt16">
+                            21 Dec 2017
+                        </span>
+                </div>
+            </div>
+
+            <div class="col-sm-6 col-md-4 p-t-50">
+                <!-- - -->
+                <h4 class="txt13 m-b-38">
+                    Gallery
+                </h4>
+
+                <!-- Gallery footer -->
+                <div class="wrap-gallery-footer flex-w">
+                    <a class="item-gallery-footer wrap-pic-w" href="{{ asset('assets/images/photo-gallery-01.jpg') }}" data-lightbox="gallery-footer">
+                        <img src="{{ asset('assets/images/photo-gallery-thumb-01.jpg') }}" alt="GALLERY">
+                    </a>
+
+                    <a class="item-gallery-footer wrap-pic-w" href="{{ asset('assets/images/photo-gallery-02.jpg') }}" data-lightbox="gallery-footer">
+                        <img src="{{ asset('assets/images/photo-gallery-thumb-02.jpg') }}" alt="GALLERY">
+                    </a>
+
+                    <a class="item-gallery-footer wrap-pic-w" href="{{ asset('assets/images/photo-gallery-03.jpg') }}" data-lightbox="gallery-footer">
+                        <img src="{{ asset('assets/images/photo-gallery-thumb-03.jpg') }}" alt="GALLERY">
+                    </a>
+
+                    <a class="item-gallery-footer wrap-pic-w" href="{{ asset('assets/images/photo-gallery-04.jpg') }}" data-lightbox="gallery-footer">
+                        <img src="{{ asset('assets/images/photo-gallery-thumb-04.jpg') }}" alt="GALLERY">
+                    </a>
+
+                    <a class="item-gallery-footer wrap-pic-w" href="{{ asset('assets/images/photo-gallery-05.jpg') }}" data-lightbox="gallery-footer">
+                        <img src="{{ asset('assets/images/photo-gallery-thumb-05.jpg') }}" alt="GALLERY">
+                    </a>
+
+                    <a class="item-gallery-footer wrap-pic-w" href="{{ asset('assets/images/photo-gallery-06.jpg') }}" data-lightbox="gallery-footer">
+                        <img src="{{ asset('assets/images/photo-gallery-thumb-06.jpg') }}" alt="GALLERY">
+                    </a>
+
+                    <a class="item-gallery-footer wrap-pic-w" href="{{ asset('assets/images/photo-gallery-07.jpg') }}" data-lightbox="gallery-footer">
+                        <img src="{{ asset('assets/images/photo-gallery-thumb-07.jpg') }}" alt="GALLERY">
+                    </a>
+
+                    <a class="item-gallery-footer wrap-pic-w" href="{{ asset('assets/images/photo-gallery-08.jpg') }}" data-lightbox="gallery-footer">
+                        <img src="{{ asset('assets/images/photo-gallery-thumb-08.jpg') }}" alt="GALLERY">
+                    </a>
+
+                    <a class="item-gallery-footer wrap-pic-w" href="{{ asset('assets/images/photo-gallery-09.jpg') }}" data-lightbox="gallery-footer">
+                        <img src="{{ asset('assets/images/photo-gallery-thumb-09.jpg') }}" alt="GALLERY">
+                    </a>
+
+                    <a class="item-gallery-footer wrap-pic-w" href="{{ asset('assets/images/photo-gallery-10.jpg') }}" data-lightbox="gallery-footer">
+                        <img src="{{ asset('assets/images/photo-gallery-thumb-10.jpg') }}" alt="GALLERY">
+                    </a>
+
+                    <a class="item-gallery-footer wrap-pic-w" href="{{ asset('assets/images/photo-gallery-11.jpg') }}" data-lightbox="gallery-footer">
+                        <img src="{{ asset('assets/images/photo-gallery-thumb-11.jpg') }}" alt="GALLERY">
+                    </a>
+
+                    <a class="item-gallery-footer wrap-pic-w" href="{{ asset('assets/images/photo-gallery-12.jpg') }}" data-lightbox="gallery-footer">
+                        <img src="{{ asset('assets/images/photo-gallery-thumb-12.jpg') }}" alt="GALLERY">
+                    </a>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="end-footer bg2">
+        <div class="container">
+            <div class="flex-sb-m flex-w p-t-22 p-b-22">
+                <div class="p-t-5 p-b-5">
+                    <a href="#" class="fs-15 c-white"><i class="fab fa-tripadvisor" aria-hidden="true"></i></a>
+                    <a href="#" class="fs-15 c-white"><i class="fab fa-facebook m-l-18" aria-hidden="true"></i></a>
+                    <a href="#" class="fs-15 c-white"><i class="fab fa-twitter m-l-18" aria-hidden="true"></i></a>
+                </div>
+
+                <div class="txt17 p-r-20 p-t-5 p-b-5">
+                    Copyright &copy; 2018 All rights reserved  |  This template is made with <i class="fab fa-heart"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+
+
+<!-- Back to top -->
+<div class="btn-back-to-top bg0-hov" id="myBtn">
+        <span class="symbol-btn-back-to-top">
+            <i class="fab fa-angle-double-up" aria-hidden="true"></i>
+        </span>
+</div>
+{% block javascripts %}
+    <script>
+
+        $(function () {
+            $("#mdb-lightbox-ui").load("mdb-addons/mdb-lightbox-ui.html");
+        });
+    </script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script>
+        var likelink=document.querySelectorAll('link')
+        document.querySelectorAll('.link').forEach(function(link){
+            link.addEventListener('click',onClickBtnLlike)
+
+        })
+        function onClickBtnLlike(event) {
+            event.preventDefault();
+            const url=this.href;
+            const spanCount=this.querySelector('span.js-likes')
+            console.log("biiij");
+            axios.get(url).then(function (response) {
+                console.log(response);
+
+                console.log(response.data.likes);
+                spanCount.textContent=response.data.likes;
+                console.log("biiij");
+
+            })
+
+
+        }
+
+    </script>
+
+
+    <!--===============================================================================================-->
+    <script type="text/javascript" src="{{ asset('assets/vendor/jquery/jquery-3.2.1.min.js') }}"></script>
+    <!--===============================================================================================-->
+    <script type="text/javascript" src="{{ asset('assets/vendor/animsition/js/animsition.min.js') }}"></script>
+    <!--===============================================================================================-->
+    <script type="text/javascript" src="{{ asset('assets/vendor/bootstrap/js/popper.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('assets/vendor/bootstrap/js/bootstrap.min.js') }}"></script>
+    <!--===============================================================================================-->
+    <script type="text/javascript" src="{{ asset('assets/vendor/select2/select2.min.js') }}"></script>
+    <!--===============================================================================================-->
+    <script type="text/javascript" src="{{ asset('assets/vendor/daterangepicker/moment.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('assets/vendor/daterangepicker/daterangepicker.js') }}"></script>
+    <!--===============================================================================================-->
+    <script type="text/javascript" src="{{ asset('assets/vendor/slick/slick.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('assets/js/slick-custom.js') }}"></script>
+    <!--===============================================================================================-->
+    <script type="text/javascript" src="{{ asset('assets/vendor/parallax100/parallax100.js') }}"></script>
+    <script type="text/javascript">
+        $('.parallax100').parallax100();
+    </script>
+    <!--===============================================================================================-->
+    <script type="text/javascript" src="{{ asset('assets/vendor/countdowntime/countdowntime.js') }}"></script>
+    <!--===============================================================================================-->
+    <script type="text/javascript" src="{{ asset('assets/vendor/lightbox2/js/lightbox.min.js') }}"></script>
+    <!--===============================================================================================-->
+    <script type="text/javascript" src="{{ asset('assets/vendor/isotope/isotope.pkgd.min.js') }}"></script>
+    <!--===============================================================================================-->
+    <script src="{{ asset('assets/js/googlemaps.js') }}"></script>
+    <script src="{{ asset('assets/js/map-custom.js') }}"></script>
+    <!--===============================================================================================-->
+    <script src="{{ asset('assets/js/main.js') }}"></script>
+{% endblock %}
+</body>
+</html>

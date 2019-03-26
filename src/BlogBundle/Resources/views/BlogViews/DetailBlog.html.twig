@@ -1,0 +1,378 @@
+{% extends "SmartStartBase.html.twig" %}
+{% block title %}Detail blog{% endblock %}
+{% block body %}
+
+    <section class="bg-title-page flex-c-m p-t-160 p-b-80 p-l-15 p-r-15" style="background-image: url({{ asset('assets/images/blog-banner.png') }});">
+        <h2 class="tit6 t-center">
+            Blog
+        </h2>
+    </section>
+
+
+    <!-- Content page -->
+    <section>
+        <div class="bread-crumb bo5-b p-t-17 p-b-17">
+            <div class="container">
+                <a href="{{ path('blog_ListPosts') }}" class="txt27">
+                    Home
+                </a>
+
+                <span class="txt29 m-l-10 m-r-10">/</span>
+
+                <a href="{{ path('blog_ListPosts') }}" class="txt27">
+                    Blog
+                </a>
+
+                <span class="txt29 m-l-10 m-r-10">/</span>
+                <a href="{{ path('blog_ListPosts') }}" class="txt27">
+                    Detail
+                </a>
+
+                <span class="txt29">
+                    {{ v.articleTitle}}
+				</span>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8 col-lg-9">
+                    <div class="p-t-80 p-b-124 bo5-r p-r-50 h-full p-r-0-md bo-none-md">
+                        <!-- Block4 -->
+                        <div class="blo4 p-b-63">
+                            <!-- - -->
+                            <div class="pic-blo4 hov-img-zoom bo-rad-10 pos-relative">
+                                <a href="blog-detail.html">
+                                    <img src="{{ asset('uploads/images/' ~ v.image) }}" alt="IMG-BLOG" width="600" height="427">
+                                </a>
+
+                                <div class="date-blo4 flex-col-c-m">
+									<span class="txt30 m-b-4">
+
+
+									</span>
+
+                                    <span class="txt31">
+										{{ v.postDate|date("m/d/Y")}}
+									</span>
+                                </div>
+                            </div>
+
+                            <!-- - -->
+                            <div class="text-blo4 p-t-33">
+
+                                <h4 class="p-b-16">
+                                    <a href="blog-detail.html" class="tit9" style="word-wrap:break-word;font-family: Montserrat-Bold">{{ v.articleTitle }}</a>
+                                   <p style="word-wrap:break-word">Post :{{ v.postContent }}</p>
+                                </h4>
+
+                                <div class="txt32 flex-w p-b-24">
+									<span style="font-family: Montserrat-Bold">
+										{{ v.author.username }}
+										<span class="m-r-6 m-l-4">|</span>
+									</span>
+
+                                    <span style="font-family: Montserrat-Bold">
+										{{ v.postDate|date("m/d/Y")}}
+										<span class="m-r-6 m-l-4">|</span>
+									</span>
+
+                                    <span style="font-family: Montserrat-Bold">
+										{{ v.postType }}
+										<span class="m-r-6 m-l-4">|</span>
+									</span>
+
+                                    <span style="font-family: Montserrat-Bold">
+										{{ v.postCommentCount }} Comments
+									</span>
+                                </div>
+
+
+                            </div>
+
+
+
+
+                        <p style="word-wrap:break-word">{{ v.articleContent|raw }} </p>
+
+                            <hr>
+                            <div class="blo4 p-b-63">
+                                <a href="" class="tit9"></a>
+                            </div>
+
+
+
+
+                            <div class="text-blo4 p-t-33" style="word-wrap:break-word">
+
+                                {% for comments in com %}
+                                    <div class="media" style="word-wrap:break-word">
+
+
+                                        <div class="media-body" style="word-wrap:break-word">
+                                            <h4 class="media-heading" style="font-family: Montserrat-Bold">{{ comments.commentAuthor }} <small><i style="font-family: Montserrat-SemiBold;font-size: 16px">{{ comments.commentDate|date('l jS \f F Y h:i:s A') }}</i></small> {% if app.user!=null %}
+                                                    {% if app.user.id==comments.commentAuthor.id %}
+                                                        <!-- Modal HTML -->
+                                                        <div id="myModal" class="modal fade">
+                                                            <div class="modal-dialog modal-confirm">
+                                                                <div class="modal-content">
+                                                                    <div class="modal-header">
+                                                                        <div class="icon-box">
+                                                                            <i class="material-icons">&#xE5CD;</i>
+                                                                        </div>
+                                                                        <h4 class="modal-title">Are you sure?</h4>
+                                                                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                                                    </div>
+                                                                    <div class="modal-body">
+                                                                        <p>Do you really want to delete these records? This process cannot be undone.</p>
+                                                                    </div>
+                                                                    <div class="modal-footer">
+                                                                        <button type="button" class="btn btn-info" data-dismiss="modal">Cancel</button>
+                                                                        <a href="{{ path('blog_deleteComment',{('commentId'):comments.commentId}) }}" type="button" class="btn btn-danger"><label style="color:white;">Delete</label></a>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="right">
+                                                        <a href="#myModal" class="delete" data-toggle="modal"><i class="fas fa-trash-alt" data-toggle="tooltip" title="Delete"></i></a>
+
+                                                        <a href="#editEmployeeModal" class="edit" data-toggle="modal"><i class="fas fa-edit" data-toggle="tooltip" title="Edit"></i></a>
+                                                        </div>
+                                                    {% endif %}
+                                                {% endif %}</h4>
+
+                                                {{ comments.commentContent|raw }}.
+                                        </div>
+                                    </div>
+                                    <hr />
+
+
+
+                                {% endfor %}
+                            </div>
+
+                        </div>
+
+
+
+
+
+
+{% if app.user!=null %}
+                        <!-- Leave a comment -->
+
+                            <h4 class="txt33 p-b-14">
+                                Leave a Comment
+                            </h4>
+
+                            <p>
+
+                            </p>
+                            {{ form_start(form) }}
+
+
+
+
+                        {{ form_widget(form.commentContent)}}
+
+                            <!-- Button3 -->
+                            <button type="submit" class="btn3 flex-c-m size31 txt11 trans-0-4" id="addb">
+                                Post Comment
+                            </button>
+                        <div class="text-center">
+                            <!-- Button HTML (to Trigger Modal) -->
+                        </div>
+
+
+                        {{ form_end(form) }}
+                        {% endif %}
+                        {% if app.user==null %}
+                            <h4 class="txt33 p-b-14">
+                                You must log in to leave a comment !
+                            </h4>
+                        {% endif %}
+
+                    </div>
+                </div>
+
+                <div class="col-md-4 col-lg-3">
+                    <div class="sidebar2 p-t-80 p-b-80 p-l-20 p-l-0-md p-t-0-md">
+                        <!-- Search -->
+                        <div class="search-sidebar2 size12 bo2 pos-relative">
+                            <input class="input-search-sidebar2 txt10 p-l-20 p-r-55" type="text" name="search" placeholder="Search">
+                            <button class="btn-search-sidebar2 flex-c-m ti-search trans-0-4"></button>
+                        </div>
+
+                        <!-- Categories -->
+                        <div class="categories">
+                            <h4 class="txt33 bo5-b p-b-35 p-t-58">
+                                <a>Categories</a>
+                            </h4>
+
+                            <ul>
+                                <li class="bo5-b p-t-8 p-b-8">
+                                    <a href="{{ path('Blog_PostCat',{('cat'):('NewsjackingPost')}) }}" class="txt27">
+                                        Newsjacking
+                                    </a>
+                                </li>
+
+                                <li class="bo5-b p-t-8 p-b-8">
+                                    <a href="{{ path('Blog_PostCat',{('cat'):('InstructionalPost')}) }}" class="txt27">
+                                        Instructional
+                                    </a>
+                                </li>
+
+                                <li class="bo5-b p-t-8 p-b-8">
+                                    <a href="{{ path('Blog_PostCat',{('cat'):('PersonalSpotlightPost')}) }}" class="txt27">
+                                        Personal Spotlight
+                                    </a>
+                                </li>
+
+                                <li class="bo5-b p-t-8 p-b-8">
+                                    <a href="{{ path('Blog_PostCat',{('cat'):('CheatSheetPost')}) }}" class="txt27">
+                                        Cheat Sheet
+                                    </a>
+                                </li>
+
+                                <li class="bo5-b p-t-8 p-b-8">
+                                    <a href="{{ path('Blog_PostCat',{('cat'):('MediaPost')}) }}" class="txt27">
+                                        Media
+                                    </a>
+                                </li>
+                                <li class="bo5-b p-t-8 p-b-8">
+                                    <a href="{{ path('Blog_PostCat',{('cat'):('Entertaining')}) }}" class="txt27">
+                                        Entertaining
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+
+
+                        <!-- Most Popular -->
+                        <div class="popular">
+                            <h4 class="txt33 p-b-35 p-t-58">
+                                Most popular
+                            </h4>
+
+                            <ul>
+                                {% for pop in popular %}
+                                    <li class="flex-w m-b-25">
+                                        <div class="size16 bo-rad-10 wrap-pic-w of-hidden m-r-18">
+                                            <a href="{{ path('blog_Detail',{('postId'):pop.postId}) }}">
+                                                <img src="{{ asset('uploads/images/' ~ pop.image) }}" alt="IMG-BLOG">
+                                            </a>
+                                        </div>
+
+                                        <div class="size28">
+                                            <a href="{{ path('blog_Detail',{('postId'):pop.postId}) }}" class="dis-block txt28 m-b-8">
+                                                {{ pop.articleTitle }}
+                                            </a>
+
+                                            <span class="txt14">
+											{% set leftDays = pop.postDate.diff( date("now") ).format('%a') %}
+                                                {{ leftDays }} Days Ago
+										</span>
+                                        </div>
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+
+
+                        <!-- Archive -->
+                        <div class="archive">
+                            <h4 class="txt33 p-b-20 p-t-43">
+                                Archive
+                            </h4>
+
+                            <ul>
+                                <li class="flex-sb-m p-t-8 p-b-8">
+                                    <a href="#" class="txt27">
+                                        uly 2018
+                                    </a>
+
+                                    <span class="txt29">
+										(9)
+									</span>
+                                </li>
+
+                                <li class="flex-sb-m p-t-8 p-b-8">
+                                    <a href="#" class="txt27">
+                                        June 2018
+                                    </a>
+
+                                    <span class="txt29">
+										(39)
+									</span>
+                                </li>
+
+                                <li class="flex-sb-m p-t-8 p-b-8">
+                                    <a href="#" class="txt27">
+                                        May 2018
+                                    </a>
+
+                                    <span class="txt29">
+										(29)
+									</span>
+                                </li>
+
+                                <li class="flex-sb-m p-t-8 p-b-8">
+                                    <a href="#" class="txt27">
+                                        April  2018
+                                    </a>
+
+                                    <span class="txt29">
+										(35)
+									</span>
+                                </li>
+
+                                <li class="flex-sb-m p-t-8 p-b-8">
+                                    <a href="#" class="txt27">
+                                        March 2018
+                                    </a>
+
+                                    <span class="txt29">
+										(22)
+									</span>
+                                </li>
+
+                                <li class="flex-sb-m p-t-8 p-b-8">
+                                    <a href="#" class="txt27">
+                                        February 2018
+                                    </a>
+
+                                    <span class="txt29">
+										(32)
+									</span>
+                                </li>
+
+                                <li class="flex-sb-m p-t-8 p-b-8">
+                                    <a href="#" class="txt27">
+                                        January 2018
+                                    </a>
+
+                                    <span class="txt29">
+										(21)
+									</span>
+                                </li>
+
+                                <li class="flex-sb-m p-t-8 p-b-8">
+                                    <a href="#" class="txt27">
+                                        December 2017
+                                    </a>
+
+                                    <span class="txt29">
+										(26)
+									</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <script src="//cdn.ckeditor.com/4.11.3/full/ckeditor.js"></script><script>
+    CKEDITOR.replace('editor1');
+</script>
+{% endblock %}

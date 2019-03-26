@@ -1,0 +1,63 @@
+{% extends "BaseAdmin.html.twig" %}
+{% block title %}Update Post{% endblock %}
+{% block body %}
+
+
+
+<!-- Content page -->
+<section>
+    <div class="container">
+        <div class="row ">
+            <div class="col-md-8 col-lg-9">
+                <div class="p-t-80 p-b-124 bo5-r p-r-50 h-full p-r-0-md bo-none-md">
+                    <!-- Block4 -->
+
+                    {{ form_start(form) }}
+                    <div class="form-group">
+                        <label>Post Content</label>
+                        {{ form_widget(form.postContent, { 'attr': {'class': 'form-control', 'type' : 'textarea'} }) }}
+
+                    </div>
+                    <div class="form-group">
+                        <label>Post Type</label>
+                        {{ form_widget(form.postType, { 'attr': {'class': 'form-control', 'style':'font-size: 12px'} }) }}
+
+                    </div>
+                    <div class="form-group">
+                        <label>Article Title</label>
+                        {{ form_widget(form.articleTitle, { 'attr': {'class': 'form-control', 'type' : 'textarea'} }) }}
+
+                    </div>
+                    <div class="form-group">
+                        <label>Article Content</label>
+                        {{ form_widget(form.articleContent) }}
+
+                    </div>
+                    <div class="form-group">
+                        <label>Your Image</label>
+                        {{ form_widget(form.image, { 'attr': {'class': 'form-control', 'style':'font-size: 12px'} }) }}
+
+                    </div>
+                    <button type="submit" class="btn btn-success" id="addb">
+                        Save Changes
+                    </button>
+                </div>
+
+
+                {{ form_end(form) }}
+
+
+
+
+            </div>
+        </div>
+
+
+    </div>
+    </div>
+
+</section>
+<script src="//cdn.ckeditor.com/4.11.3/full/ckeditor.js"></script><script>
+    CKEDITOR.replace('editor1');
+</script>
+{% endblock %}
