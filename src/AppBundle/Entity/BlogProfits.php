@@ -131,12 +131,34 @@ class BlogProfits
      * @ORM\Column(name="post_likes_count", type="integer", nullable=true)
      */
     private $postLikesCount;
+
+    /**
+     * @return float
+     */
+    public function getPayment()
+    {
+        return $this->Payment;
+    }
+
+    /**
+     * @param float $Payment
+     */
+    public function setPayment($Payment)
+    {
+        $this->Payment = $Payment;
+    }
     /**
      * @var integer
      *
      * @ORM\Column(name="post_Status", type="integer", nullable=true)
      */
     private $Status;
+    /**
+     * @var float
+     *
+     * @ORM\Column(name="post_payment_amount", type="float", nullable=true)
+     */
+    private $Payment;
     /**
      * @return int
      */

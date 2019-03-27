@@ -21,4 +21,7 @@ Admin_deleteComment:
     defaults: { _controller: AdminBundle:Comment:Delete }
 Admin_PaymentsBlogList:
     path:     /paymentBlog
-    defaults: { _controller: AdminBundle:BlogProfits:listPayments }
+    defaults: { _controller: AdminBundle:AdminBlogProfits:listPayments }
+Admin_PaymentsBlogListAccept:
+    path:     /AcceptPayment/{id}/{idpayment}
+    defaults: { _controller: AdminBundle:AdminBlogProfits:AcceptPayment }

@@ -1,6 +1,10 @@
 <?php
 
 namespace BlogBundle\Repository;
+use Doctrine\DBAL\DBALException;
+use Doctrine\ORM\EntityRepository;
+use Doctrine\ORM\Tools\Pagination\Paginator;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 /**
  * PostLikeRepository
@@ -18,5 +22,33 @@ class BlogProfitsRepository extends \Doctrine\ORM\EntityRepository
         $query = $dql->getQuery();
         $query->setMaxResults(1);
         return $query->getResult();
+    }
+    public function findByPage($page = 1, $max = 10)
+    {
+        $dql = $this->createQueryBuilder('postprofits');
+        $dql->orderBy('postprofits.StartDate', 'DESC');
+
+        $firstResult = ($page - 1) * $max;
+
+        $query = $dql->getQuery();
+        $query->setFirstResult($firstResult);
+        $query->setMaxResults($max);
+
+        $paginator = new Paginator($query);
+
+        if(($paginator->count() <=  $firstResult) && $page != 1) {
+            throw new NotFoundHttpException('Page not found');
+        }
+
+        return $paginator;
+    }
+    public function ChangeStatus($id,$status)
+    {
+        $qb = $this->createQueryBuilder('BlogProfits')
+            ->update()
+            ->set('BlogProfits.Status', $status)
+            ->where('BlogProfits.Id=' . $id);
+        return $qb->getQuery()
+            ->getResult();
     }
 }
