@@ -19,3 +19,6 @@ admin_listComments:
 Admin_deleteComment:
     path:     /deletecomment/{commentId}
     defaults: { _controller: AdminBundle:Comment:Delete }
+Admin_PaymentsBlogList:
+    path:     /paymentBlog
+    defaults: { _controller: AdminBundle:BlogProfits:listPayments }
