@@ -49,6 +49,7 @@
 
                 </ul>
                 {% if l|join>1000 %}
+
                     <br>
                     <ul class="list-group">
                         <li class="list-group-item" style="color: midnightblue;font-size: small;font-family: Montserrat-Bold">Profits</li>
@@ -57,7 +58,7 @@
                     </ul>
                         <br>
 
-                        <!-- Button to Open the Modal -->
+                {% if profit==null %}
                         <center><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
                     <i class="fas fa-money-check-alt">  Ask For Your Money</i>
                         </button></center>
@@ -81,12 +82,31 @@
                                     <!-- Modal footer -->
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+
+                                        <a href="{{ path('blog_Profits') }}" class="btn btn-info">
+                                            Accept
+                                        </a>
                                     </div>
 
                                 </div>
                             </div>
                         </div>
+                        {% endif %}
+                    {% if profit!=null %}
+                        {% for i in profit %}
+                            {% if i.Status==1 %}
+                        Successfully Sent !
+                        You will have to wait until <span>{{ i.EndDate|date('l jS \f F Y h:i:s A') }}</span> to ask for your next pay !
+                            {% endif %}
+                            {% if i.Status==2 %}
+                                Ongoing
+                                <a href="{{ path('blog_Profits') }}" class="btn btn-info">
+                                    Confirm your Payment
+                                </a>
+                            {% endif %}
+                        {% endfor %}
 
+                        {% endif %}
                 {% endif %}
                 {% if l|join<1000 %}
                 <br><br>Vous devez Debloquer les 1000 Likes pour rentabiliser votre Blog

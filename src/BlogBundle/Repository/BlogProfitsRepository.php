@@ -10,4 +10,13 @@ namespace BlogBundle\Repository;
  */
 class BlogProfitsRepository extends \Doctrine\ORM\EntityRepository
 {
+    public function findProfit($id)
+    {
+        $dql = $this->createQueryBuilder('BlogProfits');
+        $dql->orderBy('BlogProfits.StartDate', 'DESC')->where("BlogProfits.author =".$id);
+        $dql->setMaxResults(1);
+        $query = $dql->getQuery();
+        $query->setMaxResults(1);
+        return $query->getResult();
+    }
 }

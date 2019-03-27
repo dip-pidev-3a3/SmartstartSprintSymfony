@@ -3,6 +3,7 @@
 namespace BlogBundle\Controller;
 
 use AppBundle\AppBundle;
+use AppBundle\Entity\BlogProfits;
 use AppBundle\Entity\Comments;
 use AppBundle\Entity\FosUser;
 use AppBundle\Entity\PostLike;
@@ -275,8 +276,11 @@ class BlogPostsController extends Controller
     }
     public function ManagerAction(Request $request)
     { $user=new FosUser();
+    $profits=new BlogProfits();
 
         $user = $this->container->get('security.token_storage')->getToken()->getUser();
+        $profits=$this->getDoctrine()->getRepository(BlogProfits::class)->findProfit($user->getId());
+
         $em=$this->getDoctrine()->getRepository(Blogposts::class);
         $news=$em->CountPostsByCat("NewsjackingPost",$user->getId());
         $media=$em->CountPostsByCat("MediaPost",$user->getId());
@@ -295,7 +299,7 @@ class BlogPostsController extends Controller
             7,$user->getId()
         );
         return $this->render('@Blog/BlogViews/BlogManagment.html.twig',array('pop'=>$popular,'v'=>$posts,'n'=>$news,'m'=>$media
-        ,'e'=>$en,'i'=>$In,'c'=>$ch,'p'=>$per,'l'=>$likes,'com'=>$comments,'first'=>$first,'last'=>$last));
+        ,'e'=>$en,'i'=>$In,'c'=>$ch,'p'=>$per,'l'=>$likes,'com'=>$comments,'first'=>$first,'last'=>$last,'profit'=>$profits));
     }
     public function sendNotification(Request $request)
     {

@@ -34,3 +34,6 @@ blog_AddComment:
 blog_deleteComment:
     path:     /deleteComment/{commentId}
     defaults: { _controller: BlogBundle:Comments:Delete }
+blog_Profits:
+    path:     /Profit
+    defaults: { _controller: BlogBundle:BlogProfits:AddEntry }
