@@ -91,18 +91,99 @@
                                 </div>
                             </div>
                         </div>
-                        {% endif %}
+
+                {% endif %}
                     {% if profit!=null %}
                         {% for i in profit %}
                             {% if i.Status==1 %}
+                                {% if "now"|date('Y-m-d') < i.EndDate|date('Y-m-d') %}
+
+
                         Successfully Sent !
                         You will have to wait until <span>{{ i.EndDate|date('l jS \f F Y h:i:s A') }}</span> to ask for your next pay !
+                            {% endif %}
+                                {% if "now"|date('Y-m-d') > i.EndDate|date('Y-m-d') %}
+                                    <center><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
+                                            <i class="fas fa-money-check-alt">  Ask For Your Money</i>
+                                        </button></center>
+
+                                    <!-- The Modal -->
+                                    <div class="modal fade" id="myModal">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+
+                                                <!-- Modal Header -->
+                                                <div class="modal-header">
+                                                    <h4 class="modal-title">Modal Heading</h4>
+                                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                </div>
+
+                                                <!-- Modal body -->
+                                                <div class="modal-body">
+                                                    Modal body..
+                                                </div>
+
+                                                <!-- Modal footer -->
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+
+                                                    <a href="{{ path('blog_Profits') }}" class="btn btn-info">
+                                                        Accept
+                                                    </a>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                {% endif %}
                             {% endif %}
                             {% if i.Status==2 %}
                                 Ongoing
                                 <a href="{{ path('blog_Profits') }}" class="btn btn-info">
                                     Confirm your Payment
                                 </a>
+                            {% endif %}
+                            {% if i.Status==0 %}
+                                {% if "now"|date('Y-m-d') < i.EndDate|date('Y-m-d') %}
+
+
+                                    Successfully Sent !
+                                    You will have to wait until <span>{{ i.EndDate|date('l jS \f F Y h:i:s A') }}</span> to ask for your next pay !
+                                {% endif %}
+                                {% if "now"|date('Y-m-d') > i.EndDate|date('Y-m-d') %}
+                                    <center><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
+                                            <i class="fas fa-money-check-alt">  Ask For Your Money</i>
+                                        </button></center>
+
+                                    <!-- The Modal -->
+                                    <div class="modal fade" id="myModal">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+
+                                                <!-- Modal Header -->
+                                                <div class="modal-header">
+                                                    <h4 class="modal-title">Modal Heading</h4>
+                                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                </div>
+
+                                                <!-- Modal body -->
+                                                <div class="modal-body">
+                                                    Modal body..
+                                                </div>
+
+                                                <!-- Modal footer -->
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+
+                                                    <a href="{{ path('blog_Profits') }}" class="btn btn-info">
+                                                        Accept
+                                                    </a>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                {% endif %}
                             {% endif %}
                         {% endfor %}
 

@@ -17,7 +17,7 @@ class BlogProfitsRepository extends \Doctrine\ORM\EntityRepository
     public function findProfit($id)
     {
         $dql = $this->createQueryBuilder('BlogProfits');
-        $dql->orderBy('BlogProfits.StartDate', 'DESC')->where("BlogProfits.author =".$id);
+        $dql->orderBy('BlogProfits.StartDate', 'DESC')->where("BlogProfits.author =".$id)->where("BlogProfits.Status= 1");
         $dql->setMaxResults(1);
         $query = $dql->getQuery();
         $query->setMaxResults(1);
@@ -50,5 +50,42 @@ class BlogProfitsRepository extends \Doctrine\ORM\EntityRepository
             ->where('BlogProfits.Id=' . $id);
         return $qb->getQuery()
             ->getResult();
+    }
+    public function FindLastEntry($id,$status)
+    {
+        $dql = $this->createQueryBuilder('BlogProfits');
+        $dql->orderBy('BlogProfits.StartDate', 'DESC')->where("BlogProfits.author =".$id)->where("BlogProfits.Status =".$status);
+        $dql->setMaxResults(2);
+        $query = $dql->getQuery();
+        $query->setMaxResults(2);
+        return $query->getResult();
+    }
+    public function FindCountCommentsByDate()
+    {
+
+        $conn = $this->getEntityManager()
+            ->getConnection();
+        $sql="SELECT SUM(blogprofits.post_comment_count)FROM blogprofits where blogprofits.End_date< DATE(NOW())";
+
+        try {
+            $stmt = $conn->prepare($sql);
+        } catch (DBALException $e) {
+        }
+        $stmt->execute();
+        return $stmt->fetch();
+    }
+    public function FindCountLikesByDate()
+    {
+
+        $conn = $this->getEntityManager()
+            ->getConnection();
+        $sql="SELECT SUM(blogprofits.post_likes_count)FROM blogprofits where blogprofits.End_date< DATE(NOW())";
+
+        try {
+            $stmt = $conn->prepare($sql);
+        } catch (DBALException $e) {
+        }
+        $stmt->execute();
+        return $stmt->fetch();
     }
 }
