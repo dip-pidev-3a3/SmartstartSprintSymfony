@@ -1,5 +1,5 @@
 {% extends "BaseAdmin.html.twig" %}
-{% block title %}Comments{% endblock %}
+
 {% block body %}
     <body>
     <div class="container">
@@ -38,7 +38,7 @@
 
 
                         <td>
-                            <a href="{{ path('Admin_deleteComment',{('commentId'):Comments.commentId}) }}" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
+                            <a href="{{ path('Admin_deleteComment',{('commentId'):Comments.commentId}) }}" class="delete" data-toggle="modal"><i class="tim-icons icon-trash-simple" data-toggle="tooltip" title="Delete"></i></a>
                         </td>
                     </tr>
                     <div id="deleteEmployeeModal" class="modal fade">

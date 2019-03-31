@@ -1,5 +1,5 @@
 {% extends "BaseAdmin.html.twig" %}
-{% block title %}Blog{% endblock %}
+
 {% block body %}
     <body>
     <div class="container">
@@ -11,7 +11,7 @@
                         <input type="text" id="myInput" class="search form-control" placeholder="What you looking for?">                    </div>
                     <div class="col-sm-6">
 
-                        <a href="#addEmployeeModal" class="btn btn-success" data-toggle="modal"><i class="material-icons">&#xE147;</i> <span>Add Admin Post</span></a>
+                        <a href="#addEmployeeModal" class="btn btn-success" data-toggle="modal"><i class="tim-icons icon-simple-add"></i> <span>Add Admin Post</span></a>
                     </div>
                 </div>
             </div>
@@ -40,9 +40,9 @@
                     <td>{{ blogposts.articleTitle}}</td>
 
                     <td>
-                        <a href="{{ path('Admin_DetailPost',{('postId'):blogposts.postId}) }}" class="view" title="View" data-toggle="tooltip"><i class="material-icons">&#xE417;</i></a>
-                        <a href="{{ path('Admin_UpdatePost',{('postId'):blogposts.postId}) }}" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
-                        <a href="{{ path('Admin_deletePost',{('postId'):blogposts.postId}) }}" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
+                        <a href="{{ path('Admin_DetailPost',{('postId'):blogposts.postId}) }}" class="view" title="View" data-toggle="tooltip"><i class="tim-icons icon-notes"></i></a>
+                        <a href="{{ path('Admin_UpdatePost',{('postId'):blogposts.postId}) }}" class="edit"><i class="tim-icons icon-pencil" data-toggle="tooltip" title="Edit"></i></a>
+                        <a href="{{ path('Admin_deletePost',{('postId'):blogposts.postId}) }}" class="delete"><i class="tim-icons icon-trash-simple" data-toggle="tooltip" title="Delete"></i></a>
                     </td>
                 </tr>
                     <div id="deleteEmployeeModal" class="modal fade">
