@@ -120,9 +120,26 @@ class BlogPostsController extends Controller
         $form=$this->createForm(CommentsType::class,$Comment);
         $form=$form->handleRequest($request);
         if($form->isSubmitted())
-        {
+        { $user = $this->container->get('security.token_storage')->getToken()->getUser();
+            $message = \Swift_Message::newInstance()
+            ->setSubject('Un Commentaire a été fait sur votre publication')
+            ->setFrom(['smartstart1941@gmail.com'=> 'SmartStart'])
+            ->setTo([$listUser->getAuthor()->getEmail(), 'mounirachir96@gmail.com' => 'A name'])
+            ->setBody('Votre Publication : '.$listUser->getArticleTitle().' A été commentée par '.$user->getUsername());
+            /*
+             * If you also want to include a plaintext version of the message
+            ->addPart(
+                $this->renderView(
+                    'Emails/registration.txt.twig',
+                    array('name' => $name)
+                ),
+                'text/plain'
+            )
+            */
+
+            $this->get('mailer')->send($message);
             $em=$this->getDoctrine()->getManager();
-            $user = $this->container->get('security.token_storage')->getToken()->getUser();
+
 
             $Comment->setCommentAuthor($user);
             $Comment->setCommentDate($D);

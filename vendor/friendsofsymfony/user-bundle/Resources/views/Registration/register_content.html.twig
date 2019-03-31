@@ -1,8 +1,181 @@
 {% trans_default_domain 'FOSUserBundle' %}
 
-{{ form_start(form, {'method': 'post', 'action': path('fos_user_registration_register'), 'attr': {'class': 'fos_user_registration_register'}}) }}
-    {{ form_widget(form) }}
-    <div>
-        <input type="submit" value="{{ 'registration.submit'|trans }}" />
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Login V18</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!--===============================================================================================-->
+    <link rel="icon" type="image/png" href="{{ asset('loginassets/images/icons/favicon.ico') }}"/>
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="{{ asset('loginassets/vendor/bootstrap/css/bootstrap.min.css') }}">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="{{ asset('loginassets/fonts/font-awesome-4.7.0/css/font-awesome.min.css') }}">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="{{ asset('loginassets/fonts/Linearicons-Free-v1.0.0/icon-font.min.css') }}">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="{{ asset('loginassets/vendor/animate/animate.css') }}">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="{{ asset('loginassets/vendor/css-hamburgers/hamburgers.min.css') }}">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="{{ asset('loginassets/vendor/animsition/css/animsition.min.css') }}">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="{{ asset('loginassets/vendor/select2/select2.min.css') }}">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="{{ asset('loginassets/vendor/daterangepicker/daterangepicker.css') }}">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="{{ asset('loginassets/css/util.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('loginassets/css/main.css') }}">
+    <!--===============================================================================================-->
+</head>
+<body style="background-color: #666666;">
+
+<div class="limiter">
+    <div class="container-login100">
+        <div class="wrap-login100">
+            <!--
+
+            old form !!
+
+            <form class="login100-form validate-form" action="{{ path('fos_user_registration_register') }}" method="POST">
+
+					<span class="login100-form-title p-b-43">
+						Register to continue
+					</span>
+
+                <div class="wrap-input100 validate-input">
+                    <input class="input100" type="text" id="username" name="username">
+                    <span class="focus-input100"></span>
+                    <span class="label-input100">Username</span>
+                </div>
+
+                <div class="wrap-input100 validate-input" data-validate = "Valid email is required: ex@abc.xyz">
+                    <input class="input100" type="text" id="email" name="email">
+                    <span class="focus-input100"></span>
+                    <span class="label-input100">Email</span>
+                </div>
+
+
+                <div class="wrap-input100 validate-input" data-validate="Password is required">
+                    <input class="input100" type="password" id="plainPassword" name="plainPassword">
+                    <span class="focus-input100"></span>
+                    <span class="label-input100">Password</span>
+                </div>
+
+
+                <div class="container-login100-form-btn">
+                    <button class="login100-form-btn" type="submit">
+                        Sign up
+                    </button>
+                </div>
+
+                <div class="text-center p-t-46 p-b-20">
+						<span class="txt2">
+							or sign up using
+						</span>
+                </div>
+
+                <div class="login100-form-social flex-c-m">
+                    <a href="#" class="login100-form-social-item flex-c-m bg1 m-r-5">
+                        <i class="fa fa-facebook-f" aria-hidden="true"></i>
+                    </a>
+
+                    <a href="#" class="login100-form-social-item flex-c-m bg2 m-r-5">
+                        <i class="fa fa-twitter" aria-hidden="true"></i>
+                    </a>
+                </div>
+            </form>-->
+
+            {{ form_start(form, { 'attr': {'class': 'login100-form validate-form'} }) }}
+
+            <span class="login100-form-title p-b-43">
+						Register to continue
+            </span>
+
+            <div class="form-group" id="fos_user_registration_form">
+
+                <div class="wrap-input100 validate-input">
+                    {{ form_widget(form.username, { 'attr': {'class': 'input100' } }) }}
+                    {{ form_errors(form.username) }}
+                    <span class="focus-input100"></span>
+                    <span class="label-input100">Username</span>
+                </div>
+
+                <div class="wrap-input100 validate-input" data-validate = "Valid email is required: ex@abc.xyz">
+                    {{ form_widget(form.email, { 'attr': {'class': 'input100' } }) }}
+                    {{ form_errors(form.email) }}
+                    <span class="focus-input100"></span>
+                    <span class="label-input100">Email</span>
+                </div>
+
+                <div class="wrap-input100 validate-input" data-validate="Password is required">
+                    {{ form_widget(form.plainPassword.first, { 'attr': {'class': 'input100'} }) }}
+                    {{ form_errors(form.plainPassword.first) }}
+                    <span class="focus-input100"></span>
+                    <span class="label-input100">Password</span>
+                </div>
+
+                <div class="wrap-input100 validate-input" data-validate="Password is required">
+                    {{ form_widget(form.plainPassword.second, { 'attr': {'class': 'input100'} }) }}
+                    {{ form_errors(form.plainPassword.second) }}
+                    <span class="focus-input100"></span>
+                    <span class="label-input100">Confirm Password</span>
+                </div>
+
+
+                {{ form_rest(form) }}
+
+            </div>
+
+
+            <div class="container-login100-form-btn">
+                <input class="login100-form-btn" type="submit" value="Sign up">
+            </div>
+
+            <div class="text-center p-t-46 p-b-20">
+						<span class="txt2">
+							already on SmartStart ?
+						</span>
+            </div>
+
+            <div class="container-login100-form-btn">
+                <a href="{{ path('fos_user_security_login') }}" class="login100-form-btn" style="background: #1da1f2" name="Sign up">
+                    Login
+                </a>
+            </div>
+            {{ form_end(form) }}
+
+
+
+
+
+            <div class="login100-more" style="background-image: url({{ asset('loginassets/images/pub.jpg') }});">
+            </div>
+        </div>
     </div>
-{{ form_end(form) }}
+</div>
+
+
+
+
+
+<!--===============================================================================================-->
+<script src="{{ asset('loginassets/vendor/jquery/jquery-3.2.1.min.js') }}"></script>
+<!--===============================================================================================-->
+<script src="{{ asset('loginassets/vendor/animsition/js/animsition.min.js') }}"></script>
+<!--===============================================================================================-->
+<script src="{{ asset('loginassets/vendor/bootstrap/js/popper.js') }}"></script>
+<script src="{{ asset('loginassets/vendor/bootstrap/js/bootstrap.min.js') }}"></script>
+<!--===============================================================================================-->
+<script src="{{ asset('loginassets/vendor/select2/select2.min.js') }}"></script>
+<!--===============================================================================================-->
+<script src="{{ asset('loginassets/vendor/daterangepicker/moment.min.js') }}"></script>
+<script src="{{ asset('loginassets/vendor/daterangepicker/daterangepicker.js') }}"></script>
+<!--===============================================================================================-->
+<script src="{{ asset('loginassets/vendor/countdowntime/countdowntime.js') }}"></script>
+<!--===============================================================================================-->
+<script src="{{ asset('loginassets/js/main.js') }}"></script>
+
+</body>
+</html>

@@ -18,6 +18,7 @@ class CommentsController extends Controller
         $form=$form->handleRequest($request);
         if($form->isValid())
         {
+
             $em=$this->getDoctrine()->getManager();
             $user = $this->container->get('security.token_storage')->getToken()->getUser();
             $em->persist($Comment);
