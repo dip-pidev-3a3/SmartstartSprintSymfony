@@ -7,4 +7,9 @@ delete_contract:
 my_low_contracts:
     path:     /myLowContracts
     defaults: { _controller: ContractBundle:Default:low }
-
+update_contract:
+    path:     /contract/update/{id}
+    defaults: { _controller: ContractBundle:Default:update }
+freelancer_contracts:
+    path:     /freelancerContracts
+    defaults: { _controller: ContractBundle:Default:freelancerContracts }

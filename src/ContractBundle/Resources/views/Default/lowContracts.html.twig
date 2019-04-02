@@ -41,58 +41,68 @@
                     </div>
                 </div>
             </div>
+            <!-- Add Modal HTML -->
+            <div id="updateContract" class="modal fade">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <form name="addForm" id="addForm" method="post" action="{{ path('update_contract',{'id':i.idContract}) }}">
+                            <div class="modal-header">
+                                <h4 class="modal-title">Complete Your Contract...
+                                    <br/>
+                                    <small style="color: red">pls notice that all fields are required *</small>
+                                </h4>
+                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                            </div>
+
+                            <div class="modal-body">
+                                <div class="form-group">
+                                    <label>Job Title</label>
+                                    <input type="text" id="idApplication" name="idApplication" class="form-control" disabled="true" value="{{ i.idApplication.idOpportunity.jobTitle }}">
+
+                                </div>
+                                <div class="form-group">
+                                    <label>Freelancer Name</label>
+                                    <input type="text" id="freelancer" name="freelancer" class="form-control" disabled="true" value="{{ i.idApplication.idFreelancer.name }} {{ i.idApplication.idFreelancer.lastName }}">
+
+                                </div>
+                                <div class="form-group">
+                                    <label>Start Date</label>
+                                    <input type="date" id="start" name="start" class="form-control" onblur="validStart()">
+                                    <label name="err1" id="err1" hidden><small style="color: red">Pls notice that the Start Date can't be in the past or more than the Finish Date</small></label>
+
+                                </div>
+                                <div class="form-group">
+                                    <label>Finish Date</label>
+                                    <input type="date" id="finish" name="finish" class="form-control" onblur="validFinish()">
+                                    <label><small name="err2" id="err2" hidden style="color: red">Pls notice that the Finish Date must be after the Start Date</small></label>
+
+                                </div>
+                                <div class="form-group">
+                                    <label>Sum</label>
+                                    <input type="number" id="sum" name="sum" min="100" class="form-control" onblur="validSum()" placeholder="Type The Sum Here">
+                                    <label name="err3" id="err3" hidden><small style="color: red">Pls notice that the sum field is required and can't be null or negative</small></label>
+
+                                </div>
+                                <div class="form-group">
+                                    <label>Payment Method</label>
+                                    <select id="paymentMethod" name="paymentMethod" class="form-control">
+                                        <option value="En Ligne">En Ligne</option>
+                                        <option value="Cash">Cash</option>
+                                        <option value="Cheque">Cheque</option>
+                                    </select>
+
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
+                                <input type="submit" id="valider" name="valider" class="btn btn-success" id="addb" value="Add" disabled>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
         {% endfor %}
     </div>
-
-    <!-- Add Modal HTML -->
-    <div id="updateContract" class="modal fade">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                {{ form_start(form) }}
-                <div class="modal-header">
-                    <h4 class="modal-title">Complete Your Contract...</h4>
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                </div>
-                <div class="modal-body">
-                    <div class="form-group" style="visibility: hidden">
-                        <label>Job Title</label>
-                        {{ form_widget(form.idApplication, { 'attr': {'class': 'form-control', 'disabled':'true', 'type':'text'} }) }}
-
-                    </div>
-
-                    <div class="form-group">
-                        <label>Start Date</label>
-                        {{ form_widget(form.startDate, { 'attr': {'class':'input', 'type' : 'date'} }) }}
-
-                    </div>
-                    <div class="form-group">
-                        <label>Finish Date</label>
-                        {{ form_widget(form.finishDate, { 'attr': {'class':'input', 'type' : 'date'} }) }}
-
-                    </div>
-                    <div class="form-group">
-                        <label>Sum</label>
-                        {{ form_widget(form.sum, { 'attr': {'class': 'field-style field-full', 'type' : 'text'} }) }}
-
-                    </div>
-                    <div class="form-group">
-                        <label>Payment Method</label>
-                        {{ form_widget(form.paymentMethod, { 'attr': {'class': 'custom-select sources', 'type' : 'select','name' : 'sources', 'id' : 'sources'} }) }}
-
-
-                    </div>
-                    <div class="form-group" style="visibility: hidden">
-                        <label>Prio</label>
-                        {{ form_widget(form.prio, { 'attr': {'class': 'form-control', 'style':'font-size: 12px', 'type':'text', 'value':'1'} }) }}
-
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
-                    <input type="submit" onclick="myFunction()" id="form" name="form" class="btn btn-success" id="addb" value="Add">
-                </div>
-                {{ form_end(form) }}
-            </div>
-        </div>
-    </div>
+    <script src="{{ asset('assets/js/jquery-3.3.1.js') }}"></script>
+    <script src="{{ asset('assets/js/contract.js') }}"></script>
 {% endblock %}

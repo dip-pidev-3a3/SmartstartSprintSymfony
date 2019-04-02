@@ -62,6 +62,8 @@ class ComposerStaticInit929a456162d27e7fea11b6a0ec65ea81
         ),
         'K' => 
         array (
+            'Knp\\Snappy\\' => 11,
+            'Knp\\Bundle\\SnappyBundle\\' => 24,
             'KMS\\FroalaEditorBundle\\' => 23,
         ),
         'I' => 
@@ -200,6 +202,14 @@ class ComposerStaticInit929a456162d27e7fea11b6a0ec65ea81
         'Mgilet\\NotificationBundle\\' => 
         array (
             0 => __DIR__ . '/..' . '/mgilet/notification-bundle',
+        ),
+        'Knp\\Snappy\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/knplabs/knp-snappy/src/Knp/Snappy',
+        ),
+        'Knp\\Bundle\\SnappyBundle\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/knplabs/knp-snappy-bundle',
         ),
         'KMS\\FroalaEditorBundle\\' => 
         array (
