@@ -1,6 +1,6 @@
 <?php
 
-namespace ContainerRzhcnto;
+namespace ContainerD6omyuc;
 
 
 use Symfony\Component\DependencyInjection\Argument\RewindableGenerator;
@@ -3126,14 +3126,16 @@ class appDevDebugProjectContainer extends Container
                 1 => 'Default',
             ],
             'tiloweb_pagination.template' => '@TilowebPagination/pagination.html.twig',
-            'knp_snappy.pdf.binary' => 'wkhtmltopdf',
+            'knp_snappy.pdf.binary' => '"C:\\Program Files\\wkhtmltopdf\\bin\\wkhtmltopdf.exe"',
             'knp_snappy.pdf.options' => [
-
+                'no-outline' => true,
+                'page-size' => 'LETTER',
+                'encoding' => 'UTF-8',
             ],
             'knp_snappy.pdf.env' => [
 
             ],
-            'knp_snappy.image.binary' => 'wkhtmltoimage',
+            'knp_snappy.image.binary' => '"C:\\Program Files\\wkhtmltopdf\\bin\\wkhtmltoimage.exe"',
             'knp_snappy.image.options' => [
 
             ],

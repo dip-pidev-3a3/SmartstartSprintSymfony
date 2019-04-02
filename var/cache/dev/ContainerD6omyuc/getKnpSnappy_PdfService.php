@@ -9,7 +9,7 @@ include_once $this->targetDirs[3].'\\vendor\\knplabs\\knp-snappy\\src\\Knp\\Snap
 include_once $this->targetDirs[3].'\\vendor\\knplabs\\knp-snappy\\src\\Knp\\Snappy\\AbstractGenerator.php';
 include_once $this->targetDirs[3].'\\vendor\\knplabs\\knp-snappy\\src\\Knp\\Snappy\\Pdf.php';
 
-$this->services['knp_snappy.pdf'] = $instance = new \Knp\Snappy\Pdf('wkhtmltopdf', [], []);
+$this->services['knp_snappy.pdf'] = $instance = new \Knp\Snappy\Pdf('"C:\\Program Files\\wkhtmltopdf\\bin\\wkhtmltopdf.exe"', $this->parameters['knp_snappy.pdf.options'], []);
 
 $instance->setLogger(${($_ = isset($this->services['monolog.logger.snappy']) ? $this->services['monolog.logger.snappy'] : $this->load('getMonolog_Logger_SnappyService.php')) && false ?: '_'});
 
