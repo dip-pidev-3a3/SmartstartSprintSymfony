@@ -210,6 +210,12 @@
       <parameter key="ROLE_ADMIN" type="collection">
         <parameter>ROLE_USER</parameter>
       </parameter>
+      <parameter key="ROLE_FREELANCER" type="collection">
+        <parameter>ROLE_FREELANCER</parameter>
+      </parameter>
+      <parameter key="ROLE_ENTREPRISE" type="collection">
+        <parameter>ROLE_ENTREPRISE</parameter>
+      </parameter>
       <parameter key="ROLE_SUPER_ADMIN" type="collection">
         <parameter>ROLE_ADMIN</parameter>
       </parameter>
@@ -3544,7 +3550,7 @@
       <call method="setOptions">
         <argument type="collection">
           <argument key="always_use_default_target_path">false</argument>
-          <argument key="default_target_path">/</argument>
+          <argument key="default_target_path">/Verify</argument>
           <argument key="login_path">/login</argument>
           <argument key="target_path_parameter">_target_path</argument>
           <argument key="use_referer">false</argument>

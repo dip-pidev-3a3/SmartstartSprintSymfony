@@ -153,6 +153,11 @@ class appDevDebugProjectContainerUrlMatcher extends Symfony\Bundle\FrameworkBund
                 return $this->mergeDefaults(array_replace($matches, ['_route' => 'Admin_PaymentsBlogListAccept']), array (  '_controller' => 'AdminBundle\\Controller\\AdminBlogProfitsController::AcceptPaymentAction',));
             }
 
+            // Admin_Redirection
+            if ('/Admin/Verify' === $pathinfo) {
+                return array (  '_controller' => 'AdminBundle\\Controller\\SecurityController::redirectAction',  '_route' => 'Admin_Redirection',);
+            }
+
         }
 
         elseif (0 === strpos($pathinfo, '/blog')) {
@@ -260,6 +265,11 @@ class appDevDebugProjectContainerUrlMatcher extends Symfony\Bundle\FrameworkBund
             return $ret;
         }
         not_homepage:
+
+        // Verify
+        if ('/Verify' === $pathinfo) {
+            return array (  '_controller' => 'AppBundle\\Controller\\DefaultController::redirectAction',  '_route' => 'Verify',);
+        }
 
         if (0 === strpos($pathinfo, '/login')) {
             // fos_user_security_login

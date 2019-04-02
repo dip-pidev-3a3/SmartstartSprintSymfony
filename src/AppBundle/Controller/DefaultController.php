@@ -20,4 +20,21 @@ class DefaultController extends Controller
             'base_dir' => realpath($this->getParameter('kernel.project_dir')).DIRECTORY_SEPARATOR,'v'=>$popular
         ]);
     }
+
+    /**
+     * @Route("/Verify", name="Verify")
+     */
+
+    public function redirectAction()
+    {
+
+        $authChecker = $this->container->get('security.authorization_checker');
+        if ($authChecker->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
+
+            if ($authChecker->isGranted('ROLE_ADMIN'))
+                return $this->render('@Admin/Default/index.html.twig');
+            else if ($authChecker->isGranted('ROLE_USER'))
+                return $this->redirectToRoute('homepage');
+        }
+    }
 }

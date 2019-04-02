@@ -323,7 +323,7 @@ class FosUser extends BaseUser implements NotifiableInterface
      * Constructor
      */
     public function __construct()
-    {
+    { parent::__construct();
         $this->idSkill = new \Doctrine\Common\Collections\ArrayCollection();
         $this->opportunityid = new \Doctrine\Common\Collections\ArrayCollection();
     }

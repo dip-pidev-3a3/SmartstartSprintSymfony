@@ -1,6 +1,6 @@
 <?php
 
-namespace ContainerD6omyuc;
+namespace ContainerLbx8bc5;
 
 
 use Symfony\Component\DependencyInjection\Argument\RewindableGenerator;
@@ -2903,6 +2903,12 @@ class appDevDebugProjectContainer extends Container
             'security.role_hierarchy.roles' => [
                 'ROLE_ADMIN' => [
                     0 => 'ROLE_USER',
+                ],
+                'ROLE_FREELANCER' => [
+                    0 => 'ROLE_FREELANCER',
+                ],
+                'ROLE_ENTREPRISE' => [
+                    0 => 'ROLE_ENTREPRISE',
                 ],
                 'ROLE_SUPER_ADMIN' => [
                     0 => 'ROLE_ADMIN',

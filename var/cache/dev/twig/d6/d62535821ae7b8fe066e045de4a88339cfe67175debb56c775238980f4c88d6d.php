@@ -158,12 +158,12 @@ class __TwigTemplate_c57a7d4c5e929b3aa763a1e9dce7079dd9a8a548407f634e799f9c2bd77
                         <li class=\"list-group-item\" style=\"color: midnightblue;font-size: small;font-family: Montserrat-Bold\">Profits</li>
                         <li class=\"list-group-item text-right\"><span class=\"pull-left\"><strong>Likes</strong></span>";
             // line 56
-            echo twig_escape_filter($this->env, twig_join_filter(($context["l"] ?? $this->getContext($context, "l"))), "html", null, true);
-            echo "</li>
+            echo twig_escape_filter($this->env, (twig_join_filter(($context["l"] ?? $this->getContext($context, "l"))) * 0.033300000000000003), "html", null, true);
+            echo " Dt</li>
                         <li class=\"list-group-item text-right\"><span class=\"pull-left\"><strong>Comments</strong></span> ";
             // line 57
-            echo twig_escape_filter($this->env, twig_join_filter(($context["com"] ?? $this->getContext($context, "com"))), "html", null, true);
-            echo "</li>
+            echo twig_escape_filter($this->env, (twig_join_filter(($context["com"] ?? $this->getContext($context, "com"))) * 0.0033300000000000001), "html", null, true);
+            echo " Dt</li>
                     </ul>
                         <br>
 
@@ -568,8 +568,8 @@ class __TwigTemplate_c57a7d4c5e929b3aa763a1e9dce7079dd9a8a548407f634e799f9c2bd77
                     <br>
                     <ul class=\"list-group\">
                         <li class=\"list-group-item\" style=\"color: midnightblue;font-size: small;font-family: Montserrat-Bold\">Profits</li>
-                        <li class=\"list-group-item text-right\"><span class=\"pull-left\"><strong>Likes</strong></span>{{ l|join }}</li>
-                        <li class=\"list-group-item text-right\"><span class=\"pull-left\"><strong>Comments</strong></span> {{ com|join }}</li>
+                        <li class=\"list-group-item text-right\"><span class=\"pull-left\"><strong>Likes</strong></span>{{ l|join*0.0333  }} Dt</li>
+                        <li class=\"list-group-item text-right\"><span class=\"pull-left\"><strong>Comments</strong></span> {{ com|join*0.00333 }} Dt</li>
                     </ul>
                         <br>
 

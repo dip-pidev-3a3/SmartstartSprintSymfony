@@ -18,7 +18,7 @@ include_once $this->targetDirs[3].'\\vendor\\symfony\\symfony\\src\\Symfony\\Com
 
 $a = ${($_ = isset($this->services['security.http_utils']) ? $this->services['security.http_utils'] : $this->load('getSecurity_HttpUtilsService.php')) && false ?: '_'};
 $b = new \Symfony\Component\Security\Http\Authentication\DefaultAuthenticationSuccessHandler($a, []);
-$b->setOptions(['always_use_default_target_path' => false, 'default_target_path' => '/', 'login_path' => '/login', 'target_path_parameter' => '_target_path', 'use_referer' => false]);
+$b->setOptions(['always_use_default_target_path' => false, 'default_target_path' => '/Verify', 'login_path' => '/login', 'target_path_parameter' => '_target_path', 'use_referer' => false]);
 $b->setProviderKey('main');
 $c = ${($_ = isset($this->services['monolog.logger.security']) ? $this->services['monolog.logger.security'] : $this->load('getMonolog_Logger_SecurityService.php')) && false ?: '_'};
 
