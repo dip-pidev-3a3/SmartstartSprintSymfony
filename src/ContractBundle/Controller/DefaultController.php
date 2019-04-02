@@ -7,6 +7,7 @@ use AppBundle\Entity\Contract;
 use AppBundle\Entity\FosUser;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 
 
@@ -53,5 +54,15 @@ class DefaultController extends Controller
         $user = $this->container->get('security.token_storage')->getToken()->getUser();
         $contracts = $this->getDoctrine()->getRepository(Contract::class)->freelancerContracts($user->getId());
         return $this->render('@Contract/Default/freelancerContracts.html.twig',array('con'=>$contracts));
+    }
+    public function printAction($id){
+        $em = $this->getDoctrine()->getManager();
+        $contract = $em->getRepository(Contract::class)->find($id);
+        $snappy = $this->get("knp_snappy.pdf");
+        $html = "<h1>CONTRACT</h1>
+                <p></p>
+                ";
+        $fileName = $contract->getIdApplication()->getIdOpportunity()->getJobTitle();
+        return new Response($snappy->getOutputFromHtml($html),200,array('Content-Type' => 'application/pdf','Content-Disposition' => 'attachment; filename="'.$fileName.'.pdf"'));
     }
 }

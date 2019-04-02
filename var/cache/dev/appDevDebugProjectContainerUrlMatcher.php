@@ -527,14 +527,22 @@ class appDevDebugProjectContainerUrlMatcher extends Symfony\Bundle\FrameworkBund
                 return array (  '_controller' => 'ContractBundle\\Controller\\DefaultController::lowAction',  '_route' => 'my_low_contracts',);
             }
 
-            // delete_contract
-            if (0 === strpos($pathinfo, '/contract/contract/delete') && preg_match('#^/contract/contract/delete/(?P<id>[^/]++)$#sD', $pathinfo, $matches)) {
-                return $this->mergeDefaults(array_replace($matches, ['_route' => 'delete_contract']), array (  '_controller' => 'ContractBundle\\Controller\\DefaultController::deleteAction',));
-            }
+            if (0 === strpos($pathinfo, '/contract/contract')) {
+                // delete_contract
+                if (0 === strpos($pathinfo, '/contract/contract/delete') && preg_match('#^/contract/contract/delete/(?P<id>[^/]++)$#sD', $pathinfo, $matches)) {
+                    return $this->mergeDefaults(array_replace($matches, ['_route' => 'delete_contract']), array (  '_controller' => 'ContractBundle\\Controller\\DefaultController::deleteAction',));
+                }
 
-            // update_contract
-            if (0 === strpos($pathinfo, '/contract/contract/update') && preg_match('#^/contract/contract/update/(?P<id>[^/]++)$#sD', $pathinfo, $matches)) {
-                return $this->mergeDefaults(array_replace($matches, ['_route' => 'update_contract']), array (  '_controller' => 'ContractBundle\\Controller\\DefaultController::updateAction',));
+                // update_contract
+                if (0 === strpos($pathinfo, '/contract/contract/update') && preg_match('#^/contract/contract/update/(?P<id>[^/]++)$#sD', $pathinfo, $matches)) {
+                    return $this->mergeDefaults(array_replace($matches, ['_route' => 'update_contract']), array (  '_controller' => 'ContractBundle\\Controller\\DefaultController::updateAction',));
+                }
+
+                // print_contract
+                if (0 === strpos($pathinfo, '/contract/contract/print') && preg_match('#^/contract/contract/print/(?P<id>[^/]++)$#sD', $pathinfo, $matches)) {
+                    return $this->mergeDefaults(array_replace($matches, ['_route' => 'print_contract']), array (  '_controller' => 'ContractBundle\\Controller\\DefaultController::printAction',));
+                }
+
             }
 
             // freelancer_contracts
