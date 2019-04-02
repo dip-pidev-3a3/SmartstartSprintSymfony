@@ -31,7 +31,7 @@ $date=new \DateTime();
             $profit->setPostLikesCount(intval(reset($likes)));
             $profit->setPostCommentCount(intval(reset($comments)));
             $profit->setAuthor($user);
-            $profit->setPayment((0.01*intval(reset($likes))+(0.001*intval(reset($comments)))));
+            $profit->setPayment((0.0333*intval(reset($likes))+(0.00333*intval(reset($comments)))));
 
             $profit->setStartDate(new \DateTime());
             $profit->setEndDate($datefin);
