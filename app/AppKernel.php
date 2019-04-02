@@ -25,6 +25,7 @@ class AppKernel extends Kernel
             new ContractBundle\ContractBundle(),
             new Mgilet\NotificationBundle\MgiletNotificationBundle(),
             new Knp\Bundle\SnappyBundle\KnpSnappyBundle(),
+            new ComplaintsBundle\ComplaintsBundle(),
         ];
 
         if (in_array($this->getEnvironment(), ['dev', 'test'], true)) {

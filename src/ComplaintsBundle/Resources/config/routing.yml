@@ -1,0 +1,15 @@
+complaints_homepage:
+    path:     /
+    defaults: { _controller: ComplaintsBundle:Default:index }
+addComplaint_homepage:
+    path:     /add
+    defaults: { _controller: ComplaintsBundle:Default:add }
+addComplaint2_homepage:
+    path:     /add2
+    defaults: { _controller: ComplaintsBundle:Default:add2 }
+afficher_complaint:
+    path:     /afficher
+    defaults: { _controller: ComplaintsBundle:Default:afficher }
+remove_complaint:
+    path:     /remove/{id}
+    defaults: { _controller: ComplaintsBundle:Default:remove }

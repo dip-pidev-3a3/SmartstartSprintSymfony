@@ -1,10 +1,12 @@
+complaints:
+    resource: "@ComplaintsBundle/Resources/config/routing.yml"
+    prefix:   /Complaints
 admin:
     resource: "@AdminBundle/Resources/config/routing.yml"
     prefix:   /Admin
 blog:
     resource: "@BlogBundle/Resources/config/routing.yml"
     prefix:   /blog
-
 opportunityIndex:
     resource: "@OpportunityBundle/Resources/config/routing.yml"
     prefix:   /opportunity
