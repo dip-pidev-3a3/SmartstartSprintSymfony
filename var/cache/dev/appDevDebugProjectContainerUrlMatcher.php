@@ -107,6 +107,47 @@ class appDevDebugProjectContainerUrlMatcher extends Symfony\Bundle\FrameworkBund
 
         }
 
+        elseif (0 === strpos($pathinfo, '/Complaints')) {
+            // complaints_homepage
+            if ('/Complaints' === $trimmedPathinfo) {
+                $ret = array (  '_controller' => 'ComplaintsBundle\\Controller\\DefaultController::indexAction',  '_route' => 'complaints_homepage',);
+                if ('/' === substr($pathinfo, -1)) {
+                    // no-op
+                } elseif ('GET' !== $canonicalMethod) {
+                    goto not_complaints_homepage;
+                } else {
+                    return array_replace($ret, $this->redirect($rawPathinfo.'/', 'complaints_homepage'));
+                }
+
+                return $ret;
+            }
+            not_complaints_homepage:
+
+            if (0 === strpos($pathinfo, '/Complaints/add')) {
+                // addComplaint_homepage
+                if ('/Complaints/add' === $pathinfo) {
+                    return array (  '_controller' => 'ComplaintsBundle\\Controller\\DefaultController::addAction',  '_route' => 'addComplaint_homepage',);
+                }
+
+                // addComplaint2_homepage
+                if ('/Complaints/add2' === $pathinfo) {
+                    return array (  '_controller' => 'ComplaintsBundle\\Controller\\DefaultController::add2Action',  '_route' => 'addComplaint2_homepage',);
+                }
+
+            }
+
+            // afficher_complaint
+            if ('/Complaints/afficher' === $pathinfo) {
+                return array (  '_controller' => 'ComplaintsBundle\\Controller\\DefaultController::afficherAction',  '_route' => 'afficher_complaint',);
+            }
+
+            // remove_complaint
+            if (0 === strpos($pathinfo, '/Complaints/remove') && preg_match('#^/Complaints/remove/(?P<id>[^/]++)$#sD', $pathinfo, $matches)) {
+                return $this->mergeDefaults(array_replace($matches, ['_route' => 'remove_complaint']), array (  '_controller' => 'ComplaintsBundle\\Controller\\DefaultController::removeAction',));
+            }
+
+        }
+
         elseif (0 === strpos($pathinfo, '/Admin')) {
             // admin_homepage
             if ('/Admin/Home' === $pathinfo) {
@@ -151,6 +192,11 @@ class appDevDebugProjectContainerUrlMatcher extends Symfony\Bundle\FrameworkBund
             // Admin_PaymentsBlogListAccept
             if (0 === strpos($pathinfo, '/Admin/AcceptPayment') && preg_match('#^/Admin/AcceptPayment/(?P<id>[^/]++)/(?P<idpayment>[^/]++)$#sD', $pathinfo, $matches)) {
                 return $this->mergeDefaults(array_replace($matches, ['_route' => 'Admin_PaymentsBlogListAccept']), array (  '_controller' => 'AdminBundle\\Controller\\AdminBlogProfitsController::AcceptPaymentAction',));
+            }
+
+            // Admin_Redirection
+            if ('/Admin/Verify' === $pathinfo) {
+                return array (  '_controller' => 'AdminBundle\\Controller\\SecurityController::redirectAction',  '_route' => 'Admin_Redirection',);
             }
 
         }
@@ -260,6 +306,11 @@ class appDevDebugProjectContainerUrlMatcher extends Symfony\Bundle\FrameworkBund
             return $ret;
         }
         not_homepage:
+
+        // Verify
+        if ('/Verify' === $pathinfo) {
+            return array (  '_controller' => 'AppBundle\\Controller\\DefaultController::redirectAction',  '_route' => 'Verify',);
+        }
 
         if (0 === strpos($pathinfo, '/login')) {
             // fos_user_security_login
