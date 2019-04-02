@@ -138,6 +138,7 @@
   'ComplaintsBundle:Default:addComplaint.html.twig' => __DIR__.'/../../../src/ComplaintsBundle/Resources/views/Default/addComplaint.html.twig',
   'ComplaintsBundle:Default:afficher.html.twig' => __DIR__.'/../../../src/ComplaintsBundle/Resources/views/Default/afficher.html.twig',
   'ComplaintsBundle:Default:index.html.twig' => __DIR__.'/../../../src/ComplaintsBundle/Resources/views/Default/index.html.twig',
+  'FeedbackBundle:Default:index.html.twig' => __DIR__.'/../../../src/FeedbackBundle/Resources/views/Default/index.html.twig',
   'DebugBundle:Profiler:dump.html.twig' => __DIR__.'/../../../vendor/symfony/symfony/src/Symfony/Bundle/DebugBundle/Resources/views/Profiler/dump.html.twig',
   'WebProfilerBundle:Collector:ajax.html.twig' => __DIR__.'/../../../vendor/symfony/symfony/src/Symfony/Bundle/WebProfilerBundle/Resources/views/Collector/ajax.html.twig',
   'WebProfilerBundle:Collector:cache.html.twig' => __DIR__.'/../../../vendor/symfony/symfony/src/Symfony/Bundle/WebProfilerBundle/Resources/views/Collector/cache.html.twig',

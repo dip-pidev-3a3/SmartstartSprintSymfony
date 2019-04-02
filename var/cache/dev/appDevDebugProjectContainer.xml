@@ -26,6 +26,7 @@
       <parameter key="MgiletNotificationBundle">Mgilet\NotificationBundle\MgiletNotificationBundle</parameter>
       <parameter key="KnpSnappyBundle">Knp\Bundle\SnappyBundle\KnpSnappyBundle</parameter>
       <parameter key="ComplaintsBundle">ComplaintsBundle\ComplaintsBundle</parameter>
+      <parameter key="FeedbackBundle">FeedbackBundle\FeedbackBundle</parameter>
       <parameter key="DebugBundle">Symfony\Bundle\DebugBundle\DebugBundle</parameter>
       <parameter key="WebProfilerBundle">Symfony\Bundle\WebProfilerBundle\WebProfilerBundle</parameter>
       <parameter key="SensioDistributionBundle">Sensio\Bundle\DistributionBundle\SensioDistributionBundle</parameter>
@@ -117,6 +118,11 @@
         <parameter key="parent">null</parameter>
         <parameter key="path">C:\xampp\htdocs\SmartStart\src\ComplaintsBundle</parameter>
         <parameter key="namespace">ComplaintsBundle</parameter>
+      </parameter>
+      <parameter key="FeedbackBundle" type="collection">
+        <parameter key="parent">null</parameter>
+        <parameter key="path">C:\xampp\htdocs\SmartStart\src\FeedbackBundle</parameter>
+        <parameter key="namespace">FeedbackBundle</parameter>
       </parameter>
       <parameter key="DebugBundle" type="collection">
         <parameter key="parent">null</parameter>
@@ -3902,6 +3908,14 @@
         <argument>!Complaints</argument>
       </call>
       <call method="addPath">
+        <argument>C:\xampp\htdocs\SmartStart\src\FeedbackBundle/Resources/views</argument>
+        <argument>Feedback</argument>
+      </call>
+      <call method="addPath">
+        <argument>C:\xampp\htdocs\SmartStart\src\FeedbackBundle/Resources/views</argument>
+        <argument>!Feedback</argument>
+      </call>
+      <call method="addPath">
         <argument>C:\xampp\htdocs\SmartStart\vendor\symfony\symfony\src\Symfony\Bundle\DebugBundle/Resources/views</argument>
         <argument>Debug</argument>
       </call>
@@ -4135,6 +4149,14 @@
       <call method="addPath">
         <argument>C:\xampp\htdocs\SmartStart\src\ComplaintsBundle/Resources/views</argument>
         <argument>!Complaints</argument>
+      </call>
+      <call method="addPath">
+        <argument>C:\xampp\htdocs\SmartStart\src\FeedbackBundle/Resources/views</argument>
+        <argument>Feedback</argument>
+      </call>
+      <call method="addPath">
+        <argument>C:\xampp\htdocs\SmartStart\src\FeedbackBundle/Resources/views</argument>
+        <argument>!Feedback</argument>
       </call>
       <call method="addPath">
         <argument>C:\xampp\htdocs\SmartStart\vendor\symfony\symfony\src\Symfony\Bundle\DebugBundle/Resources/views</argument>

@@ -1,0 +1,3 @@
+feedback_homepage:
+    path:     /home
+    defaults: { _controller: FeedbackBundle:Default:index }
