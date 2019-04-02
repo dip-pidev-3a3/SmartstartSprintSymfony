@@ -2,12 +2,13 @@
 
 namespace ContractBundle\Controller;
 
-use AppBundle\AppBundle;
+
 use AppBundle\Entity\Contract;
 use AppBundle\Entity\FosUser;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use ContractBundle\Form\ContractType;
-use ContractBundle\Repository\ContractRepository;
+use Symfony\Component\HttpFoundation\Request;
+
+
 
 class DefaultController extends Controller
 {
@@ -25,13 +26,32 @@ class DefaultController extends Controller
         $em->flush();
         return $this->redirectToRoute('my_contracts');
     }
-    public function lowAction()
+    public function lowAction(Request $request,$id=null,$start=null,$finish=null,$sum=null,$payment=null)
     {
-        $contract = new Contract();
-        $form = $this->createForm(ContractType::class,$contract);
         $user=new FosUser();
         $user = $this->container->get('security.token_storage')->getToken()->getUser();
         $contracts = $this->getDoctrine()->getRepository(Contract::class)->getMyLowContracts($user->getId());
-        return $this->render('@Contract/Default/lowContracts.html.twig',array('con'=>$contracts,'form'=>$form->createView()));
+        return $this->render('@Contract/Default/lowContracts.html.twig',array('con'=>$contracts));
+    }
+    public function updateAction(Request $request,$id)
+    {
+        $contract = new Contract();
+        $em = $this->getDoctrine()->getManager();
+        $contract = $em->getRepository(Contract::class)->find($id);
+        $contract->setStartDate(new \DateTime($request->request->get('start')));
+        $contract->setFinishDate(new \DateTime($request->request->get('finish')));
+        $contract->setSum($request->request->get('sum'));
+        $contract->setPaymentMethod($request->request->get('paymentMethod'));
+        $contract->setPrio(1);
+        $em->persist($contract);
+        $em->flush();
+        return $this->redirectToRoute('my_contracts');
+    }
+    public function freelancerContractsAction()
+    {
+        $user=new FosUser();
+        $user = $this->container->get('security.token_storage')->getToken()->getUser();
+        $contracts = $this->getDoctrine()->getRepository(Contract::class)->freelancerContracts($user->getId());
+        return $this->render('@Contract/Default/freelancerContracts.html.twig',array('con'=>$contracts));
     }
 }
