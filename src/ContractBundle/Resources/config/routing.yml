@@ -13,3 +13,6 @@ update_contract:
 freelancer_contracts:
     path:     /freelancerContracts
     defaults: { _controller: ContractBundle:Default:freelancerContracts }
+print_contract:
+    path:     /contract/print/{id}
+    defaults: { _controller: ContractBundle:Default:print }

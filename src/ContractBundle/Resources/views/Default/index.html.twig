@@ -147,7 +147,7 @@
                                 </div>
                                 <!-- Accordion card -->
                                 <div class="text-center" style="display: inline-block">
-                                    <a href="{{ path("delete_contract",{'id':i.idContract}) }}" class="btn btn-primary a-btn-slide-text">
+                                    <a href="#modalConfirmDelete{{ i.idContract }}" class="btn btn-primary a-btn-slide-text" data-toggle="modal" data-target="#modalConfirmDelete{{ i.idContract }}">
                                         <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
                                         <span><strong>Delete</strong></span>
                                     </a>
@@ -155,7 +155,7 @@
                                         <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
                                         <span><strong>Pay</strong></span>
                                     </a>
-                                    <a href="#" class="btn btn-primary a-btn-slide-text">
+                                    <a href="{{ path("print_contract",{'id':i.idContract}) }}" class="btn btn-primary a-btn-slide-text">
                                         <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
                                         <span><strong>Print</strong></span>
                                     </a>
@@ -167,6 +167,32 @@
                         </div>
                         <!-- /.Add to Cart -->
                     </div>
+                </div>
+            </div>
+            <div class="modal fade" id="modalConfirmDelete{{ i.idContract }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+                 aria-hidden="true">
+                <div class="modal-dialog modal-sm modal-notify modal-danger" role="document">
+                    <!--Content-->
+                    <div class="modal-content text-center">
+                        <!--Header-->
+                        <div class="modal-header d-flex justify-content-center">
+                            <p class="heading">Are you sure?</p>
+                        </div>
+
+                        <!--Body-->
+                        <div class="modal-body">
+
+                            <i class="fas fa-times fa-4x animated rotateIn"></i>
+
+                        </div>
+
+                        <!--Footer-->
+                        <div class="modal-footer flex-center">
+                            <a href="{{ path("delete_contract",{'id':i.idContract}) }}" class="btn  btn-outline-danger">Yes</a>
+                            <a type="button" class="btn  btn-danger waves-effect" data-dismiss="modal">No</a>
+                        </div>
+                    </div>
+                    <!--/.Content-->
                 </div>
             </div>
         {% endfor %}
