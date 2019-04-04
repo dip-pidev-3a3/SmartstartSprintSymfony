@@ -10,5 +10,13 @@ namespace BlogBundle\Repository;
  */
 class PostLikeRepository extends \Doctrine\ORM\EntityRepository
 {
+    public function Suggest($id)
+    {
+        $dql = $this->createQueryBuilder('blogprofit')->where('blogpost.author='.$id);
+        $dql->orderBy('blogpost.postLikesCount', 'DESC');
+        $query = $dql->getQuery();
+        $query->setMaxResults(10);
+        return $query->getResult();
+    }
 
 }

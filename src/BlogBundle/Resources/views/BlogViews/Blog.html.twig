@@ -337,6 +337,34 @@
                                 {% endfor %}
                             </ul>
                         </div>
+                        <div style="word-wrap: break-word" class="archive">
+                            <h4 class="txt33 p-b-35 p-t-58">
+                                For you
+                            </h4>
+
+                            <ul>
+                                {% for pop in sug %}
+                                    <li class="flex-w m-b-25">
+                                        <div class="size16 bo-rad-10 wrap-pic-w of-hidden m-r-18">
+                                            <a href="{{ path('blog_Detail',{('postId'):pop.postId}) }}">
+                                                <img src="{{ asset('uploads/images/' ~ pop.image) }}" alt="IMG-BLOG">
+                                            </a>
+                                        </div>
+
+                                        <div class="size28">
+                                            <a href="{{ path('blog_Detail',{('postId'):pop.postId}) }}" class="dis-block txt28 m-b-8">
+                                                {{ pop.articleTitle }}
+                                            </a>
+
+                                            <span class="txt14">
+											{% set leftDays = pop.postDate.diff( date("now") ).format('%a') %}
+                                                {{ leftDays }} Days Ago
+										</span>
+                                        </div>
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                        </div>
 
 
 

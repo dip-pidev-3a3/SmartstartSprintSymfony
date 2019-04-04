@@ -250,5 +250,13 @@ class BlogPostsRepository extends EntityRepository
 
 
     }
+    public function Suggest($cat,$id)
+    {
+        $dql = $this->createQueryBuilder('blogpost')->where("blogpost.postType ="."'". $cat."'")->andwhere('blogpost.author!='.$id);
+        $dql->orderBy('blogpost.postLikesCount', 'DESC');
+        $query = $dql->getQuery();
+        $query->setMaxResults(10);
+        return $query->getResult();
+    }
 
 }

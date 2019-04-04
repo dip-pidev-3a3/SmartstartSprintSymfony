@@ -48,6 +48,55 @@ class BlogPostsController extends Controller
     }
     public function listAction(Request $request)
     {          $user = $this->container->get('security.token_storage')->getToken()->getUser();
+        $em=$this->getDoctrine()->getRepository(Blogposts::class);
+        $news=$em->CountPostsByCat("NewsjackingPost",$user->getId());
+        $media=$em->CountPostsByCat("MediaPost",$user->getId());
+        $en=$em->CountPostsByCat("Entertaining",$user->getId());
+        $In=$em->CountPostsByCat("InstructionalPost",$user->getId());
+        $ch=$em->CountPostsByCat("CheatSheetPost",$user->getId());
+        $per=$em->CountPostsByCat("PersonalSpotlightPost",$user->getId());
+        $news=intval(reset($news));
+
+        $media=intval(reset($media));
+        $en=intval(reset($en));
+
+        $In=intval(reset($In));
+        $ch=intval(reset($ch));
+        $per=intval(reset($per));
+        $suggest="Entertaining";
+        $suggest=$em->Suggest("Entertaining",$user->getId());
+        if(($news>$media)&&($news>$en)&&($news>$In)&&($news>$ch)&&($news>$per))
+        {
+            $suggest=$em->Suggest("NewsjackingPost",$user->getId());
+
+        }
+        if(($media>$news)&&($media>$en)&&($media>$In)&&($media>$ch)&&($media>$per))
+        {
+            $suggest=$em->Suggest("MediaPost",$user->getId());
+
+        }
+        if(($en>$news)&&($en>$media)&&($en>$In)&&($en>$ch)&&($en>$per))
+        {
+            $suggest=$em->Suggest("Entertaining",$user->getId());
+
+        }
+        if(($In>$news)&&($In>$media)&&($In>$en)&&($In>$ch)&&($In>$per))
+        {
+            $suggest=$em->Suggest("InstructionalPost",$user->getId());
+
+        }
+        if(($ch>$news)&&($ch>$media)&&($ch>$en)&&($ch>$In)&&($ch>$per))
+        {
+            $suggest=$em->Suggest("CheatSheetPost",$user->getId());
+
+        }
+        if(($per>$news)&&($per>$media)&&($per>$en)&&($per>$In)&&($per>$ch))
+        {
+            $suggest=$em->Suggest("PersonalSpotlightPost",$user->getId());
+
+        }
+
+
 
         $Blogposts=new Blogposts();
         $D=new \DateTime();
@@ -92,7 +141,7 @@ class BlogPostsController extends Controller
         );
 
 
-        return $this->render('@Blog/BlogViews/Blog.html.twig', array('v' => $listUser,'form'=>$form->createView(),'popular'=>$popular));
+        return $this->render('@Blog/BlogViews/Blog.html.twig', array('v' => $listUser,'form'=>$form->createView(),'popular'=>$popular,'sug'=>$suggest));
 
 
 
@@ -333,64 +382,6 @@ class BlogPostsController extends Controller
     }
     public function Suggest()
     {
-        $em=$this->getDoctrine()->getRepository(Blogposts::class);
-        $news=$em->CountPostsByCat("NewsjackingPost",$user->getId());
-        $media=$em->CountPostsByCat("MediaPost",$user->getId());
-        $en=$em->CountPostsByCat("Entertaining",$user->getId());
-        $In=$em->CountPostsByCat("InstructionalPost",$user->getId());
-        $ch=$em->CountPostsByCat("CheatSheetPost",$user->getId());
-        $per=$em->CountPostsByCat("PersonalSpotlightPost",$user->getId());
-        $news=intval(reset($news));
-
-        $media=intval(reset($media));
-        $en=intval(reset($en));
-        var_dump(($news>$media)&&($news>$en)&&($news>$In)&&($news>$ch)&&($news>$per));die();
-        $In=intval(reset($In));
-        $ch=intval(reset($ch));
-        $per=intval(reset($per));
-        $suggest="Entertaining";
-        $suggest=$em->findMostPopularByCat("Entertaining");
-        if(($news>$media)&&($news>$en)&&($news>$In)&&($news>$ch)&&($news>$per))
-        {
-            $suggest=$em->findMostPopularByCat("NewsjackingPost");
-
-
-        }
-        if(($media>$news)&&($media>$en)&&($media>$In)&&($media>$ch)&&($media>$per))
-        {
-            $suggest=$em->findMostPopularByCat("MediaPost");
-
-
-
-        }
-        if(($en>$news)&&($en>$media)&&($en>$In)&&($en>$ch)&&($en>$per))
-        {
-            $suggest=$em->findMostPopularByCat("Entertaining");
-
-
-
-        }
-        if(($In>$news)&&($In>$media)&&($In>$en)&&($In>$ch)&&($In>$per))
-        {
-            $suggest=$em->findMostPopularByCat("InstructionalPost");
-
-
-
-        }
-        if(($ch>$news)&&($ch>$media)&&($ch>$en)&&($ch>$In)&&($ch>$per))
-        {
-            $suggest=$em->findMostPopularByCat("CheatSheetPost");
-
-
-
-        }
-        if(($per>$news)&&($per>$media)&&($per>$en)&&($per>$In)&&($per>$ch))
-        {
-            $suggest=$em->findMostPopularByCat("PersonalSpotlightPost");
-
-
-
-        }
 
 
 
