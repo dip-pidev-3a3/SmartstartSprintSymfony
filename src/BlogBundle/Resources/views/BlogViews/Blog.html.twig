@@ -337,12 +337,14 @@
                                 {% endfor %}
                             </ul>
                         </div>
+                        {% if app.user!=null %}
                         <div style="word-wrap: break-word" class="archive">
                             <h4 class="txt33 p-b-35 p-t-58">
                                 For you
                             </h4>
 
                             <ul>
+
                                 {% for pop in sug %}
                                     <li class="flex-w m-b-25">
                                         <div class="size16 bo-rad-10 wrap-pic-w of-hidden m-r-18">
@@ -363,6 +365,7 @@
                                         </div>
                                     </li>
                                 {% endfor %}
+                                {% endif %}
                             </ul>
                         </div>
 

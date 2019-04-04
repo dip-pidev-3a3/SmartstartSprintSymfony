@@ -47,7 +47,12 @@ class BlogPostsController extends Controller
 
     }
     public function listAction(Request $request)
-    {          $user = $this->container->get('security.token_storage')->getToken()->getUser();
+    {
+        $suggest="Entertaining";
+    if($this->isGranted('IS_AUTHENTICATED_FULLY'))
+    { $user = $this->container->get('security.token_storage')->getToken()->getUser();
+//arjaa
+
         $em=$this->getDoctrine()->getRepository(Blogposts::class);
         $news=$em->CountPostsByCat("NewsjackingPost",$user->getId());
         $media=$em->CountPostsByCat("MediaPost",$user->getId());
@@ -64,7 +69,7 @@ class BlogPostsController extends Controller
         $ch=intval(reset($ch));
         $per=intval(reset($per));
         $suggest="Entertaining";
-        $suggest=$em->Suggest("Entertaining",$user->getId());
+
         if(($news>$media)&&($news>$en)&&($news>$In)&&($news>$ch)&&($news>$per))
         {
             $suggest=$em->Suggest("NewsjackingPost",$user->getId());
@@ -95,7 +100,7 @@ class BlogPostsController extends Controller
             $suggest=$em->Suggest("PersonalSpotlightPost",$user->getId());
 
         }
-
+    }
 
 
         $Blogposts=new Blogposts();
