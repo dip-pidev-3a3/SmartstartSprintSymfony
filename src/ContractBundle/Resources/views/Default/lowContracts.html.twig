@@ -79,14 +79,14 @@
                                 </div>
                                 <div class="form-group">
                                     <label>Sum</label>
-                                    <input type="number" id="sum" name="sum" min="100" class="form-control" onblur="validSum()" placeholder="Type The Sum Here">
+                                    <input type="number" step="0.01" id="sum" name="sum" min="100" class="form-control" onblur="validSum()" placeholder="Type The Sum Here">
                                     <label name="err3" id="err3" hidden><small style="color: red">Pls notice that the sum field is required and can't be null or negative</small></label>
 
                                 </div>
                                 <div class="form-group">
                                     <label>Payment Method</label>
                                     <select id="paymentMethod" name="paymentMethod" class="form-control">
-                                        <option value="En Ligne">En Ligne</option>
+                                        <option value="En Ligne">Online</option>
                                         <option value="Cash">Cash</option>
                                         <option value="Cheque">Cheque</option>
                                     </select>
