@@ -2,10 +2,15 @@
 
 namespace AppBundle\Entity;
 
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Mgilet\NotificationBundle\NotifiableInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 use Mgilet\NotificationBundle\Annotation\Notifiable;
+use Tchoulom\ViewCounterBundle\Model\ViewCountable;
+use AppBundle\Entity\ViewCounter;
+use Doctrine\Common\Collections\ArrayCollection;
+
 /**
  * Blogposts
  *
@@ -13,7 +18,7 @@ use Mgilet\NotificationBundle\Annotation\Notifiable;
  * @ORM\Entity(repositoryClass="BlogBundle\Repository\BlogPostsRepository")
  * @Notifiable(name="blogposts")
  */
-class Blogposts implements NotifiableInterface
+class Blogposts implements NotifiableInterface,ViewCountable
 {
     /**
      * @var integer
@@ -23,6 +28,82 @@ class Blogposts implements NotifiableInterface
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
     private $postId;
+
+    /**
+     * @ORM\OneToMany(targetEntity="ViewCounter", mappedBy="Blogposts")
+     */
+    protected $viewCounters;
+
+    /**
+     * @ORM\Column(name="views", type="integer", nullable=true)
+     */
+    protected $views = 0;
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->viewCounters = new ArrayCollection();
+    }
+
+    /**
+     * Sets $views
+     *
+     * @param integer $views
+     *
+     * @return $this
+     */
+    public function setViews($views)
+    {
+        $this->views = $views;
+
+        return $this;
+    }
+
+    /**
+     * Gets $views
+     *
+     * @return integer
+     */
+    public function getViews()
+    {
+        return $this->views;
+    }
+
+    /**
+     * Get $viewCounters
+     *
+     * @return Collection
+     */
+    public function getViewCounters()
+    {
+        return $this->viewCounters;
+    }
+
+    /**
+     * Add $viewCounter
+     *
+     * @param ViewCounter $viewCounter
+     *
+     * @return $this
+     */
+    public function addViewCounter(ViewCounter $viewCounter)
+    {
+        $this->viewCounters[] = $viewCounter;
+
+        return $this;
+    }
+
+    /**
+     * Remove $viewCounter
+     *
+     * @param ViewCounter $viewCounter
+     */
+    public function removeViewCounter(ViewCounter $viewCounter)
+    {
+        $this->viewCounters->removeElement($viewCounter);
+    }
 
     /**
      * @var \DateTime

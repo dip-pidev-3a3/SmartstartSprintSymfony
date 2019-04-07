@@ -7,6 +7,7 @@ use AppBundle\Entity\BlogProfits;
 use AppBundle\Entity\Comments;
 use AppBundle\Entity\FosUser;
 use AppBundle\Entity\PostLike;
+use AppBundle\Entity\ViewCounter;
 use BlogBundle\Form\BlogpostsType;
 use BlogBundle\Form\CommentsType;
 use BlogBundle\Form\AdvertType;
@@ -51,7 +52,7 @@ class BlogPostsController extends Controller
         $suggest="Entertaining";
     if($this->isGranted('IS_AUTHENTICATED_FULLY'))
     { $user = $this->container->get('security.token_storage')->getToken()->getUser();
-//arjaa
+
 
         $em=$this->getDoctrine()->getRepository(Blogposts::class);
         $news=$em->CountPostsByCat("NewsjackingPost",$user->getId());
@@ -192,7 +193,10 @@ class BlogPostsController extends Controller
                 ),
                 'text/plain'
             )
+
+
             */
+
 
             $this->get('mailer')->send($message);
             $em=$this->getDoctrine()->getManager();
@@ -211,6 +215,27 @@ class BlogPostsController extends Controller
 
 
         }
+        /*$article=new Blogposts();
+        $article->setPostId($postId);
+        $views = $this->get('tchoulom.view_counter')->getViews($article);
+        $viewcounter = $this->get('tchoulom.view_counter')->getViewCounter($article);
+        $viewcounter = (null != $viewcounter ? $viewcounter : new ViewCounter());
+
+        $em = $this->getDoctrine()->getManager();
+
+
+        if ($this->get('tchoulom.view_counter')->isNewView($viewcounter)) {
+            $viewcounter->setIp($request->getClientIp());
+            $viewcounter->setArticle($article);
+            $viewcounter->setViewDate(new \DateTime('now'));
+
+            $article->setViews($views);
+
+            $em->persist($viewcounter);
+
+            $em->flush();
+        }*/
+
         //envoi form
         return $this->render('@Blog/BlogViews/DetailBlog.html.twig',array('form'=>$form->createView(),'v' => $listUser,'com'=>$listcom,'popular'=>$popular));
     }
