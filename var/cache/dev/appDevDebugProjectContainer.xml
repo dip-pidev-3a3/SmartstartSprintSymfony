@@ -27,6 +27,8 @@
       <parameter key="KnpSnappyBundle">Knp\Bundle\SnappyBundle\KnpSnappyBundle</parameter>
       <parameter key="ComplaintsBundle">ComplaintsBundle\ComplaintsBundle</parameter>
       <parameter key="FeedbackBundle">FeedbackBundle\FeedbackBundle</parameter>
+      <parameter key="QandABundle">QandABundle\QandABundle</parameter>
+      <parameter key="TchoulomViewCounterBundle">Tchoulom\ViewCounterBundle\TchoulomViewCounterBundle</parameter>
       <parameter key="DebugBundle">Symfony\Bundle\DebugBundle\DebugBundle</parameter>
       <parameter key="WebProfilerBundle">Symfony\Bundle\WebProfilerBundle\WebProfilerBundle</parameter>
       <parameter key="SensioDistributionBundle">Sensio\Bundle\DistributionBundle\SensioDistributionBundle</parameter>
@@ -123,6 +125,16 @@
         <parameter key="parent">null</parameter>
         <parameter key="path">C:\wamp64\www\SmartStart\src\FeedbackBundle</parameter>
         <parameter key="namespace">FeedbackBundle</parameter>
+      </parameter>
+      <parameter key="QandABundle" type="collection">
+        <parameter key="parent">null</parameter>
+        <parameter key="path">C:\wamp64\www\SmartStart\src\QandABundle</parameter>
+        <parameter key="namespace">QandABundle</parameter>
+      </parameter>
+      <parameter key="TchoulomViewCounterBundle" type="collection">
+        <parameter key="parent">null</parameter>
+        <parameter key="path">C:\wamp64\www\SmartStart\vendor\tchoulom\view-counter-bundle</parameter>
+        <parameter key="namespace">Tchoulom\ViewCounterBundle</parameter>
       </parameter>
       <parameter key="DebugBundle" type="collection">
         <parameter key="parent">null</parameter>
@@ -449,16 +461,19 @@
       <parameter>Default</parameter>
     </parameter>
     <parameter key="tiloweb_pagination.template">@TilowebPagination/pagination.html.twig</parameter>
-    <parameter key="knp_snappy.pdf.binary">"C:\Program Files\wkhtmltopdf\bin\wkhtmltopdf.exe"</parameter>
-    <parameter key="knp_snappy.pdf.options" type="collection">
-      <parameter key="no-outline">true</parameter>
-      <parameter key="page-size">LETTER</parameter>
-      <parameter key="encoding">UTF-8</parameter>
-    </parameter>
+    <parameter key="knp_snappy.pdf.binary">wkhtmltopdf</parameter>
+    <parameter key="knp_snappy.pdf.options" type="collection"/>
     <parameter key="knp_snappy.pdf.env" type="collection"/>
-    <parameter key="knp_snappy.image.binary">"C:\Program Files\wkhtmltopdf\bin\wkhtmltoimage.exe"</parameter>
+    <parameter key="knp_snappy.image.binary">wkhtmltoimage</parameter>
     <parameter key="knp_snappy.image.options" type="collection"/>
     <parameter key="knp_snappy.image.env" type="collection"/>
+    <parameter key="view_interval" type="collection">
+      <parameter key="daily_view">1</parameter>
+    </parameter>
+    <parameter key="tchoulom.view_counter.base.class">Tchoulom\ViewCounterBundle\Counter\AbstractViewCounter</parameter>
+    <parameter key="tchoulom.view_counter.class">Tchoulom\ViewCounterBundle\Counter\ViewCounter</parameter>
+    <parameter key="tchoulom.view_counter.persister.base.class">Tchoulom\ViewCounterBundle\Persister\AbstractPersister</parameter>
+    <parameter key="tchoulom.view_counter.persister.class">Tchoulom\ViewCounterBundle\Persister\Persister</parameter>
     <parameter key="web_profiler.debug_toolbar.position">bottom</parameter>
     <parameter key="web_profiler.debug_toolbar.intercept_redirects">false</parameter>
     <parameter key="web_profiler.debug_toolbar.mode">2</parameter>
@@ -2508,14 +2523,6 @@
         <argument>2048</argument>
       </call>
       <call method="addListener">
-        <argument>console.command</argument>
-        <argument type="collection">
-          <argument type="service" id="debug.debug_handlers_listener"/>
-          <argument>configure</argument>
-        </argument>
-        <argument>2048</argument>
-      </call>
-      <call method="addListener">
         <argument>kernel.request</argument>
         <argument type="collection">
           <argument type="service" id="router_listener"/>
@@ -3185,7 +3192,7 @@
         <argument>null</argument>
       </call>
       <call method="add">
-        <argument type="service" id="security.request_matcher.x0_yxqh"/>
+        <argument type="service" id="security.request_matcher.fgdauhk"/>
         <argument type="collection">
           <argument>ROLE_ADMIN</argument>
         </argument>
@@ -3663,8 +3670,8 @@
     <service id="security.request_matcher.h4hgfxz" class="Symfony\Component\HttpFoundation\RequestMatcher" public="false">
       <argument>^/resetting</argument>
     </service>
-    <service id="security.request_matcher.x0_yxqh" class="Symfony\Component\HttpFoundation\RequestMatcher" public="false">
-      <argument>^/admin/</argument>
+    <service id="security.request_matcher.fgdauhk" class="Symfony\Component\HttpFoundation\RequestMatcher" public="false">
+      <argument>^/Admin/</argument>
     </service>
     <service id="security.command.user_password_encoder" class="Symfony\Bundle\SecurityBundle\Command\UserPasswordEncoderCommand" public="false">
       <tag name="console.command" command="security:encode-password"/>
@@ -3917,6 +3924,14 @@
         <argument>!Feedback</argument>
       </call>
       <call method="addPath">
+        <argument>C:\wamp64\www\SmartStart\src\QandABundle/Resources/views</argument>
+        <argument>QandA</argument>
+      </call>
+      <call method="addPath">
+        <argument>C:\wamp64\www\SmartStart\src\QandABundle/Resources/views</argument>
+        <argument>!QandA</argument>
+      </call>
+      <call method="addPath">
         <argument>C:\wamp64\www\SmartStart\vendor\symfony\symfony\src\Symfony\Bundle\DebugBundle/Resources/views</argument>
         <argument>Debug</argument>
       </call>
@@ -4158,6 +4173,14 @@
       <call method="addPath">
         <argument>C:\wamp64\www\SmartStart\src\FeedbackBundle/Resources/views</argument>
         <argument>!Feedback</argument>
+      </call>
+      <call method="addPath">
+        <argument>C:\wamp64\www\SmartStart\src\QandABundle/Resources/views</argument>
+        <argument>QandA</argument>
+      </call>
+      <call method="addPath">
+        <argument>C:\wamp64\www\SmartStart\src\QandABundle/Resources/views</argument>
+        <argument>!QandA</argument>
       </call>
       <call method="addPath">
         <argument>C:\wamp64\www\SmartStart\vendor\symfony\symfony\src\Symfony\Bundle\DebugBundle/Resources/views</argument>
@@ -4649,6 +4672,7 @@
         <argument type="collection">
           <argument key="AppBundle">AppBundle\Entity</argument>
           <argument key="MgiletNotificationBundle">Mgilet\NotificationBundle\Entity</argument>
+          <argument key="TchoulomViewCounterBundle">Tchoulom\ViewCounterBundle\Entity</argument>
         </argument>
       </call>
       <call method="setMetadataCacheImpl">
@@ -4696,6 +4720,7 @@
       <argument type="collection">
         <argument>C:\wamp64\www\SmartStart\src\AppBundle\Entity</argument>
         <argument>C:\wamp64\www\SmartStart\vendor\mgilet\notification-bundle\Entity</argument>
+        <argument>C:\wamp64\www\SmartStart\vendor\tchoulom\view-counter-bundle\Entity</argument>
       </argument>
     </service>
     <service id="doctrine.orm.default_metadata_driver" class="Doctrine\Common\Persistence\Mapping\Driver\MappingDriverChain" public="false">
@@ -4706,6 +4731,10 @@
       <call method="addDriver">
         <argument type="service" id="doctrine.orm.default_annotation_metadata_driver"/>
         <argument>Mgilet\NotificationBundle\Entity</argument>
+      </call>
+      <call method="addDriver">
+        <argument type="service" id="doctrine.orm.default_annotation_metadata_driver"/>
+        <argument>Tchoulom\ViewCounterBundle\Entity</argument>
       </call>
       <call method="addDriver">
         <argument type="service">
@@ -5078,8 +5107,8 @@
     </service>
     <service id="knp_snappy.pdf" class="Knp\Snappy\Pdf" public="true">
       <tag name="monolog.logger" channel="snappy"/>
-      <argument>"C:\Program Files\wkhtmltopdf\bin\wkhtmltopdf.exe"</argument>
-      <argument>%knp_snappy.pdf.options%</argument>
+      <argument>wkhtmltopdf</argument>
+      <argument type="collection"/>
       <argument type="collection"/>
       <call method="setLogger">
         <argument type="service" id="monolog.logger.snappy" on-invalid="ignore"/>
@@ -5087,12 +5116,28 @@
     </service>
     <service id="knp_snappy.image" class="Knp\Snappy\Image" public="true">
       <tag name="monolog.logger" channel="snappy"/>
-      <argument>"C:\Program Files\wkhtmltopdf\bin\wkhtmltoimage.exe"</argument>
+      <argument>wkhtmltoimage</argument>
       <argument type="collection"/>
       <argument type="collection"/>
       <call method="setLogger">
         <argument type="service" id="monolog.logger.snappy" on-invalid="ignore"/>
       </call>
+    </service>
+    <service id="tchoulom.view_counter.base" class="Tchoulom\ViewCounterBundle\Counter\AbstractViewCounter" public="true" abstract="true">
+      <argument type="service" id="tchoulom.view_counter.persister"/>
+      <argument type="service" id="request_stack"/>
+      <argument>%view_interval%</argument>
+    </service>
+    <service id="tchoulom.view_counter" class="Tchoulom\ViewCounterBundle\Counter\ViewCounter" public="true">
+      <argument type="service" id="tchoulom.view_counter.persister"/>
+      <argument type="service" id="request_stack"/>
+      <argument>%view_interval%</argument>
+    </service>
+    <service id="tchoulom.view_counter.persister.base" class="Tchoulom\ViewCounterBundle\Persister\AbstractPersister" public="true" abstract="true">
+      <argument type="service" id="doctrine.orm.default_entity_manager"/>
+    </service>
+    <service id="tchoulom.view_counter.persister" class="Tchoulom\ViewCounterBundle\Persister\Persister" public="true">
+      <argument type="service" id="doctrine.orm.default_entity_manager"/>
     </service>
     <service id="twig.extension.dump" class="Symfony\Bridge\Twig\Extension\DumpExtension" public="false">
       <tag name="twig.extension"/>
