@@ -112,6 +112,7 @@
             if ((document.getElementById('sum').value.match(re)==false)||(document.getElementById('sum').value=="")) {
                 error3.textContent = "The Sum field is required and can't be null or negative";
                 document.getElementById('addForm').classList.add('has-error');
+                document.getElementById('valider').setAttribute("disabled",null);
             } else {
                 error3.textContent = '';
                 document.getElementById('addForm').classList.remove('has-error');
@@ -130,6 +131,7 @@
             if ((myDate<now)||(document.getElementById('start').value=="")) {
                 error1.textContent = "The Start Date is required and can't be in the past or more than the Finish Date";
                 document.getElementById('addForm').classList.add('has-error');
+                document.getElementById('valider').setAttribute("disabled",null);
             } else {
                 error1.textContent = '';
                 document.getElementById('addForm').classList.remove('has-error');
@@ -149,6 +151,7 @@
             if ((finishDate<startDate)||(document.getElementById('finish').value=="")||(document.getElementById('start').value=="")) {
                 error2.textContent = "The Finish Date is required and must be more then the Start Date and you must Select the Start Date at first";
                 document.getElementById('addForm').classList.add('has-error');
+                document.getElementById('valider').setAttribute("disabled",null);
             } else {
                 error2.textContent = '';
                 document.getElementById('addForm').classList.remove('has-error');
