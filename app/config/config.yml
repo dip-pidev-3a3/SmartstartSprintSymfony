@@ -46,8 +46,6 @@ framework:
 twig:
     debug: '%kernel.debug%'
     strict_variables: '%kernel.debug%'
-    form_themes:
-        - '@FOSCKEditor/Form/ckeditor_widget.html.twig'
 
 # Doctrine Configuration
 doctrine:
@@ -98,36 +96,4 @@ tchoulom_view_counter:
     #       hourly_view: 1
     #       weekly_view: 1
     #       monthly_view: 1
-
-# Windows configuration
-knp_snappy:
-    pdf:
-        enabled:    true
-        # If you have wkhtmltopdf as an environment variable you don't need to provide the
-        # full path to the executable, use it in the same way as you use in the console
-        #binary:  "wkhtmltopdf"
-        binary:     "\"C:\\Program Files\\wkhtmltopdf\\bin\\wkhtmltopdf.exe\""
-        options:
-                    no-outline: true
-                    page-size: LETTER
-                    # Recommended to set UTF-8 as default encoding :)
-                    encoding: UTF-8
-    image:
-        enabled:    true
-        binary:     "\"C:\\Program Files\\wkhtmltopdf\\bin\\wkhtmltoimage.exe\""
-        options:    []
-
-
-fos_ck_editor:
-    filebrowsers:
-        - VideoBrowse
-        - VideoUpload
-knp_menu:
-    # use "twig: false" to disable the Twig extension and the TwigRenderer
-    twig:
-        template: KnpMenuBundle::menu.html.twig
-    #  if true, enables the helper for PHP templates
-    templating: false
-    # the renderer to use, list is also available by default
-    default_renderer: twig
 
