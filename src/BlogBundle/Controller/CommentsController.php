@@ -47,7 +47,7 @@ class CommentsController extends Controller
         $em->flush();
         echo         $modele->getCommentPostId()->getPostId();
 
-        return $this->redirect('/blog/DetailPost/'.$modele->getCommentPostId()->getPostId());
+        return $this->redirectToRoute('blog_Detail',array('postId'=>$modele->getCommentPostId()->getPostId()));
 
 
     }

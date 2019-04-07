@@ -30,6 +30,7 @@ class ComposerStaticInit929a456162d27e7fea11b6a0ec65ea81
         array (
             'Twig\\' => 5,
             'Tests\\' => 6,
+            'Tchoulom\\ViewCounterBundle\\' => 27,
         ),
         'S' => 
         array (
@@ -130,6 +131,10 @@ class ComposerStaticInit929a456162d27e7fea11b6a0ec65ea81
         'Tests\\' => 
         array (
             0 => __DIR__ . '/../..' . '/tests',
+        ),
+        'Tchoulom\\ViewCounterBundle\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/tchoulom/view-counter-bundle',
         ),
         'Symfony\\Polyfill\\Util\\' => 
         array (

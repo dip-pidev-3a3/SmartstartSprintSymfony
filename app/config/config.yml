@@ -91,6 +91,14 @@ fos_user:
         address: "mounirachir96@gmail.com"
         sender_name: "mounir"
 
+tchoulom_view_counter:
+        view_interval:
+            daily_view: 1
+    #       unique_view: 1
+    #       hourly_view: 1
+    #       weekly_view: 1
+    #       monthly_view: 1
+
 # Windows configuration
 knp_snappy:
     pdf:
