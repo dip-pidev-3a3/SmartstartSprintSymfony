@@ -27,7 +27,9 @@ class AppKernel extends Kernel
             new Knp\Bundle\SnappyBundle\KnpSnappyBundle(),
             new ComplaintsBundle\ComplaintsBundle(),
             new FeedbackBundle\FeedbackBundle(),
-            new Tchoulom\ViewCounterBundle\TchoulomViewCounterBundle(),
+            new QandABundle\QandABundle(),
+            new FOS\CKEditorBundle\FOSCKEditorBundle(),
+            new Knp\Bundle\MenuBundle\KnpMenuBundle(),
         ];
 
         if (in_array($this->getEnvironment(), ['dev', 'test'], true)) {

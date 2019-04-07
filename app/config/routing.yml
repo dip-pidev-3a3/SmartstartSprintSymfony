@@ -1,3 +1,7 @@
+qanda_space:
+    resource: "@QandABundle/Resources/config/routing.yml"
+    prefix:   /qanda
+
 feedback:
     resource: "@FeedbackBundle/Resources/config/routing.yml"
     prefix:   /Feedback
