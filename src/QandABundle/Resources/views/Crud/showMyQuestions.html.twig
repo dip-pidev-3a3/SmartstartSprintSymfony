@@ -1,0 +1,55 @@
+{% extends "SmartStartBase.html.twig" %}
+{% block title %}Q & A{% endblock %}
+{% block body %}
+    <section class="bg-title-page flex-c-m p-t-160 p-b-80 p-l-15 p-r-15" style="background-image: url({{ asset('assets/images/blog-banner.png') }});">
+        <h2 class="tit6 t-center">
+            questions
+        </h2>
+    </section>
+    <section class="content-header">
+        <h1>
+            choose display mode
+        </h1>
+        <ol class="breadcrumb">
+            <li><a href="{{ path('display_as',{'as':1}) }}"> <button class="android-checkbox" > answered </button> </a></li>
+            <li><a href="{{ path('display_as',{'as':2}) }}"> <button class="android-checkbox" > not answered </button> </a></li>
+            <li><a href="{{ path('display_as',{'as':3}) }}"> <button class="select2-selection__choice" id=""> subject </button> </a></li>
+            <li class="active">Collapsed Sidebar</li>
+        </ol>
+    </section>
+    <section>
+        <div>
+            {% for m in questions %}
+                <!-- Default box -->
+
+                <div class="box"> <a href="{{ path('reply_question',{'idq':m.id} ) }}" >
+                        <div class="box-header with-border">
+                            <h3 class="box-title">{{ m.question }}</h3>
+                            <div class="box-tools pull-right">
+    <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="" data-original-title="Collapse">
+                                    {{ m.idu.name }}  </button>
+                                <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="" data-original-title="Collapse">
+                                    {{ m.postdate|date("m/d/Y")}}  </button>
+                                <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="" data-original-title="Collapse">
+                                    <i class="fa fa-minus"></i></button>
+                     <a href=""  ></a>         <button type="button" class="btn btn-box-tool" data-widget="remove" data-toggle="tooltip" title="" data-original-title="Remove">
+                                    <i class="fa fa-times"></i> delete</button> </a>
+                            </div>
+                        </div>
+                        <div class="box-body">
+                            {{ m.description }}
+                            m.idc.img | m.idc.file | m.idc.vocal | m.idc.video
+                        </div>
+                        <!-- /.box-body -->
+                        <div class="box-footer with-border">
+                            {% if m.answered is not null %}
+                                <button type="button" class="btn btn-box-tool">
+                                    <i class="fa fa-check"></i> {{ m.answered|date("m/d/Y") }} </button>
+                            {% endif %}
+                        </div> </a>
+                    <!-- /.box-footer-->
+                </div>
+            {% endfor %}
+        </div>
+    </section>
+{% endblock %}
