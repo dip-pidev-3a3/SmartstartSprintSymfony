@@ -96,4 +96,5 @@ tchoulom_view_counter:
     #       hourly_view: 1
     #       weekly_view: 1
     #       monthly_view: 1
-
+flosch_stripe:
+    stripe_api_key: "pk_test_RzueYgRk554ZpsUNBPruZ42P" # The Stripe API key can be added as a symfony parameter

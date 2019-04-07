@@ -29,6 +29,7 @@ class AppKernel extends Kernel
             new FeedbackBundle\FeedbackBundle(),
             new QandABundle\QandABundle(),
             new Tchoulom\ViewCounterBundle\TchoulomViewCounterBundle(),
+            new Flosch\Bundle\StripeBundle\FloschStripeBundle(),
         ];
 
         if (in_array($this->getEnvironment(), ['dev', 'test'], true)) {

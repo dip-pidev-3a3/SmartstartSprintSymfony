@@ -49,7 +49,7 @@
                                 <h2 class="h2-responsive product-name">
                                     <strong>{{ i.idApplication.idFreelancer.name }} {{ i.idApplication.idFreelancer.lastName }}</strong>
                                 </h2>
-                                <h4 class="h4-responsive">
+                                <h4 class="h4-responsive" id="sum">
               <span class="green-text">
                 <strong>${{ i.sum }}</strong>
               </span>
@@ -155,7 +155,7 @@
                                         <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
                                         <span><strong>Delete</strong></span>
                                     </a>
-                                    <a href="#modalConfirmPayment{{ i.idContract }}" class="btn btn-primary a-btn-slide-text" data-toggle="modal" data-target="#modalConfirmPayment{{ i.idContract }}">
+                                    <a href="#modalConfirmPayment" class="btn btn-primary a-btn-slide-text" data-toggle="modal" data-target="#modalConfirmPayment" onclick="afficher()">
                                         <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
                                         <span><strong>Pay</strong></span>
                                     </a>
@@ -199,45 +199,40 @@
                     <!--/.Content-->
                 </div>
             </div>
-
             <!-- Add Modal HTML -->
-            <div id="modalConfirmPayment{{ i.idContract }}" class="modal fade">
+            <div id="modalConfirmPayment" class="modal fade">
                 <div class="modal-dialog">
                     <div class="modal-content">
-                        <form name="addForm" id="addForm" method="post" action="{{ path('update_contract',{'id':i.idContract}) }}">
-                            <div class="modal-header">
-                                <h4 class="modal-title">Complete Your Contract...
-                                    <br/>
-                                    <small style="color: red">pls notice that all fields are required *</small>
-                                </h4>
-                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                            </div>
+                        <div class="modal-header">
+                            <h4 class="modal-title">Complete Your Payment Action...</h4>
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        </div>
 
-                            <div class="modal-body">
+                        <div class="modal-body">
+                            <div class="form-group">
+
+                                {{ form_start(form, {attr: {id: form.vars.id}}) }}
                                 <div class="form-group">
-
-                                    {{ form_start(form, {attr: {id: form.vars.id}}) }}
-                                    <div class="form-group">
-                                        <label for="card-element">
-                                            Credit or Debit Card
-                                        </label>
-                                        <div id="card-element" class="form-control"></div>
-                                        <div id="card-errors" class="help-block" role="alert"></div>
-                                    </div>
-                                    {{ form_widget(form.token) }}
-                                    {{ form_end(form) }}
-
+                                    <label for="card-element">
+                                        Credit or Debit Card
+                                    </label>
+                                    <div id="card-element" class="form-control"></div>
+                                    <div id="card-errors" class="help-block" role="alert"></div>
                                 </div>
+                                {{ form_widget(form.token) }}
+                                <input type="number" step="0.01" id="sumAff" name="sumAff" min="100" class="form-control" >
                             </div>
-                            <div class="modal-footer">
-                                <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
-                                <input type="submit" id="valider" name="valider" class="btn btn-success" id="addb" value="Add" disabled>
-                            </div>
-                        </form>
+                        </div>
+                        <div class="modal-footer">
+                            <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
+                            <input type="submit" id="valider" name="valider" class="btn btn-success" id="addb" value="Pay">
+                        </div>
+                        {{ form_end(form) }}
                     </div>
                 </div>
             </div>
         {% endfor %}
+
     </div>
 
     <script type="text/javascript">
@@ -272,5 +267,11 @@
                 }
             });
         });
+    </script>
+
+    <script type="text/javascript">
+        function afficher() {
+            document.getElementById('sumAff').value = document.getElementById('sum').value;
+        }
     </script>
 {% endblock %}
