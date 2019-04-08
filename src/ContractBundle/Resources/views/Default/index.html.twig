@@ -28,7 +28,7 @@
     <div class="container">
         {% for i in con %}
 
-            <div class="modal-dialog modal-lg" role="document" style="display: inline-block" style="width: 100%">
+            <div class="modal-dialog modal-lg col-md-4" role="document" style="display: inline-block" style="width: 100%">
                 <div class="modal-content">
                     <div class="modal-body">
                         <div class="row">
@@ -155,7 +155,7 @@
                                         <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
                                         <span><strong>Delete</strong></span>
                                     </a>
-                                    <a href="#modalConfirmPayment" class="btn btn-primary a-btn-slide-text" data-toggle="modal" data-target="#modalConfirmPayment" onclick="afficher()">
+                                    <a href="#modalConfirmPayment" class="btn btn-primary a-btn-slide-text" data-toggle="modal" data-target="#modalConfirmPayment">
                                         <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
                                         <span><strong>Pay</strong></span>
                                     </a>
@@ -217,10 +217,9 @@
                                         Credit or Debit Card
                                     </label>
                                     <div id="card-element" class="form-control"></div>
-                                    <div id="card-errors" class="help-block" role="alert"></div>
+                                    <div id="card-errors" class="help-block" role="alert" style="color: red"></div>
                                 </div>
                                 {{ form_widget(form.token) }}
-                                <input type="number" step="0.01" id="sumAff" name="sumAff" min="100" class="form-control" >
                             </div>
                         </div>
                         <div class="modal-footer">
@@ -231,47 +230,40 @@
                     </div>
                 </div>
             </div>
+            <script type="text/javascript">
+                var form = document.getElementById('{{ form.vars.id }}');
+                var errors = document.getElementById('card-errors');
+
+                var stripe = Stripe('{{ stripe_public_key }}');
+                var elements = stripe.elements();
+                var card = elements.create('card');
+
+                card.mount('#card-element');
+                card.addEventListener('change', function(event) {
+                    if (event.error) {
+                        errors.textContent = event.error.message;
+                        form.classList.add('has-error');
+                    } else {
+                        errors.textContent = '';
+                        form.classList.remove('has-error');
+                    }
+                });
+
+                form.addEventListener('submit', function(event) {
+                    event.preventDefault();
+
+                    stripe.createToken(card).then(function(result) {
+                        if (result.error) {
+                            errors.textContent = result.error.message;
+                            form.classList.add('has-error');
+                        } else {
+                            document.getElementById('{{ form.children.token.vars.id }}').setAttribute('value', result.token.id);
+                            form.submit();
+                        }
+                    });
+                });
+            </script>
         {% endfor %}
 
     </div>
-
-    <script type="text/javascript">
-        var form = document.getElementById('{{ form.vars.id }}');
-        var errors = document.getElementById('card-errors');
-
-        var stripe = Stripe('{{ stripe_public_key }}');
-        var elements = stripe.elements();
-        var card = elements.create('card');
-
-        card.mount('#card-element');
-        card.addEventListener('change', function(event) {
-            if (event.error) {
-                errors.textContent = event.error.message;
-                form.classList.add('has-error');
-            } else {
-                errors.textContent = '';
-                form.classList.remove('has-error');
-            }
-        });
-
-        form.addEventListener('submit', function(event) {
-            event.preventDefault();
-
-            stripe.createToken(card).then(function(result) {
-                if (result.error) {
-                    errors.textContent = result.error.message;
-                    form.classList.add('has-error');
-                } else {
-                    document.getElementById('{{ form.children.token.vars.id }}').setAttribute('value', result.token.id);
-                    form.submit();
-                }
-            });
-        });
-    </script>
-
-    <script type="text/javascript">
-        function afficher() {
-            document.getElementById('sumAff').value = document.getElementById('sum').value;
-        }
-    </script>
 {% endblock %}
