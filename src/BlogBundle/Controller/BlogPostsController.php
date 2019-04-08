@@ -215,8 +215,9 @@ class BlogPostsController extends Controller
 
 
         }
-        /*$article=new Blogposts();
-        $article->setPostId($postId);
+        $article=new Blogposts();
+        $article=$this->getDoctrine()->getRepository(Blogposts::class)->find($postId);
+
         $views = $this->get('tchoulom.view_counter')->getViews($article);
         $viewcounter = $this->get('tchoulom.view_counter')->getViewCounter($article);
         $viewcounter = (null != $viewcounter ? $viewcounter : new ViewCounter());
@@ -234,7 +235,7 @@ class BlogPostsController extends Controller
             $em->persist($viewcounter);
 
             $em->flush();
-        }*/
+        }
 
         //envoi form
         return $this->render('@Blog/BlogViews/DetailBlog.html.twig',array('form'=>$form->createView(),'v' => $listUser,'com'=>$listcom,'popular'=>$popular));

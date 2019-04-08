@@ -30,7 +30,7 @@ class Blogposts implements NotifiableInterface,ViewCountable
     private $postId;
 
     /**
-     * @ORM\OneToMany(targetEntity="ViewCounter", mappedBy="Blogposts")
+     * @ORM\OneToMany(targetEntity="ViewCounter", mappedBy="article")
      */
     protected $viewCounters;
 
