@@ -21,6 +21,7 @@
         <!-- CSS Just for demo purpose, don't include it in your project -->
         <link href="{{ asset ('AdminAssets/assets/demo/demo.css') }}" rel="stylesheet" />
 
+
     {% endblock %}
 
 
@@ -42,30 +43,45 @@
                 </a>
             </div>
             <ul class="nav">
-                <li class="active ">
+
+
+                <li class="active">
                     <a href="{{ path('admin_homepage') }}">
                         <i class="tim-icons icon-chart-pie-36"></i>
                         <p>Home</p>
                     </a>
                 </li>
-                <li>
-                    <a href="{{ path('admin_listPosts') }}">
+                <li class="sidebar-dropdown">
+                    <a href="#" data-toggle="collapse" data-target="#submenu-1">
                         <i class="tim-icons icon-atom"></i>
-                        <p>Posts</p>
+                        <p>Blog</p>
                     </a>
+
+                        <ul id="submenu-1" class="collapse">
+                            <li>
+                                <a href="{{ path('admin_listPosts') }}">
+                                    <i class="tim-icons icon-atom"></i>
+                                    <p>Posts</p>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{{ path('admin_listComments') }}">
+                                    <i class="tim-icons icon-pin"></i>
+                                    <p>Comments</p>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{{ path('Admin_PaymentsBlogList') }}">
+                                    <i class="tim-icons icon-coins"></i>
+                                    <p>Payments</p>
+                                </a>
+                            </li>
+                        </ul>
+
                 </li>
-                <li>
-                    <a href="{{ path('admin_listComments') }}">
-                        <i class="tim-icons icon-pin"></i>
-                        <p>Comments</p>
-                    </a>
-                </li>
-                <li>
-                    <a href="{{ path('Admin_PaymentsBlogList') }}">
-                        <i class="tim-icons icon-coins"></i>
-                        <p>Payments</p>
-                    </a>
-                </li>
+
+
+
                 <li>
                     <a href="./user.html">
                         <i class="tim-icons icon-single-02"></i>
@@ -373,6 +389,7 @@
         });
     </script>
 {% endblock %}
+
 </body>
 
 </html>
