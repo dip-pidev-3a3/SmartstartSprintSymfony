@@ -1,4 +1,8 @@
 services:
-#    contract.example:
-#        class: ContractBundle\Example
-#        arguments: ["@service_id", "plain_value", "%parameter%"]
+    ContractBundle\Stripe\StripeClient:
+        autowire: true
+        autoconfigure: true
+        lazy: true
+
+    my.stripe.client:
+        alias: ContractBundle\Stripe\StripeClient
