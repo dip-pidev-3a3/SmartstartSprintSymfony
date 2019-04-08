@@ -1,47 +1,38 @@
 {% extends "BaseAdmin.html.twig" %}
 
 {% block body %}
+    <div class="content">
+        <div class="row">
+            <div class="col-md-8">
+                <div class="card"><center>
+                    <div class="card-header mb-5">
+                        <h5 class="card-category">Date :{{ v.postDate|date("m/d/Y")}} </h5>
+                        <h3 class="card-title">Article Title : {{ v.ArticleTitle }}</h3>
+                    </div>
+                    <div class="card-body"><div class="col-md-12">
+                        <h3>Article Content:{{ v.articleContent|raw }}</h3>
+                        <br>
+
+
+                            <img class="img-fluid" src="{{ asset('uploads/images/' ~ v.image) }}" alt="" width="750" height="500">
+                        </div>
+                        <br>
+                        <br>
+                        <div class="col-md-12" style="word-wrap:break-word">
+                                        <h3>Post Details</h3>
+                                        <ul class="list-unstyled">
+                                            <li>Author : {{ v.author.username }}</li>
+                                            <li>Type : {{ v.postType }}</li>
+                                            <li >Comments {{ v.postCommentCount }} Comments</li>
+                                            <li>Likes : {{ v.postLikesCount }} Likes</li>
+                                        </ul>
+                        </div>
+
+                    </div></center>
+                </div>
+            </div>
+            <!-- Page Content -->
+        </div></div>
 <!-- Page Content -->
-<div class="container">
 
-    <!-- Portfolio Item Heading -->
-    <h2 class="my-4" style="font-family: Montserrat-Bold;color: midnightblue;font-size: xx-large"> Article Title : {{ v.ArticleTitle }}
-        <small style="font-family: Montserrat-Bold;color: darkred">{{ v.postDate|date("m/d/Y")}}</small>
-    </h2>
-    <br><br>
-
-    <!-- Portfolio Item Row -->
-    <div class="row">
-
-        <div class="col-md-8">
-            <img class="img-fluid" src="{{ asset('uploads/images/' ~ v.image) }}" alt="" width="750" height="500">
-        </div>
-
-        <div class="col-md-4" style="word-wrap:break-word">
-            <h3  style="color: midnightblue;font-family: Montserrat-Bold;word-wrap:break-word;font-size: xx-large">Article Content</h3>
-            <p style="word-wrap:break-word;font-family: Montserrat-Regular;font-size: medium;color: #000;">{{ v.articleContent|raw }}</p>
-            <h3 style="color: midnightblue;font-family: Montserrat-Bold;word-wrap:break-word;font-size: xx-large">Post Details</h3>
-            <ul>
-                <li style="color: #000;">Author : {{ v.author.username }}</li>
-                <li style="color: #000;">Type : {{ v.postType }}</li>
-                <li style="color: #000;">Comments {{ v.postCommentCount }} Comments</li>
-                <li style="color: #000;">Likes : {{ v.postLikesCount }} Likes</li>
-            </ul>
-        </div>
-
-    </div>
-    <!-- /.row -->
-
-    <!-- Related Projects Row -->
-    
-
-    <div class="row">
-
-
-
-    </div>
-    <!-- /.row -->
-
-</div>
-<!-- /.container -->
 {% endblock %}
