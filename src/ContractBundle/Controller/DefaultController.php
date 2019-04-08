@@ -32,10 +32,10 @@ class DefaultController extends Controller
         if ($request->isMethod('POST')) {
             $form->handleRequest($request);
 
-            if ($form->isValid()) {
+            if ($form->isValid()&&$form->isSubmitted()) {
                 // TODO: charge the card
                 $stripeClient = $this->get('my.stripe.client');
-                $stripeClient->createCharge(100.12*100, "eur", $form->get('token')->getData(), null, "in cents", "Pay Freelancer");
+                $stripeClient->createCharge(111.12*100, "eur", $form->get('token')->getData(), null, "in cents", "Pay Freelancer");
                 return $this->redirectToRoute('my_contracts');
             }
         }
@@ -50,7 +50,7 @@ class DefaultController extends Controller
         $em->flush();
         return $this->redirectToRoute('my_contracts');
     }
-    public function lowAction(Request $request,$id=null,$start=null,$finish=null,$sum=null,$payment=null)
+    public function lowAction()
     {
         $user=new FosUser();
         $user = $this->container->get('security.token_storage')->getToken()->getUser();

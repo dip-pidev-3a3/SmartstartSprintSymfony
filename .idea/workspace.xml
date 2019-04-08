@@ -2,8 +2,13 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="3ba1bc1c-9254-415e-9be7-59ad0ec9c4dd" name="Default" comment="">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/var/sessions/dev/sess_q7tt53920r481d9mn1v7lc5bv3" afterPath="$PROJECT_DIR$/var/sessions/dev/sess_q7tt53920r481d9mn1v7lc5bv3" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ContractBundle/Resources/views/Default/lowContracts.html.twig" afterPath="$PROJECT_DIR$/src/ContractBundle/Resources/views/Default/lowContracts.html.twig" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ContractBundle/Controller/DefaultController.php" afterPath="$PROJECT_DIR$/src/ContractBundle/Controller/DefaultController.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ContractBundle/Resources/views/Default/index.html.twig" afterPath="$PROJECT_DIR$/src/ContractBundle/Resources/views/Default/index.html.twig" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/var/cache/dev/appDevDebugProjectContainer.php" afterPath="$PROJECT_DIR$/var/cache/dev/appDevDebugProjectContainer.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/var/logs/dev.log" afterPath="$PROJECT_DIR$/var/logs/dev.log" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/var/logs/prod.log" afterPath="$PROJECT_DIR$/var/logs/prod.log" />
     </list>
     <ignored path="$PROJECT_DIR$/vendor/composer/" />
     <ignored path="$PROJECT_DIR$/vendor/doctrine/annotations/" />
@@ -61,8 +66,8 @@
       <file leaf-file-name="DefaultController.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/ContractBundle/Controller/DefaultController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="261">
-              <caret line="28" column="14" lean-forward="false" selection-start-line="28" selection-start-column="14" selection-end-line="28" selection-end-column="14" />
+            <state relative-caret-position="403">
+              <caret line="39" column="13" lean-forward="false" selection-start-line="39" selection-start-column="13" selection-end-line="39" selection-end-column="13" />
               <folding>
                 <element signature="e#46#76#0#PHP" expanded="true" />
               </folding>
@@ -70,43 +75,30 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="index.html.twig" pinned="false" current-in-tab="false">
+      <file leaf-file-name="index.html.twig" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/ContractBundle/Resources/views/Default/index.html.twig">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="368">
-              <caret line="219" column="36" lean-forward="false" selection-start-line="219" selection-start-column="36" selection-end-line="219" selection-end-column="96" />
+            <state relative-caret-position="525">
+              <caret line="271" column="21" lean-forward="false" selection-start-line="271" selection-start-column="21" selection-end-line="271" selection-end-column="21" />
               <folding>
                 <element signature="e#502#625#0#HTML" expanded="true" />
-                <element signature="e#1285#1314#0#HTML" expanded="true" />
-                <element signature="e#1315#1334#0#HTML" expanded="true" />
-                <element signature="e#1986#10551#0#HTML" expanded="true" />
-                <element signature="e#17157#17186#0#HTML" expanded="true" />
-                <element signature="e#20401#20408#1#HTML" expanded="true" />
+                <element signature="e#1294#1323#0#HTML" expanded="true" />
+                <element signature="e#1324#1343#0#HTML" expanded="true" />
+                <element signature="e#1995#10560#0#HTML" expanded="true" />
+                <element signature="e#17166#17195#0#HTML" expanded="true" />
+                <element signature="e#20517#20524#1#HTML" expanded="true" />
+                <element signature="e#21129#21147#0#HTML" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Blog.html.twig" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/BlogBundle/Resources/views/BlogViews/Blog.html.twig">
+      <file leaf-file-name="freelancerContracts.html.twig" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/ContractBundle/Resources/views/Default/freelancerContracts.html.twig">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="152">
-              <caret line="231" column="147" lean-forward="false" selection-start-line="231" selection-start-column="52" selection-end-line="231" selection-end-column="147" />
+            <state relative-caret-position="-876">
+              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
               <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="lowContracts.html.twig" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/ContractBundle/Resources/views/Default/lowContracts.html.twig">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="367">
-              <caret line="152" column="78" lean-forward="true" selection-start-line="152" selection-start-column="78" selection-end-line="152" selection-end-column="78" />
-              <folding>
-                <element signature="e#13619#13637#0#HTML" expanded="true" />
-                <element signature="e#13994#14012#0#HTML" expanded="true" />
-                <element signature="e#14411#14429#0#HTML" expanded="true" />
-              </folding>
             </state>
           </provider>
         </entry>
@@ -116,6 +108,29 @@
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="765">
               <caret line="45" column="17" lean-forward="false" selection-start-line="45" selection-start-column="17" selection-end-line="45" selection-end-column="17" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="lowContracts.html.twig" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/ContractBundle/Resources/views/Default/lowContracts.html.twig">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-5">
+              <caret line="81" column="36" lean-forward="false" selection-start-line="81" selection-start-column="36" selection-end-line="81" selection-end-column="152" />
+              <folding>
+                <element signature="e#13994#14012#0#HTML" expanded="true" />
+                <element signature="e#14411#14429#0#HTML" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Application.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/AppBundle/Entity/Application.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="372">
+              <caret line="134" column="22" lean-forward="false" selection-start-line="134" selection-start-column="22" selection-end-line="134" selection-end-column="22" />
               <folding />
             </state>
           </provider>
@@ -151,8 +166,6 @@
   </component>
   <component name="FrameworkCommandLineHistory">
     <commandsHistory>
-      <command text="c clear-cache" />
-      <command text="s generate:bundle" />
       <command text="s cache:clear" />
       <command text="c clear-cache" />
       <command text="s cache:clear" />
@@ -172,6 +185,8 @@
       <command text="c require symfony/serializer" />
       <command text="c require flosch/stripe-bundle" />
       <command text="s doctrine:schema:update --force " />
+      <command text="c clear-cache" />
+      <command text="s cache:clear" />
       <command text="c clear-cache" />
       <command text="s cache:clear" />
       <command text="c clear-cache" />
@@ -203,10 +218,10 @@
         <option value="$PROJECT_DIR$/app/config/config.yml" />
         <option value="$PROJECT_DIR$/src/ContractBundle/Resources/config/services.yml" />
         <option value="$PROJECT_DIR$/src/ContractBundle/Stripe/StripeClient.php" />
-        <option value="$PROJECT_DIR$/src/ContractBundle/Controller/DefaultController.php" />
-        <option value="$PROJECT_DIR$/src/ContractBundle/Resources/views/Default/index.html.twig" />
         <option value="$PROJECT_DIR$/web/assets/js/contract.js" />
         <option value="$PROJECT_DIR$/src/ContractBundle/Resources/views/Default/lowContracts.html.twig" />
+        <option value="$PROJECT_DIR$/src/ContractBundle/Controller/DefaultController.php" />
+        <option value="$PROJECT_DIR$/src/ContractBundle/Resources/views/Default/index.html.twig" />
       </list>
     </option>
   </component>
@@ -248,38 +263,6 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="SmartStart" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="SmartStart" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="SmartStart" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="web" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="SmartStart" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="SmartStart" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="web" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="assets" />
               <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
             </PATH_ELEMENT>
           </PATH>
@@ -487,24 +470,23 @@
       <workItem from="1554240647780" duration="3910000" />
       <workItem from="1554279839366" duration="2192000" />
       <workItem from="1554389664320" duration="582000" />
-      <workItem from="1554646493135" duration="14429000" />
+      <workItem from="1554646493135" duration="29372000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="34744000" />
+    <option name="totallyTimeSpent" value="49687000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-6" y="1" width="1932" height="1045" extended-state="1" />
-    <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.19925214" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Command Line Tools Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32785088" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Command Line Tools Console" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32785088" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32894737" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32894737" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3299045" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -529,25 +511,18 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/ComplaintsBundle/Resources/views/Default/afficher.html.twig">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="510">
-          <caret line="30" column="29" lean-forward="false" selection-start-line="30" selection-start-column="29" selection-end-line="30" selection-end-column="67" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/ContractBundle/Resources/views/Default/index.html.twig">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="2397">
           <caret line="141" column="6" lean-forward="false" selection-start-line="141" selection-start-column="6" selection-end-line="141" selection-end-column="6" />
           <folding>
             <element signature="e#502#625#0#HTML" expanded="true" />
-            <element signature="e#1285#1314#0#HTML" expanded="true" />
-            <element signature="e#1315#1334#0#HTML" expanded="true" />
-            <element signature="e#1986#10551#0#HTML" expanded="true" />
-            <element signature="e#17157#17186#0#HTML" expanded="true" />
-            <element signature="e#20401#20408#1#HTML" expanded="true" />
+            <element signature="e#1294#1323#0#HTML" expanded="true" />
+            <element signature="e#1324#1343#0#HTML" expanded="true" />
+            <element signature="e#1995#10560#0#HTML" expanded="true" />
+            <element signature="e#17166#17195#0#HTML" expanded="true" />
+            <element signature="e#20517#20524#1#HTML" expanded="true" />
+            <element signature="e#21129#21147#0#HTML" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -677,14 +652,6 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/FeedbackBundle/Controller/DefaultController.php" />
     <entry file="file://$PROJECT_DIR$/src/FeedbackBundle/Resources/views/Default/index.html.twig" />
-    <entry file="file://$PROJECT_DIR$/src/AppBundle/Entity/Application.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="716">
-          <caret line="136" column="64" lean-forward="false" selection-start-line="136" selection-start-column="31" selection-end-line="136" selection-end-column="64" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/ContractBundle/Resources/config/routing.yml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="255">
@@ -765,39 +732,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/BlogBundle/Resources/views/BlogViews/Blog.html.twig">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="152">
-          <caret line="231" column="147" lean-forward="false" selection-start-line="231" selection-start-column="52" selection-end-line="231" selection-end-column="147" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/ContractBundle/Resources/views/Default/index.html.twig">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="368">
-          <caret line="219" column="36" lean-forward="false" selection-start-line="219" selection-start-column="36" selection-end-line="219" selection-end-column="96" />
-          <folding>
-            <element signature="e#502#625#0#HTML" expanded="true" />
-            <element signature="e#1285#1314#0#HTML" expanded="true" />
-            <element signature="e#1315#1334#0#HTML" expanded="true" />
-            <element signature="e#1986#10551#0#HTML" expanded="true" />
-            <element signature="e#17157#17186#0#HTML" expanded="true" />
-            <element signature="e#20401#20408#1#HTML" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/ContractBundle/Controller/DefaultController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="261">
-          <caret line="28" column="14" lean-forward="false" selection-start-line="28" selection-start-column="14" selection-end-line="28" selection-end-column="14" />
-          <folding>
-            <element signature="e#46#76#0#PHP" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/web/assets/js/contract.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="398">
@@ -814,14 +748,63 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/BlogBundle/Resources/views/BlogViews/Blog.html.twig">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="152">
+          <caret line="231" column="147" lean-forward="false" selection-start-line="231" selection-start-column="52" selection-end-line="231" selection-end-column="147" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/AppBundle/Entity/Application.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="372">
+          <caret line="134" column="22" lean-forward="false" selection-start-line="134" selection-start-column="22" selection-end-line="134" selection-end-column="22" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/ContractBundle/Controller/DefaultController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="403">
+          <caret line="39" column="13" lean-forward="false" selection-start-line="39" selection-start-column="13" selection-end-line="39" selection-end-column="13" />
+          <folding>
+            <element signature="e#46#76#0#PHP" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/ContractBundle/Resources/views/Default/lowContracts.html.twig">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="367">
-          <caret line="152" column="78" lean-forward="true" selection-start-line="152" selection-start-column="78" selection-end-line="152" selection-end-column="78" />
+        <state relative-caret-position="-5">
+          <caret line="81" column="36" lean-forward="false" selection-start-line="81" selection-start-column="36" selection-end-line="81" selection-end-column="152" />
           <folding>
-            <element signature="e#13619#13637#0#HTML" expanded="true" />
             <element signature="e#13994#14012#0#HTML" expanded="true" />
             <element signature="e#14411#14429#0#HTML" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/ContractBundle/Resources/views/Default/freelancerContracts.html.twig">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-876">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/ContractBundle/Resources/views/Default/index.html.twig">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="525">
+          <caret line="271" column="21" lean-forward="false" selection-start-line="271" selection-start-column="21" selection-end-line="271" selection-end-column="21" />
+          <folding>
+            <element signature="e#502#625#0#HTML" expanded="true" />
+            <element signature="e#1294#1323#0#HTML" expanded="true" />
+            <element signature="e#1324#1343#0#HTML" expanded="true" />
+            <element signature="e#1995#10560#0#HTML" expanded="true" />
+            <element signature="e#17166#17195#0#HTML" expanded="true" />
+            <element signature="e#20517#20524#1#HTML" expanded="true" />
+            <element signature="e#21129#21147#0#HTML" expanded="true" />
           </folding>
         </state>
       </provider>
