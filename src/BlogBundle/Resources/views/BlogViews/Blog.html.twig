@@ -106,10 +106,33 @@
 										<i class="fas fa-quote-left"style="color: midnightblue"></i> {{ blogposts.postType }}
 										<span class="m-r-6 m-l-4">|</span>
 									</span>
+                                    {% if blogposts.postCommentCount==1 %}
+                                        <span>
+										<i class="fas fa-comments" style="color:midnightblue"></i> {{ blogposts.postCommentCount }} Comment
+                                        <span class="m-r-6 m-l-4">|</span>
+									</span>
+
+                                    {% endif %}
+                                    {% if blogposts.postCommentCount!=1 %}
                                     <span>
 										<i class="fas fa-comments" style="color:midnightblue"></i> {{ blogposts.postCommentCount }} Comments
                                         <span class="m-r-6 m-l-4">|</span>
 									</span>
+                                    {% endif %}
+
+                                        {% if blogposts.views==1 %}
+                                            <span>
+										<i class="fas fa-eye" style="color: midnightblue"></i> {{ blogposts.views }} View
+                                        <span class="m-r-6 m-l-4">|</span>
+									</span>
+
+                                        {% endif %}
+                                    {% if blogposts.views!=1 %}
+                                    <span>
+										<i class="fas fa-eye" style="color: midnightblue"></i> {{ blogposts.views }} Views
+                                        <span class="m-r-6 m-l-4">|</span>
+									</span>
+                                    {% endif %}
 
 
                                     {% if app.user!=null %}

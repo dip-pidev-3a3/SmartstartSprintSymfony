@@ -392,14 +392,15 @@ class BlogPostsController extends Controller
         $comments=$em->CountAllComs($user->getId());
         $first=$em->FirstPost($user->getId());
         $last=$em->LastPost($user->getId());
+        $view=$em->Allviews($user->getId());
 
         $popular=$this->getDoctrine()->getRepository(Blogposts::class)->findMostPopularPostsByUser(3,$user->getId());
         $posts=$em->findByAuthor(
             $request->query->getInt('page', 1),
-            7,$user->getId()
+            6,$user->getId()
         );
         return $this->render('@Blog/BlogViews/BlogManagment.html.twig',array('pop'=>$popular,'v'=>$posts,'n'=>$news,'m'=>$media
-        ,'e'=>$en,'i'=>$In,'c'=>$ch,'p'=>$per,'l'=>$likes,'com'=>$comments,'first'=>$first,'last'=>$last,'profit'=>$profits));
+        ,'e'=>$en,'i'=>$In,'c'=>$ch,'p'=>$per,'l'=>$likes,'com'=>$comments,'first'=>$first,'last'=>$last,'profit'=>$profits,'view'=>$view));
     }
     public function sendNotification(Request $request)
     {
