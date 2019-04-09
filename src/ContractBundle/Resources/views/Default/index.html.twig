@@ -28,7 +28,7 @@
     <div class="container">
         {% for i in con %}
 
-            <div class="modal-dialog modal-lg col-md-4" role="document" style="display: inline-block" style="width: 100%">
+            <div class="modal-dialog modal-lg col-md-6" role="document" style="display: inline-block" style="width: 100%">
                 <div class="modal-content">
                     <div class="modal-body">
                         <div class="row">
@@ -201,74 +201,69 @@
             </div>
             <!-- Add Modal HTML -->
             <div id="modalConfirmPayment{{ i.idContract }}" class="modal fade">
-                <form id="payForm{{ i.idContract }}">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h4 class="modal-title">Complete Your Payment Action...</h4>
-                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                            </div>
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title">Complete Your Payment Action...</h4>
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        </div>
 
-                            <div class="modal-body">
+                        <div class="modal-body">
+                            <div class="form-group">
+
+                                {{ form_start(form, {attr: {id: form.vars.id}}) }}
                                 <div class="form-group">
-                                    <div class="form-group">
-                                        <label for="card-element">
-                                            Credit or Debit Card
-                                        </label>
-                                        <div id="card-element{{ i.idContract }}" class="form-control"></div>
-                                        <div id="card-errors" class="help-block err" role="alert" style="color: red"></div>
-                                    </div>
-                                    <input type="text" id="token" name="token{{ i.idContract }}" class="form-control" >
-                                    <input type="text" id="idC" name="idC" class="form-control" value="{{ i.idContract }}" hidden>
+                                    <label for="card-element">
+                                        Credit or Debit Card
+                                    </label>
+                                    <div id="card-element" class="form-control card"></div>
+                                    <div id="card-errors" class="help-block err" role="alert" style="color: red"></div>
                                 </div>
-                            </div>
-                            <div class="modal-footer">
-                                <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
-                                <input type="submit" id="valider" name="valider" class="btn btn-success" id="addb" value="Pay">
+                                {{ form_widget(form.token) }}
                             </div>
                         </div>
+                        <div class="modal-footer">
+                            <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
+                            <input type="submit" id="valider" name="valider" class="btn btn-success" id="addb" value="Pay">
+                        </div>
+                        {{ form_end(form) }}
                     </div>
-                </form>
+                </div>
             </div>
             <script type="text/javascript">
-                var form = document.getElementById('payForm{{ i.idContract }}');
+                var form = document.getElementById('{{ form.vars.id }}');
                 var errors = document.getElementsByClassName('err');
-
                 var stripe = Stripe('{{ stripe_public_key }}');
                 var elements = stripe.elements();
                 var card = elements.create('card');
-
-                card.mount('#card-element{{ i.idContract }}');
+                card.mount('#card-element');
                 card.addEventListener('change', function(event) {
                     if (event.error) {
-                        var i;
                         for (i = 0; i < errors.length; i++) {
                             errors[i].textContent = event.error.message;
                         }
                         form.classList.add('has-error');
                     } else {
                         for (i = 0; i < errors.length; i++) {
-                            errors.textContent = '';
+                            errors[i].textContent = '';
                         }
                         form.classList.remove('has-error');
                     }
                 });
                 form.addEventListener('submit', function(event) {
                     event.preventDefault();
-
                     stripe.createToken(card).then(function(result) {
                         if (result.error) {
                             for (i = 0; i < errors.length; i++) {
-                                errors.textContent = result.error.message;
+                                errors[i].textContent = result.error.message;
                             }
                             form.classList.add('has-error');
                         } else {
-                            document.getElementById('token{{ i.idContract }}').setAttribute('value', result.token.id);
+                            document.getElementById('{{ form.children.token.vars.id }}').setAttribute('value', result.token.id);
                             form.submit();
                         }
                     });
                 });
-
             </script>
         {% endfor %}
 

@@ -3,72 +3,81 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\Collection;
+use FOS\MessageBundle\Entity\Message as BaseMessage;
 
 /**
  * Messages
  *
- * @ORM\Table(name="messages", indexes={@ORM\Index(name="message_from", columns={"message_from"}), @ORM\Index(name="message_to", columns={"message_to"})})
+ * @ORM\Table(name="messages", indexes={@ORM\Index(name="thread", columns={"thread"}), @ORM\Index(name="sender", columns={"sender"}), @ORM\Index(name="metadata", columns={"metadata"})})
  * @ORM\Entity
  */
-class Messages
+class Messages extends BaseMessage
 {
     /**
-     * @var integer
-     *
-     * @ORM\Column(name="id_message", type="integer", nullable=false)
      * @ORM\Id
-     * @ORM\GeneratedValue(strategy="IDENTITY")
+     * @ORM\Column(type="integer")
+     * @ORM\GeneratedValue(strategy="AUTO")
      */
-    private $idMessage;
+    protected $id;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="content", type="string", length=255, nullable=false)
+     * @ORM\ManyToOne(
+     *   targetEntity="AppBundle\Entity\Thread",
+     *   inversedBy="messages"
+     * )
+     * @var \FOS\MessageBundle\Model\ThreadInterface
      */
-    private $content;
+    protected $thread;
 
     /**
-     * @var integer
-     *
-     * @ORM\Column(name="attachement", type="integer", nullable=true)
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\FosUser")
+     * @var \FOS\MessageBundle\Model\ParticipantInterface
      */
-    private $attachement;
+    protected $sender;
 
     /**
-     * @var \DateTime
-     *
-     * @ORM\Column(name="date_message", type="date", nullable=false)
+     * @ORM\OneToMany(
+     *   targetEntity="AppBundle\Entity\MessageMetadata",
+     *   mappedBy="message",
+     *   cascade={"all"}
+     * )
+     * @var MessageMetadata[]|Collection
      */
-    private $dateMessage;
+    protected $metadata;
+
 
     /**
-     * @var integer
+     * Add metadatum
      *
-     * @ORM\Column(name="viewed", type="integer", nullable=false)
+     * @param \AppBundle\Entity\MessageMetadata $metadatum
+     *
+     * @return Messages
      */
-    private $viewed;
+    public function addMetadatum(\AppBundle\Entity\MessageMetadata $metadatum)
+    {
+        $this->metadata[] = $metadatum;
+    
+        return $this;
+    }
 
     /**
-     * @var \FosUser
+     * Remove metadatum
      *
-     * @ORM\ManyToOne(targetEntity="FosUser")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="message_from", referencedColumnName="id")
-     * })
+     * @param \AppBundle\Entity\MessageMetadata $metadatum
      */
-    private $messageFrom;
+    public function removeMetadatum(\AppBundle\Entity\MessageMetadata $metadatum)
+    {
+        $this->metadata->removeElement($metadatum);
+    }
 
     /**
-     * @var \FosUser
+     * Get metadata
      *
-     * @ORM\ManyToOne(targetEntity="FosUser")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="message_to", referencedColumnName="id")
-     * })
+     * @return \Doctrine\Common\Collections\Collection
      */
-    private $messageTo;
-
-
+    public function getMetadata()
+    {
+        return $this->metadata;
+    }
 }
-

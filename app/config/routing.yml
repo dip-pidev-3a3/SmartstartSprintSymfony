@@ -1,3 +1,7 @@
+chat:
+    resource: "@ChatBundle/Resources/config/routing.yml"
+    prefix:   /
+
 qanda_space:
     resource: "@QandABundle/Resources/config/routing.yml"
     prefix:   /qanda
@@ -29,3 +33,9 @@ contract:
 mgilet_notification:
     resource: "@MgiletNotificationBundle/Controller/"
     prefix:   /notifications
+fos_message:
+    resource: "@FOSMessageBundle/Resources/config/routing.xml"
+    prefix: /optional_routing_prefix
+chat:
+    resource: "@ChatBundle/Resources/config/routing.yml"
+    prefix:   /chat

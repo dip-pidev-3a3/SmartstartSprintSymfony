@@ -9,6 +9,7 @@ imports:
     - { resource: "@ComplaintsBundle/Resources/config/services.yml" }
     - { resource: "@FeedbackBundle/Resources/config/services.yml" }
     - { resource: "@QandABundle/Resources/config/services.yml" }
+    - { resource: "@ChatBundle/Resources/config/services.yml" }
 
 # Put parameters here that don't need to change on each machine where the app is deployed
 # https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
@@ -98,3 +99,8 @@ tchoulom_view_counter:
     #       monthly_view: 1
 flosch_stripe:
     stripe_api_key: "pk_test_RzueYgRk554ZpsUNBPruZ42P" # The Stripe API key can be added as a symfony parameter
+
+fos_message:
+    db_driver: orm
+    thread_class: AppBundle\Entity\Thread
+    message_class: AppBundle\Entity\Messages

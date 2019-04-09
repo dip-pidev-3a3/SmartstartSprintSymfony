@@ -20,6 +20,7 @@
         "doctrine/orm": "^2.5",
         "flosch/stripe-bundle": "^2.1",
         "friendsofsymfony/ckeditor-bundle": "^1.2",
+        "friendsofsymfony/message-bundle": "^1.3",
         "friendsofsymfony/user-bundle": "~2.0",
         "incenteev/composer-parameter-handler": "^2.0",
         "kms/froala-editor-bundle": "^2.9",

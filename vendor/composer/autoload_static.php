@@ -400,6 +400,13 @@ class ComposerStaticInit929a456162d27e7fea11b6a0ec65ea81
                 0 => __DIR__ . '/..' . '/pimple/pimple/src',
             ),
         ),
+        'F' => 
+        array (
+            'FOS\\MessageBundle' => 
+            array (
+                0 => __DIR__ . '/..' . '/friendsofsymfony/message-bundle',
+            ),
+        ),
         'D' => 
         array (
             'Doctrine\\ORM\\' => 

@@ -30,6 +30,8 @@ class AppKernel extends Kernel
             new QandABundle\QandABundle(),
             new Tchoulom\ViewCounterBundle\TchoulomViewCounterBundle(),
             new Flosch\Bundle\StripeBundle\FloschStripeBundle(),
+            new FOS\MessageBundle\FOSMessageBundle(),
+            new ChatBundle\ChatBundle(),
         ];
 
         if (in_array($this->getEnvironment(), ['dev', 'test'], true)) {

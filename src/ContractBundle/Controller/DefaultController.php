@@ -21,25 +21,21 @@ class DefaultController extends Controller
         $user=new FosUser();
         $user = $this->container->get('security.token_storage')->getToken()->getUser();
         $contracts = $this->getDoctrine()->getRepository(Contract::class)->getMyContracts($user->getId());
-
         $form = $this->get('form.factory')
             ->createNamedBuilder('payment-form')
             ->add('token', HiddenType::class, [
                 'constraints' => [new NotBlank()],
             ])
             ->getForm();
-
         if ($request->isMethod('POST')) {
             $form->handleRequest($request);
-
-            if ($form->isValid()&&$form->isSubmitted()) {
+            if ($form->isValid()) {
                 // TODO: charge the card
                 $stripeClient = $this->get('my.stripe.client');
-                $stripeClient->createCharge(111.12*100, "eur", $form->get('token')->getData(), null, "in cents", "Pay Freelancer");
+                $stripeClient->createCharge(111.11*100, "eur", $form->get('token')->getData(), null, "in cents", "Pay Freelancer");
                 return $this->redirectToRoute('my_contracts');
             }
         }
-
         return $this->render('@Contract/Default/index.html.twig',array('con'=>$contracts,'form' => $form->createView(),
             'stripe_public_key' => "pk_test_RzueYgRk554ZpsUNBPruZ42P"));
     }
@@ -87,5 +83,18 @@ class DefaultController extends Controller
                 ";
         $fileName = $contract->getIdApplication()->getIdOpportunity()->getJobTitle();
         return new Response($snappy->getOutputFromHtml($html),200,array('Content-Type' => 'application/pdf','Content-Disposition' => 'attachment; filename="'.$fileName.'.pdf"'));
+    }
+    public function payAction(Request $request){
+        $em = $this->getDoctrine()->getManager();
+        $contract = $em->getRepository(Contract::class)->find($request->request->get('idC'));
+        // TODO: charge the card
+        $stripeClient = $this->get('my.stripe.client');
+        $stripeClient->createCharge($contract->getSum()*100,
+            "usd",
+            $request->request->get('token'),
+            null,
+            "in cents",
+            "Pay the Freelancer".$contract->getIdApplication()->getIdFreelancer()->getName()." ".$contract->getIdApplication()->getIdFreelancer()->getLastName()."for the job".$contract->getIdApplication()->getIdOpportunity()->getJobTitle());
+        return $this->redirectToRoute('my_contracts');
     }
 }
