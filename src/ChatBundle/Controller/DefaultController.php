@@ -8,6 +8,6 @@ class DefaultController extends Controller
 {
     public function indexAction()
     {
-        return $this->render('ChatBundle:Default:index.html.twig');
+        return $this->render('@Chat/Default/index.html.twig');
     }
 }

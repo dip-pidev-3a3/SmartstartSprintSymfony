@@ -7,12 +7,11 @@ use Doctrine\Common\Collections\Collection;
 use FOS\MessageBundle\Entity\Message as BaseMessage;
 
 /**
- * Messages
+ * Message
  *
- * @ORM\Table(name="messages", indexes={@ORM\Index(name="thread", columns={"thread"}), @ORM\Index(name="sender", columns={"sender"}), @ORM\Index(name="metadata", columns={"metadata"})})
  * @ORM\Entity
  */
-class Messages extends BaseMessage
+class Message extends BaseMessage
 {
     /**
      * @ORM\Id
@@ -52,7 +51,7 @@ class Messages extends BaseMessage
      *
      * @param \AppBundle\Entity\MessageMetadata $metadatum
      *
-     * @return Messages
+     * @return Message
      */
     public function addMetadatum(\AppBundle\Entity\MessageMetadata $metadatum)
     {

@@ -25,7 +25,7 @@ class MessageMetadata extends BaseMessageMetadata
 
     /**
      * @ORM\ManyToOne(
-     *   targetEntity="AppBundle\Entity\Messages",
+     *   targetEntity="AppBundle\Entity\Message",
      *   inversedBy="metadata"
      * )
      * @var \FOS\MessageBundle\Model\MessageInterface

@@ -103,4 +103,4 @@ flosch_stripe:
 fos_message:
     db_driver: orm
     thread_class: AppBundle\Entity\Thread
-    message_class: AppBundle\Entity\Messages
+    message_class: AppBundle\Entity\Message

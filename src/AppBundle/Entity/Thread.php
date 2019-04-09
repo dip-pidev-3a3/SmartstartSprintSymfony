@@ -32,7 +32,7 @@ class Thread extends BaseThread
 
     /**
      * @ORM\OneToMany(
-     *   targetEntity="AppBundle\Entity\Messages",
+     *   targetEntity="AppBundle\Entity\Message",
      *   mappedBy="thread"
      * )
      * @var Message[]|Collection
@@ -52,9 +52,9 @@ class Thread extends BaseThread
     /**
      * Remove message
      *
-     * @param \AppBundle\Entity\Messages $message
+     * @param \AppBundle\Entity\Message $message
      */
-    public function removeMessage(\AppBundle\Entity\Messages $message)
+    public function removeMessage(\AppBundle\Entity\Message $message)
     {
         $this->messages->removeElement($message);
     }
