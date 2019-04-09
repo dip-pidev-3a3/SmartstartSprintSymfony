@@ -22,7 +22,6 @@ class ComposerStaticInit929a456162d27e7fea11b6a0ec65ea81
         '0e6d7bf4a5811bfa5cf40c5ccd6fae6a' => __DIR__ . '/..' . '/symfony/polyfill-mbstring/bootstrap.php',
         'bd9634f2d41831496de0d3dfe4c94881' => __DIR__ . '/..' . '/symfony/polyfill-php56/bootstrap.php',
         '023d27dca8066ef29e6739335ea73bad' => __DIR__ . '/..' . '/symfony/polyfill-php70/bootstrap.php',
-        '7ba3c774c30c8399e359b5ff7f3b943e' => __DIR__ . '/..' . '/tightenco/collect/src/Illuminate/Support/helpers.php',
         '719971e375036615a0685b6fb054583d' => __DIR__ . '/..' . '/symfony/symfony/src/Symfony/Component/VarDumper/Resources/functions/dump.php',
     );
 
@@ -70,10 +69,6 @@ class ComposerStaticInit929a456162d27e7fea11b6a0ec65ea81
             'Psr\\Container\\' => 14,
             'Psr\\Cache\\' => 10,
         ),
-        'O' => 
-        array (
-            'Opis\\Closure\\' => 13,
-        ),
         'M' => 
         array (
             'Monolog\\' => 8,
@@ -100,7 +95,6 @@ class ComposerStaticInit929a456162d27e7fea11b6a0ec65ea81
         'I' => 
         array (
             'Incenteev\\ParameterHandler\\' => 27,
-            'Illuminate\\' => 11,
         ),
         'G' => 
         array (
@@ -261,10 +255,6 @@ class ComposerStaticInit929a456162d27e7fea11b6a0ec65ea81
         array (
             0 => __DIR__ . '/..' . '/psr/cache/src',
         ),
-        'Opis\\Closure\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/opis/closure/lib',
-        ),
         'Monolog\\' => 
         array (
             0 => __DIR__ . '/..' . '/monolog/monolog/src/Monolog',
@@ -312,10 +302,6 @@ class ComposerStaticInit929a456162d27e7fea11b6a0ec65ea81
         'Incenteev\\ParameterHandler\\' => 
         array (
             0 => __DIR__ . '/..' . '/incenteev/composer-parameter-handler',
-        ),
-        'Illuminate\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/tightenco/collect/src/Illuminate',
         ),
         'GuzzleHttp\\Psr7\\' => 
         array (
@@ -414,11 +400,11 @@ class ComposerStaticInit929a456162d27e7fea11b6a0ec65ea81
                 0 => __DIR__ . '/..' . '/pimple/pimple/src',
             ),
         ),
-        'M' => 
+        'F' => 
         array (
-            'Mpociot\\BotMan' => 
+            'FOS\\MessageBundle' => 
             array (
-                0 => __DIR__ . '/..' . '/botman/botman/src',
+                0 => __DIR__ . '/..' . '/friendsofsymfony/message-bundle',
             ),
         ),
         'D' => 

@@ -16,3 +16,6 @@ freelancer_contracts:
 print_contract:
     path:     /contract/print/{id}
     defaults: { _controller: ContractBundle:Default:print }
+pay_contract:
+    path:     /contract/pay
+    defaults: { _controller: ContractBundle:Default:pay }
