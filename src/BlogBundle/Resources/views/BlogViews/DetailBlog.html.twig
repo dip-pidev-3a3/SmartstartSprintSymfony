@@ -128,7 +128,7 @@
                                                                     </div>
                                                                     <div class="modal-footer">
                                                                         <button type="button" class="btn btn-info" data-dismiss="modal">Cancel</button>
-                                                                        <a href="{{ path('blog_deleteComment',{('commentId'):comments.commentId}) }}" type="button" class="btn btn-danger"><label style="color:white;">Delete</label></a>
+                                                                        <a href="{{ path('blog_deleteComment',{('commentId'):comments.commentId}) }}" type="button" class="btn btn-danger" onclick="return confirm('Are you sure')"><label style="color:white;">Delete</label></a>
                                                                     </div>
                                                                 </div>
                                                             </div>
