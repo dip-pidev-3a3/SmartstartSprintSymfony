@@ -74,12 +74,22 @@
                             </li>
 
                             <li>
+                                {% if app.user == null %}
+                                <a href="{{ path('fos_user_security_login') }}">Contracts</a>
+                                {% endif %}
+                                {% if app.user != null %}
                                 <a href="{{ path('my_contracts') }}">Contracts</a>
+                                {% endif %}
 
                             </li>
 
                             <li>
-                                <a href="">Gallery</a>
+                                {% if app.user != null %}
+                                <a href="{{ path('chat_homepage') }}">Chat</a>
+                                {% endif %}
+                                {% if app.user == null %}
+                                    <a href="{{ path('fos_user_security_login') }}">Chat</a>
+                                {% endif %}
                             </li>
 
                             <li>{% if app.user != null %}

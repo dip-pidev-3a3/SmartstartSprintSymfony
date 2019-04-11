@@ -11,16 +11,7 @@ class DefaultController extends Controller
     {
         $provider = $this->container->get('fos_message.provider');
         $threads = $provider->getSentThreads();
-        $disc=array();
-        foreach($threads as $thread)
-        {
-            foreach ($thread->getParticipants() as $participant)
-            {
-                // here is your thread participant is $participant
-                $disc[]=$participant;
-            }
-        }
         $messages=$threads[0]->getMessages();
-        return $this->render('@Chat/Default/index.html.twig', array('disc'=>$disc, 'threads'=>$threads, 'messages'=>$messages));
+        return $this->render('@Chat/Default/index.html.twig', array('threads'=>$threads, 'messages'=>$messages));
     }
 }

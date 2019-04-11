@@ -16,7 +16,7 @@
         <div id="profile">
             <div class="wrap">
                 <img id="profile-img" src="https://img.icons8.com/bubbles/2x/administrator-male.png" class="online" alt="" />
-                <p>Mike Ross</p>
+                <p>{{ app.user.name }} {{ app.user.lastName }} ( {{ app.user.username }} )</p>
             </div>
         </div>
         <div id="search">
@@ -26,19 +26,21 @@
 
         <div id="contacts" onclick="lodMessages()">
             <ul>
-                {% for i in disc %}
-                {% if i != app.user %}
+                {% for i in threads %}
+                {% for j in i.metadata %}
+                {% if j.participant != app.user %}
                 <li class="contact">
                     <div class="wrap">
                         <span class="contact-status online"></span>
                         <img src="https://img.icons8.com/bubbles/2x/administrator-male.png" alt="" />
                         <div class="meta">
-                            <p class="name">{{ i }}</p>
+                            <p class="name">{{ j.participant }}</p>
                             <p class="preview">Wrong. You take the gun, or you pull out a bigger one. Or, you call their bluff. Or, you do any one of a hundred and forty six other things.</p>
                         </div>
                     </div>
                 </li>
                 {% endif %}
+                {% endfor %}
                 {% endfor %}
             </ul>
         </div>
@@ -46,7 +48,7 @@
     <div class="content">
         <div class="contact-profile">
             <img src="https://img.icons8.com/bubbles/2x/administrator-male.png" alt="" />
-            <p>Harvey Specter</p>
+            <p>{{ app.user.name }} {{ app.user.lastName }} ( {{ app.user.username }} )</p>
         </div>
         <div class="messages">
             <ul>
@@ -197,7 +199,7 @@
             -o-transform: scaleY(-1);
             -webkit-transform: scaleY(-1);
             transform: scaleY(-1);
-            filter: FlipH;
+            filter: "FlipH";
             -ms-filter: "FlipH";
         }
         #frame #sidepanel #profile .wrap {
