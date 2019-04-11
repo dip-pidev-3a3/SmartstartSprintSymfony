@@ -11,6 +11,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Validator\Constraints\NotBlank;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 
 
 
@@ -26,13 +27,21 @@ class DefaultController extends Controller
             ->add('token', HiddenType::class, [
                 'constraints' => [new NotBlank()],
             ])
+            ->add('idCon', HiddenType::class)
             ->getForm();
         if ($request->isMethod('POST')) {
             $form->handleRequest($request);
             if ($form->isValid()) {
                 // TODO: charge the card
+                $em = $this->getDoctrine()->getManager();
+                $contract = $em->getRepository(Contract::class)->find($form->get('idCon')->getData());
                 $stripeClient = $this->get('my.stripe.client');
-                $stripeClient->createCharge(111.11*100, "eur", $form->get('token')->getData(), null, "in cents", "Pay Freelancer");
+                $stripeClient->createCharge($contract->getSum()*100,
+                    "usd",
+                    $form->get('token')->getData(),
+                    null,
+                    "in cents",
+                    "Pay the Freelancer ".$contract->getIdApplication()->getIdFreelancer()->getName()." ".$contract->getIdApplication()->getIdFreelancer()->getLastName()." for the opportunity ".$contract->getIdApplication());
                 return $this->redirectToRoute('my_contracts');
             }
         }
@@ -83,18 +92,5 @@ class DefaultController extends Controller
                 ";
         $fileName = $contract->getIdApplication()->getIdOpportunity()->getJobTitle();
         return new Response($snappy->getOutputFromHtml($html),200,array('Content-Type' => 'application/pdf','Content-Disposition' => 'attachment; filename="'.$fileName.'.pdf"'));
-    }
-    public function payAction(Request $request){
-        $em = $this->getDoctrine()->getManager();
-        $contract = $em->getRepository(Contract::class)->find($request->request->get('idC'));
-        // TODO: charge the card
-        $stripeClient = $this->get('my.stripe.client');
-        $stripeClient->createCharge($contract->getSum()*100,
-            "usd",
-            $request->request->get('token'),
-            null,
-            "in cents",
-            "Pay the Freelancer".$contract->getIdApplication()->getIdFreelancer()->getName()." ".$contract->getIdApplication()->getIdFreelancer()->getLastName()."for the job".$contract->getIdApplication()->getIdOpportunity()->getJobTitle());
-        return $this->redirectToRoute('my_contracts');
     }
 }

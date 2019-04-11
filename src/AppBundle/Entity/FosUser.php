@@ -328,6 +328,10 @@ class FosUser extends BaseUser implements NotifiableInterface,ParticipantInterfa
         $this->idSkill = new \Doctrine\Common\Collections\ArrayCollection();
         $this->opportunityid = new \Doctrine\Common\Collections\ArrayCollection();
     }
+    public function __toString()
+    {
+        return (string) $this->getName()." ".$this->getLastName()."( ".$this->getUsername()." )";
+    }
 
 }
 
