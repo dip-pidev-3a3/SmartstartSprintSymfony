@@ -7,6 +7,7 @@ use AppBundle\Entity\BlogProfits;
 use AppBundle\Entity\Comments;
 use AppBundle\Entity\FosUser;
 use AppBundle\Entity\PostLike;
+use AppBundle\Entity\ViewCounter;
 use BlogBundle\Form\BlogpostsType;
 use BlogBundle\Form\CommentsType;
 use BlogBundle\Form\AdvertType;
@@ -47,7 +48,63 @@ class BlogPostsController extends Controller
 
     }
     public function listAction(Request $request)
-    {$Blogposts=new Blogposts();
+    {
+        $suggest="Entertaining";
+    if($this->isGranted('IS_AUTHENTICATED_FULLY'))
+    { $user = $this->container->get('security.token_storage')->getToken()->getUser();
+
+
+        $em=$this->getDoctrine()->getRepository(Blogposts::class);
+        $news=$em->CountPostsByCat("NewsjackingPost",$user->getId());
+        $media=$em->CountPostsByCat("MediaPost",$user->getId());
+        $en=$em->CountPostsByCat("Entertaining",$user->getId());
+        $In=$em->CountPostsByCat("InstructionalPost",$user->getId());
+        $ch=$em->CountPostsByCat("CheatSheetPost",$user->getId());
+        $per=$em->CountPostsByCat("PersonalSpotlightPost",$user->getId());
+        $news=intval(reset($news));
+
+        $media=intval(reset($media));
+        $en=intval(reset($en));
+
+        $In=intval(reset($In));
+        $ch=intval(reset($ch));
+        $per=intval(reset($per));
+        $suggest="Entertaining";
+
+        if(($news>$media)&&($news>$en)&&($news>$In)&&($news>$ch)&&($news>$per))
+        {
+            $suggest=$em->Suggest("NewsjackingPost",$user->getId());
+
+        }
+        if(($media>$news)&&($media>$en)&&($media>$In)&&($media>$ch)&&($media>$per))
+        {
+            $suggest=$em->Suggest("MediaPost",$user->getId());
+
+        }
+        if(($en>$news)&&($en>$media)&&($en>$In)&&($en>$ch)&&($en>$per))
+        {
+            $suggest=$em->Suggest("Entertaining",$user->getId());
+
+        }
+        if(($In>$news)&&($In>$media)&&($In>$en)&&($In>$ch)&&($In>$per))
+        {
+            $suggest=$em->Suggest("InstructionalPost",$user->getId());
+
+        }
+        if(($ch>$news)&&($ch>$media)&&($ch>$en)&&($ch>$In)&&($ch>$per))
+        {
+            $suggest=$em->Suggest("CheatSheetPost",$user->getId());
+
+        }
+        if(($per>$news)&&($per>$media)&&($per>$en)&&($per>$In)&&($per>$ch))
+        {
+            $suggest=$em->Suggest("PersonalSpotlightPost",$user->getId());
+
+        }
+    }
+
+
+        $Blogposts=new Blogposts();
         $D=new \DateTime();
         //form
         $form=$this->createForm(BlogpostsType::class,$Blogposts);
@@ -89,7 +146,8 @@ class BlogPostsController extends Controller
             5
         );
 
-        return $this->render('@Blog/BlogViews/Blog.html.twig', array('v' => $listUser,'form'=>$form->createView(),'popular'=>$popular));
+
+        return $this->render('@Blog/BlogViews/Blog.html.twig', array('v' => $listUser,'form'=>$form->createView(),'popular'=>$popular,'sug'=>$suggest));
 
 
 
@@ -135,7 +193,10 @@ class BlogPostsController extends Controller
                 ),
                 'text/plain'
             )
+
+
             */
+
 
             $this->get('mailer')->send($message);
             $em=$this->getDoctrine()->getManager();
@@ -154,6 +215,28 @@ class BlogPostsController extends Controller
 
 
         }
+        $article=new Blogposts();
+        $article=$this->getDoctrine()->getRepository(Blogposts::class)->find($postId);
+
+        $views = $this->get('tchoulom.view_counter')->getViews($article);
+        $viewcounter = $this->get('tchoulom.view_counter')->getViewCounter($article);
+        $viewcounter = (null != $viewcounter ? $viewcounter : new ViewCounter());
+
+        $em = $this->getDoctrine()->getManager();
+
+
+        if ($this->get('tchoulom.view_counter')->isNewView($viewcounter)) {
+            $viewcounter->setIp($request->getClientIp());
+            $viewcounter->setArticle($article);
+            $viewcounter->setViewDate(new \DateTime('now'));
+
+            $article->setViews($views);
+
+            $em->persist($viewcounter);
+
+            $em->flush();
+        }
+
         //envoi form
         return $this->render('@Blog/BlogViews/DetailBlog.html.twig',array('form'=>$form->createView(),'v' => $listUser,'com'=>$listcom,'popular'=>$popular));
     }
@@ -309,14 +392,15 @@ class BlogPostsController extends Controller
         $comments=$em->CountAllComs($user->getId());
         $first=$em->FirstPost($user->getId());
         $last=$em->LastPost($user->getId());
+        $view=$em->Allviews($user->getId());
 
         $popular=$this->getDoctrine()->getRepository(Blogposts::class)->findMostPopularPostsByUser(3,$user->getId());
         $posts=$em->findByAuthor(
             $request->query->getInt('page', 1),
-            7,$user->getId()
+            6,$user->getId()
         );
         return $this->render('@Blog/BlogViews/BlogManagment.html.twig',array('pop'=>$popular,'v'=>$posts,'n'=>$news,'m'=>$media
-        ,'e'=>$en,'i'=>$In,'c'=>$ch,'p'=>$per,'l'=>$likes,'com'=>$comments,'first'=>$first,'last'=>$last,'profit'=>$profits));
+        ,'e'=>$en,'i'=>$In,'c'=>$ch,'p'=>$per,'l'=>$likes,'com'=>$comments,'first'=>$first,'last'=>$last,'profit'=>$profits,'view'=>$view));
     }
     public function sendNotification(Request $request)
     {
@@ -324,17 +408,18 @@ class BlogPostsController extends Controller
         $notif = $manager->createNotification('Hello world!');
         $notif->setMessage('This a notification.');
         $notif->setLink('https://symfony.com/');
-        // or the one-line method :
-        // $manager->createNotification('Notification subject', 'Some random text', 'https://google.fr/');
-
-        // you can add a notification to a list of entities
-        // the third parameter `$flush` allows you to directly flush the entities
         $manager->addNotification(array($this->getUser()), $notif, true);
 
         
     }
     public function Suggest()
     {
+
+
+
+
+
+
 
     }
 

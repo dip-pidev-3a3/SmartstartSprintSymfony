@@ -6,7 +6,10 @@ imports:
     - { resource: "@BlogBundle/Resources/config/services.yml" }
     - { resource: "@AdminBundle/Resources/config/services.yml" }
     - { resource: "@ContractBundle/Resources/config/services.yml" }
-    - { resource: "@ApplicationBundle/Resources/config/services.yml" }
+    - { resource: "@ComplaintsBundle/Resources/config/services.yml" }
+    - { resource: "@FeedbackBundle/Resources/config/services.yml" }
+    - { resource: "@QandABundle/Resources/config/services.yml" }
+    - { resource: "@ChatBundle/Resources/config/services.yml" }
 
 # Put parameters here that don't need to change on each machine where the app is deployed
 # https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
@@ -86,3 +89,18 @@ fos_user:
     from_email:
         address: "mounirachir96@gmail.com"
         sender_name: "mounir"
+
+tchoulom_view_counter:
+        view_interval:
+            daily_view: 1
+    #       unique_view: 1
+    #       hourly_view: 1
+    #       weekly_view: 1
+    #       monthly_view: 1
+flosch_stripe:
+    stripe_api_key: "pk_test_RzueYgRk554ZpsUNBPruZ42P" # The Stripe API key can be added as a symfony parameter
+
+fos_message:
+    db_driver: orm
+    thread_class: AppBundle\Entity\Thread
+    message_class: AppBundle\Entity\Message

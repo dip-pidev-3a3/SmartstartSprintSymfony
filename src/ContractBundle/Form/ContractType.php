@@ -2,12 +2,15 @@
 
 namespace ContractBundle\Form;
 
+
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
 class ContractType extends AbstractType
 {
@@ -16,12 +19,13 @@ class ContractType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('paymentMethod',ChoiceType::class, array(
-            'choices'  => array(
-                'En Ligne' => "En Ligne",
-                'Cash' => "Cash",
-                'Cheque' => "Cheque",
-            )))->add('startDate',DateType::class)->add('finishDate',DateType::class)->add('sum')->add('prio')->add('idApplication',TextType::class);
+        $builder->add('paymentMethod',ChoiceType::class, array('attr'=>array('myAttr'=>'payment')))
+            ->add('startDate',DateType::class,array('attr'=>array('myAttr'=>'start')))
+            ->add('finishDate',DateType::class,array('attr'=>array('myAttr'=>'finish')))
+            ->add('sum',IntegerType::class,array('attr'=>array('myAttr'=>'sum')))
+            ->add('prio',IntegerType::class,array('attr'=>array('myAttr'=>'prio')))
+            ->add('idApplication',TextType::class,array('attr'=>array('myAttr'=>'job')))
+            ->add('valider',SubmitType::class,array('attr'=>array('myAttr'=>'valid')));
     }/**
      * {@inheritdoc}
      */

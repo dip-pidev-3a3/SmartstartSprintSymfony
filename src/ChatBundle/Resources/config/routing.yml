@@ -1,0 +1,3 @@
+chat_homepage:
+    path:     /mySpace
+    defaults: { _controller: ChatBundle:Default:index }

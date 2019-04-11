@@ -32,5 +32,13 @@ class ContractRepository extends EntityRepository
             ->getResult();
 
     }
+    public function freelancerContracts($id){
+        return $this->getEntityManager()
+            ->createQuery(
+                'SELECT c FROM AppBundle:contract c,AppBundle:application a,AppBundle:opportunity o WHERE ((c.idApplication = a.idApplication) AND (a.idOpportunity = o.idOpp) AND (a.idFreelancer = :val) AND (c.prio=1))'
+            )
+            ->setParameter('val', $id)
+            ->getResult();
+    }
 
 }

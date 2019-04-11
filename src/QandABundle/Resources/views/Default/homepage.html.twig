@@ -1,0 +1,60 @@
+{% extends "SmartStartBase.html.twig" %}
+{% block title %}list my replies{% endblock %}
+{% block body %}
+    <!-- Title Page -->
+    <section class="bg-title-page flex-c-m p-t-160 p-b-80 p-l-15 p-r-15" style="background-image: url({{ asset('assets/images/blog-banner.png') }});">
+        <h2 class="tit6 t-center">
+        </h2>
+    </section>
+    <section class="content-header">
+        <h1>
+            choose display mode
+        </h1>
+        <ol class="breadcrumb">
+            <li><a href="{{ path('display_as',{'as':1}) }}"> <button class="android-checkbox" > answered </button> </a></li>
+            <li><a href="{{ path('display_as',{'as':2}) }}"> <button class="android-checkbox" > not answered </button> </a></li>
+            <li><a href="{{ path('display_as',{'as':3}) }}"> <button class="select2-selection__choice" id=""> subject </button> </a></li>
+        </ol>
+    </section>
+    <section class="content">
+        {% for m in questions %}
+            <div class="box"> <a href="{{ path('reply_question',{'idq':m.id} ) }}" >
+                    <div class="box-header with-border">
+                        <h3 class="box-title"> {{ m.question }}</h3>
+
+                        <div class="box-tools pull-right"><button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="Collapse">
+                                <i class="fa fa-minus"></i>  {{ m.postdate|date("m/d/Y") }} </button>
+                            <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="Collapse">
+                                <i class="fa fa-minus"></i> {{ m.replies }} </button>
+                            <button type="button" class="btn btn-box-tool" data-widget="remove" data-toggle="tooltip" title="Remove">
+                                <i class="fa fa-times"></i></button>
+                        </div>
+                    </div>
+
+                    <div class="box-body">
+                        {{ m.description }}
+                    </div>
+                    <!-- /.box-body -->
+                    <div class="box-footer">
+                        <button type="button" class="btn btn-box-tool">
+                            <i class="fa fa-times"></i> {{ m.idu.name }} </button>
+                        {% if m.answered is not null %}
+                            <button type="button" class="btn btn-box-tool">
+                                <i class="fa fa-check"></i> {{ m.answered|date("m/d/Y") }} </button>
+                        {% endif %}
+                        {% if app.user==m.idu %}
+                            <a href="{{ path('qanda_Qdelete',{'id':m.id}) }}" > <button type="button" class="btn btn-box-tool" >
+                                    <i class="fa fa-times"></i> delete </button> </a>
+
+                            <a href="{{ path('qanda_Qupdate',{'id':m.id}) }}" > <button type="button" class="btn btn-box-tool">
+                                    <i class="fa fa-times"></i> Modify </button> </a>
+                        {% endif %}
+                    </div>
+                    <!-- /.box-footer-->
+                </a>  </div>
+
+        {% endfor %}
+        <!-- /.box -->
+
+    </section>
+{% endblock %}

@@ -24,7 +24,14 @@ class AppKernel extends Kernel
             new AdminBundle\AdminBundle(),
             new ContractBundle\ContractBundle(),
             new Mgilet\NotificationBundle\MgiletNotificationBundle(),
-            new ApplicationBundle\ApplicationBundle(),
+            new Knp\Bundle\SnappyBundle\KnpSnappyBundle(),
+            new ComplaintsBundle\ComplaintsBundle(),
+            new FeedbackBundle\FeedbackBundle(),
+            new QandABundle\QandABundle(),
+            new Tchoulom\ViewCounterBundle\TchoulomViewCounterBundle(),
+            new Flosch\Bundle\StripeBundle\FloschStripeBundle(),
+            new FOS\MessageBundle\FOSMessageBundle(),
+            new ChatBundle\ChatBundle(),
         ];
 
         if (in_array($this->getEnvironment(), ['dev', 'test'], true)) {

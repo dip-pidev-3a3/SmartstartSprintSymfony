@@ -1,0 +1,51 @@
+qand_a_homepage:
+    path:     /
+    defaults: { _controller: QandABundle:Default:index }
+qanda_homepage:
+    path:     /home
+    defaults: { _controller: QandABundle:Default:home }
+display_as:
+    path:     /displayas/{as}
+    defaults: { _controller: QandABundle:Default:displayAS }
+display_qas:
+    path:     /displayas/{as}
+    defaults: { _controller: QandABundle:Default:displayQAS }
+display_ras:
+    path:     /displayras/{as}
+    defaults: { _controller: QandABundle:Default:displayRAS }
+
+qanda_Qadd:
+    path:     /qadd
+    defaults: { _controller: QandABundle:Question:addQuestion }
+qanda_Qupdate:
+    path:     /qupdate/{id}
+    defaults: { _controller: QandABundle:Question:updateQuestion }
+qanda_Qdelete:
+    path:     /qdelete/{id}
+    defaults: { _controller: QandABundle:Question:deleteQuestion }
+show_myquestions:
+    path:     /showmyquestions
+    defaults: { _controller: QandABundle:Question:showMyQuestions }
+reply_question:
+    path:     /qreply/{idq}
+    defaults: { _controller: QandABundle:Question:replyQuestion }
+
+update_reply:
+    path:     /updatereply/{idr}
+    defaults: { _controller: QandABundle:Reply:updateReply }
+delete_reply:
+    path:     /deletereply/{idr}
+    defaults: { _controller: QandABundle:Reply:deleteReply }
+vote_up:
+    path:     /voteup/{idr}
+    defaults: { _controller: QandABundle:Reply:upVote }
+vote_down:
+    path:     /votedown/{idr}
+    defaults: { _controller: QandABundle:Reply:downVote }
+satisfy_me:
+    path:     /satisfied/{idr}
+    defaults: { _controller: QandABundle:Reply:satisfyMe }
+reply_viewed:
+    path:     /notifViewed/{idr}
+    defaults: { _controller: QandABundle:Reply:notifViewed }
+

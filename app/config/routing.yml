@@ -1,14 +1,23 @@
-application:
-    resource: "@ApplicationBundle/Resources/config/routing.yml"
-    prefix:   /Application
+chat:
+    resource: "@ChatBundle/Resources/config/routing.yml"
+    prefix:   /chat
 
+qanda_space:
+    resource: "@QandABundle/Resources/config/routing.yml"
+    prefix:   /qanda
+
+feedback:
+    resource: "@FeedbackBundle/Resources/config/routing.yml"
+    prefix:   /Feedback
+complaints:
+    resource: "@ComplaintsBundle/Resources/config/routing.yml"
+    prefix:   /Complaints
 admin:
     resource: "@AdminBundle/Resources/config/routing.yml"
     prefix:   /Admin
 blog:
     resource: "@BlogBundle/Resources/config/routing.yml"
     prefix:   /blog
-
 opportunityIndex:
     resource: "@OpportunityBundle/Resources/config/routing.yml"
     prefix:   /opportunity
@@ -24,3 +33,6 @@ contract:
 mgilet_notification:
     resource: "@MgiletNotificationBundle/Controller/"
     prefix:   /notifications
+fos_message:
+    resource: "@FOSMessageBundle/Resources/config/routing.xml"
+    prefix: /optional_routing_prefix

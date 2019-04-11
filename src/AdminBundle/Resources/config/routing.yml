@@ -25,3 +25,6 @@ Admin_PaymentsBlogList:
 Admin_PaymentsBlogListAccept:
     path:     /AcceptPayment/{id}/{idpayment}
     defaults: { _controller: AdminBundle:AdminBlogProfits:AcceptPayment }
+Admin_Redirection:
+    path:     /Verify
+    defaults: { _controller: AdminBundle:Security:redirect }

@@ -197,6 +197,23 @@ class BlogPostsRepository extends EntityRepository
         return $stmt->fetch();
 
     }
+    public function Allviews($id)
+    {
+        $conn = $this->getEntityManager()
+            ->getConnection();
+        $sql = " SELECT
+      SUM(blogposts.views)
+      FROM
+      blogposts WHERE Author_id=".$id;
+
+        try {
+            $stmt = $conn->prepare($sql);
+        } catch (DBALException $e) {
+        }
+        $stmt->execute();
+        return $stmt->fetch();
+
+    }
     public function findByAuthor($page = 1, $max = 15,$id)
     {
         $dql = $this->createQueryBuilder('blogpost')->where("blogpost.author =$id");
@@ -249,6 +266,14 @@ class BlogPostsRepository extends EntityRepository
         return $stmt->fetch();
 
 
+    }
+    public function Suggest($cat,$id)
+    {
+        $dql = $this->createQueryBuilder('blogpost')->where("blogpost.postType ="."'". $cat."'")->andwhere('blogpost.author!='.$id);
+        $dql->orderBy('blogpost.postLikesCount', 'DESC');
+        $query = $dql->getQuery();
+        $query->setMaxResults(10);
+        return $query->getResult();
     }
 
 }
