@@ -23,7 +23,8 @@ class AppKernel extends Kernel
             new Tiloweb\PaginationBundle\TilowebPaginationBundle(),
             new AdminBundle\AdminBundle(),
             new ContractBundle\ContractBundle(),
-            new Mgilet\NotificationBundle\MgiletNotificationBundle()
+            new Mgilet\NotificationBundle\MgiletNotificationBundle(),
+            new ApplicationBundle\ApplicationBundle(),
         ];
 
         if (in_array($this->getEnvironment(), ['dev', 'test'], true)) {

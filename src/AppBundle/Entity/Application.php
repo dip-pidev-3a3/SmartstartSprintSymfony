@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * Application
  *
  * @ORM\Table(name="application", indexes={@ORM\Index(name="id_opportunity", columns={"id_opportunity"}), @ORM\Index(name="id_freelancer", columns={"id_freelancer"})})
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="ApplicationBundle\Repository\ApplicationRepository")
  */
 class Application
 {
@@ -47,6 +47,10 @@ class Application
      * })
      */
     private $idFreelancer;
+
+    /**
+     * Application constructor.
+     */
 
 
     /**
@@ -92,12 +96,14 @@ class Application
      *
      * @return Application
      */
-    public function setIdOpportunity(\AppBundle\Entity\Opportunity $idOpportunity = null)
+    public function setIdOpportunity(\AppBundle\Entity\Opportunity $idOpportunity=null )
     {
         $this->idOpportunity = $idOpportunity;
-    
-        return $this;
+
+     return $this;
     }
+    
+
 
     /**
      * Get idOpportunity
@@ -116,11 +122,11 @@ class Application
      *
      * @return Application
      */
-    public function setIdFreelancer(\AppBundle\Entity\FosUser $idFreelancer = null)
+    public function setIdFreelancer(\AppBundle\Entity\FosUser $idFreelancer=null )
     {
         $this->idFreelancer = $idFreelancer;
     
-        return $this;
+    return $this;
     }
 
     /**
