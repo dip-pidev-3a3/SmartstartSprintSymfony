@@ -29,7 +29,10 @@ class BlogPostsController extends Controller
         $form=$this->createForm(BlogpostsType::class,$Blogposts);
         $form=$form->handleRequest($request);
         if($form->isValid())
-        { $notif=$manager->createNotification('Blog Added', 'Some random text', 'https://google.fr/');
+        { $manager = $this->get('mgilet.notification');
+            $notif = $manager->createNotification('Hello world!');
+            $notif->setMessage('This a notification.');
+            $notif->setLink('https://symfony.com/');
             $manager->addNotification(array($this->getUser()), $notif, true);
             $em=$this->getDoctrine()->getManager();
             $user = $this->container->get('security.token_storage')->getToken()->getUser();
@@ -112,16 +115,7 @@ class BlogPostsController extends Controller
         $popular=$this->getDoctrine()->getRepository(Blogposts::class)->findMostPopularPosts(10);
         $author=$this->getDoctrine()->getRepository(Blogposts::class)->findmostpopularAuthor();
         if($form->isValid())
-        { $manager = $this->get('mgilet.notification');
-            $notif = $manager->createNotification('Hello world !');
-            $notif->setMessage('This a notification.');
-            $notif->setLink('http://symfony.com/');
-            // or the one-line method :
-            // $manager->createNotification('Notification subject','Some random text','http://google.fr');
-
-            // you can add a notification to a list of entities
-            // the third parameter ``$flush`` allows you to directly flush the entities
-            $manager->addNotification(array($this->getUser()), $notif, true);
+        {
             $file=$Blogposts->getImage();
             $fileName=md5(uniqid()).'.'.$file->guessExtension();
             $file->move($this->getParameter('image_directory'),$fileName);
