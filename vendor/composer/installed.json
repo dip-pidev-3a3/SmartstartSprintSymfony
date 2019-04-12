@@ -2937,6 +2937,120 @@
         "description": "A polyfill for getallheaders."
     },
     {
+        "name": "rollerworks/search",
+        "version": "v1.2.1",
+        "version_normalized": "1.2.1.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/rollerworks/search-core.git",
+            "reference": "7cc6d43be96eaf12935041eae012e7be3dd39119"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/rollerworks/search-core/zipball/7cc6d43be96eaf12935041eae012e7be3dd39119",
+            "reference": "7cc6d43be96eaf12935041eae012e7be3dd39119",
+            "shasum": ""
+        },
+        "require": {
+            "doctrine/lexer": "^1.0.1",
+            "php": ">=5.4",
+            "seld/jsonlint": "^1.3.1",
+            "symfony/intl": "~2.3|~3.0",
+            "symfony/options-resolver": "~2.8|~3.0",
+            "symfony/property-access": "~2.3|~3.0"
+        },
+        "require-dev": {
+            "phpspec/phpspec": "^2.2.1",
+            "sllh/php-cs-fixer-styleci-bridge": "^2.0",
+            "symfony/phpunit-bridge": "~2.8|~3.0"
+        },
+        "time": "2016-12-01T11:07:21+00:00",
+        "type": "library",
+        "extra": {
+            "branch-alias": {
+                "dev-master": "1.2-dev"
+            }
+        },
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "Rollerworks\\Component\\Search\\": "src/"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Sebastiaan Stok",
+                "email": "s.stok@rollercapes.net"
+            },
+            {
+                "name": "Community contributions",
+                "homepage": "https://github.com/Rollerworks/RollerworksSearch/contributors"
+            }
+        ],
+        "description": "RollerworksSearch provides you with a powerful search system",
+        "homepage": "https://rollerworks.github.io/",
+        "keywords": [
+            "filter",
+            "rollerworks",
+            "search"
+        ]
+    },
+    {
+        "name": "seld/jsonlint",
+        "version": "1.7.1",
+        "version_normalized": "1.7.1.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/Seldaek/jsonlint.git",
+            "reference": "d15f59a67ff805a44c50ea0516d2341740f81a38"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/Seldaek/jsonlint/zipball/d15f59a67ff805a44c50ea0516d2341740f81a38",
+            "reference": "d15f59a67ff805a44c50ea0516d2341740f81a38",
+            "shasum": ""
+        },
+        "require": {
+            "php": "^5.3 || ^7.0"
+        },
+        "require-dev": {
+            "phpunit/phpunit": "^4.8.35 || ^5.7 || ^6.0"
+        },
+        "time": "2018-01-24T12:46:19+00:00",
+        "bin": [
+            "bin/jsonlint"
+        ],
+        "type": "library",
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "Seld\\JsonLint\\": "src/Seld/JsonLint/"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Jordi Boggiano",
+                "email": "j.boggiano@seld.be",
+                "homepage": "http://seld.be"
+            }
+        ],
+        "description": "JSON Linter",
+        "keywords": [
+            "json",
+            "linter",
+            "parser",
+            "validator"
+        ]
+    },
+    {
         "name": "sensio/distribution-bundle",
         "version": "v5.0.24",
         "version_normalized": "5.0.24.0",
