@@ -128,13 +128,13 @@
                                                                     </div>
                                                                     <div class="modal-footer">
                                                                         <button type="button" class="btn btn-info" data-dismiss="modal">Cancel</button>
-                                                                        <a href="{{ path('blog_deleteComment',{('commentId'):comments.commentId}) }}" type="button" class="btn btn-danger"><label style="color:white;">Delete</label></a>
+                                                                        <a href="{{ path('blog_deleteComment',{('commentId'):comments.commentId}) }}" type="button" class="btn btn-danger" onclick="return confirm('Are you sure')"><label style="color:white;">Delete</label></a>
                                                                     </div>
                                                                 </div>
                                                             </div>
                                                         </div>
                                                         <div class="right">
-                                                        <a href="#myModal" class="delete" data-toggle="modal"><i class="fas fa-trash-alt" data-toggle="tooltip" title="Delete"></i></a>
+                                                        <a href="{{ path('blog_deleteComment',{('commentId'):comments.commentId}) }}" class="delete" onclick="return confirm('Are you sure')"><i class="fas fa-trash-alt" data-toggle="tooltip" title="Delete"></i></a>
 
                                                         <a href="#editEmployeeModal" class="edit" data-toggle="modal"><i class="fas fa-edit" data-toggle="tooltip" title="Edit"></i></a>
                                                         </div>

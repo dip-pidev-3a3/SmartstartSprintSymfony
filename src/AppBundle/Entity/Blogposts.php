@@ -31,6 +31,7 @@ class Blogposts implements NotifiableInterface,ViewCountable
 
     /**
      * @ORM\OneToMany(targetEntity="ViewCounter", mappedBy="article")
+     *
      */
     protected $viewCounters;
 

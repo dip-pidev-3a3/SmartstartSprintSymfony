@@ -119,6 +119,8 @@ class Opportunity
     }
 
 
+
+
     /**
      * Get idOpp
      *
@@ -412,4 +414,8 @@ class Opportunity
     {
         return $this->freelancerid;
     }
+
+
+
+
 }

@@ -60,9 +60,9 @@
                         <br>
 
                 {% if profit==null %}
-                        <center><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
+                        <center><a href="{{ path('blog_Profits') }}" type="button" class="btn btn-primary">
                     <i class="fas fa-money-check-alt">  Ask For Your Money</i>
-                        </button></center>
+                        </a></center>
 
                         <!-- The Modal -->
                         <div class="modal fade" id="myModal">
@@ -266,7 +266,7 @@
 
                                                 <div class="footer">
                                                     <center>
-                                                    <a href="{{ path('blog_delete',{('postId'):blogposts.postId}) }}" class="delete"><i class="fas fa-trash-alt" data-toggle="tooltip" title="Delete" style="color: darkred"></i></a>
+                                                    <a href="{{ path('blog_delete',{('postId'):blogposts.postId}) }}" class="delete" onclick="return confirm('Are you sure')"><i class="fas fa-trash-alt" data-toggle="tooltip" title="Delete" style="color: darkred"></i></a>
 
                                                     <a href="{{ path('Update_BlogPost',{('postId'):blogposts.postId}) }}"><i class="fas fa-edit" data-toggle="tooltip" title="Edit"style="color: green"></i></a>
                                                     </center> </div>
