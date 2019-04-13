@@ -36,10 +36,10 @@
         <div class="sidebar-wrapper">
             <div class="logo">
                 <a href="javascript:void(0)" class="simple-text logo-mini">
-                    CT
+
                 </a>
                 <a href="javascript:void(0)" class="simple-text logo-normal">
-                    Creative Tim
+                    {{ app.user.username }}
                 </a>
             </div>
             <ul class="nav">
@@ -182,9 +182,6 @@
                             <ul class="dropdown-menu dropdown-navbar">
                                 <li class="nav-link">
                                     <a href="javascript:void(0)" class="nav-item dropdown-item">Profile</a>
-                                </li>
-                                <li class="nav-link">
-                                    <a href="javascript:void(0)" class="nav-item dropdown-item">Settings</a>
                                 </li>
                                 <li class="dropdown-divider"></li>
                                 <li class="nav-link">
@@ -388,7 +385,9 @@
 
         });
     </script>
+
     <script>
+        //reserch
         $(document).ready(function(){
             $("#myInput").on("keyup", function() {
                 var value = $(this).val().toLowerCase();

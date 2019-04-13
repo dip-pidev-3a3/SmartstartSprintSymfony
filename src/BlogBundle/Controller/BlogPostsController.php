@@ -126,6 +126,7 @@ class BlogPostsController extends Controller
             $Blogposts->setAuthor($user);
             $Blogposts->setPostDate($D);
             $Blogposts->setImage($fileName);
+            $Blogposts->setPostStatus("Posted");
             $Blogposts->setPostLikesCount(0);
             $em->flush();
             return $this->redirect($request->getUri());
@@ -147,6 +148,31 @@ class BlogPostsController extends Controller
 
 
     }
+    /*public function addtodraftAction()
+    { $Blogposts=new Blogposts();
+        $D=new \DateTime();
+        $form=$this->createForm(BlogpostsType::class,$Blogposts);
+        $form=$form->handleRequest($request);
+        if($form->isValid())
+        {
+            $file=$Blogposts->getImage();
+            $fileName=md5(uniqid()).'.'.$file->guessExtension();
+            $file->move($this->getParameter('image_directory'),$fileName);
+            $em=$this->getDoctrine()->getManager();
+            $user = $this->container->get('security.token_storage')->getToken()->getUser();
+            $em->persist($Blogposts);
+
+            $Blogposts->setAuthor($user);
+            $Blogposts->setPostDate($D);
+            $Blogposts->setImage($fileName);
+            $Blogposts->setPostStatus("Posted");
+            $Blogposts->setPostLikesCount(0);
+            $em->flush();
+            return $this->redirect($request->getUri());
+
+        }
+
+    }*/
     public function DeleteAction($postId)
     {
         $em=$this->getDoctrine()->getManager();
