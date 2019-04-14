@@ -532,6 +532,29 @@
             }
         }
     </script>
+    <script>
+        $(function(){
+            $('#posti').keyup(function(){
+                var charsno = $(this).val().length;
+                $('#char_namb').html("500 : " + charsno);
+            });
+        });
+        function countTextAreaChar(txtarea, l){
+            var len = $(txtarea).val().length;
+            if (len > l) $(txtarea).val($(txtarea).val().slice(0, l));
+            else $('#charNum').text(l - len);
+        }
+        function countTextAreaCharS(txtarea, l){
+            var len = $(txtarea).val().length;
+            if (len > l) $(txtarea).val($(txtarea).val().slice(0, l));
+            else $('#charNumS').text(l - len);
+        }
+        function countTextAreaCharT(txtarea, l){
+            var len = $(txtarea).val().length;
+            if (len > l) $(txtarea).val($(txtarea).val().slice(0, l));
+            else $('#charNumT').text(l - len);
+        }
+    </script>
 
 
 
