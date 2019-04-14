@@ -22,10 +22,12 @@
                     <div class="card no-border">
                         <div id="chat" class="conv-form-wrapper">
                             <form action="" method="GET" class="hidden">
+
                                 <select name="hello" data-callback="storeState" data-conv-question="Hi i am a bot made by SmartStart How Can i Help you ?">
                                     <option value="info">I want some informations about this website</option>
                                     <option value="free">Is this website free?</option>
                                 </select>
+
                                 <div data-conv-fork="hello">
                                     <div data-conv-case="info">
                                         <input type="text" data-conv-question="Okay Let's do this." data-no-answer="true">
@@ -34,20 +36,42 @@
                                         <input type="text" data-conv-question="The mission of this website is finding jobs for freelancers" data-no-answer="true">
                                         <input type="text" data-conv-question="So it's a win win" data-no-answer="true">
                                     </div>
+
                                     <div data-conv-case="free">
                                         <select name="thought" data-conv-question="Of course it's free would you like to signup ?">
-                                            <option value="yes">Yes</option>
+                                            <option value="yes" data-callback="google">Yes</option>
                                             <option value="no">No..</option>
                                         </select>
+
+
+                                        <div data-conv-fork="thought">
+                                        <div data-conv-case="yes" data-callback="google">
+                                            <input type="text" data-conv-question="Okay Let's do this." data-no-answer="true">
+                                            <input type="text" data-conv-question="It's easy just click on this link" data-no-answer="true">
+                                            <input  type="text" data-conv-question="Go for it" >
+                                        </div>
+
+                                            <div data-conv-case="no">
+                                                <select name="thought" data-conv-question="Okaay no problem so would you like to see our blog  ?">
+                                                    <option value="yes" data-callback="bing">Yes</option>
+                                                    <option value="no">No..</option>
+                                                </select>
+                                            </div>
+                                    </div>
                                     </div>
                                 </div>
-                                <select name="programmer" data-callback="storeState" data-conv-question="So, are you a freelancer? (this question will fork the conversation based on your answer)">
+                                <select name="programmer" data-callback="storeState" data-conv-question="So, are you a freelancer?">
                                     <option value="yes">Yes</option>
-                                    <select name="hello" data-callback="storeState" data-conv-question="Okay So what is your problem ?">
+                                    <option value="no">No</option>
+                                </select>
+                                <div data-conv-fork="programmer">
+
+                                    <div data-conv-case="yes">
+                                    <select name="free" data-callback="storeState" data-conv-question="Okay So what is your problem ?">
                                         <option value="money">I want to make money</option>
                                         <option value="blogging">I want to start blogging</option>
                                     </select>
-                                    <div data-conv-fork="programmer">
+                                    <div data-conv-fork="free">
                                         <div data-conv-case="money">
                                             <input type="text" data-conv-question="Okay Let's do this." data-no-answer="true">
                                             <input type="text" data-conv-question="So if you want to make money it's easy just follow these 3 steps" data-no-answer="true">
@@ -57,11 +81,14 @@
                                         </div>
                                         <div data-conv-case="blogging">
                                             <select name="thought" data-conv-question="Of course it's free would you like to signup ?">
-                                                <option value="yes">Yes</option>
+                                                <option value="yes" data-callback="google">Yes</option>
                                                 <option value="no">No..</option>
                                             </select>
                                         </div>
                                     </div>
+                                    </div>
+                                </div>
+
 
                                     <option value="no">No</option>
                                 </select>
@@ -78,16 +105,8 @@
                                 </div>
                                 <input type="text" data-conv-question="So type your e mail so that we can keep you updated :" data-no-answer="true">
                                 <input data-conv-question="Type in your e-mail" data-pattern="^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$" id="email" type="email" name="email" required placeholder="What's your e-mail?">
-                                <input data-conv-question="Now tell me a secret (like a password)" type="password" data-minlength="6" id="senha" name="password" required placeholder="password">
-                                <select data-conv-question="Selects also support callback functions. For example, try one of these:">
-                                    <option value="google" data-callback="google">Google</option>
-                                    <option value="bing" data-callback="bing">Bing</option>
-                                </select>
-                                <select name="callbackTest" data-conv-question="You can do some cool things with callback functions. Want to rollback to the 'programmer' question before?">
-                                    <option value="yes" data-callback="rollback">Yes</option>
-                                    <option value="no" data-callback="restore">No</option>
-                                </select>
-                                <select data-conv-question="This is it! If you like me, consider donating! If you need support, contact me. When the form gets to the end, the plugin submits it normally, like you had filled it." id="">
+
+                                <select data-conv-question="This is it! If you like me, consider Signing up ! there is a lot of good stuff for you." id="">
                                     <option value="">Awesome!</option>
                                 </select>
                             </form>

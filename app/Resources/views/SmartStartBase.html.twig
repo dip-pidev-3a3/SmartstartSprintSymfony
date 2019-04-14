@@ -59,7 +59,7 @@
         <link rel="stylesheet" type="text/css" href="{{ asset('BotAssets/PopupStyles.css') }}">
         <link href="{{ asset('assets/css/googleapis.css') }}" rel="stylesheet">
         <!--===============================================================================================-->
-        <link rel="icon" type="image/png" href="{{ asset('assets/images/icons/favicon.png') }}"/>
+        <link rel="icon" type="image/png" size="" href="{{ asset('assets/images/icons/fileStart.png') }}"/>
         <!--===============================================================================================-->
         <link rel="stylesheet" type="text/css" href="{{ asset('assets/vendor/bootstrap/css/bootstrap.min.css') }}">
         <!--===============================================================================================-->
@@ -106,7 +106,7 @@
 
                 <div class="logo">
                     <a href="">
-                        <img src="{{ asset('assets/images/icons/logo.png') }}" alt="IMG-LOGO" data-logofixed="{{ asset('assets/images/icons/logo2.png') }}">
+                        <img src="{{ asset('assets/images/icons/logo.png') }}" alt="IMG-LOGO" data-logofixed="{{ asset('assets/images/icons/fileStart.png') }}" width="100" height="100">
                     </a>
                 </div>
 
@@ -464,11 +464,11 @@
 
     <script>
         function google(stateWrapper, ready) {
-            window.open("https://google.com");
+            window.open('/login');
             ready();
         }
         function bing(stateWrapper, ready) {
-            window.open("https://bing.com");
+            window.open('/blog/listposts');
             ready();
         }
         var rollbackTo = false;
