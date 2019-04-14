@@ -37,4 +37,13 @@ class DefaultController extends Controller
                 return $this->redirectToRoute('homepage');
         }
     }
+    /**
+     * @Route("/bot", name="bot")
+     */
+
+    public function botAction()
+    {
+
+        return $this->render('Bot.html.twig');
+    }
 }
