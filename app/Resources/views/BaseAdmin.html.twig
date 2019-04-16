@@ -36,10 +36,10 @@
         <div class="sidebar-wrapper">
             <div class="logo">
                 <a href="javascript:void(0)" class="simple-text logo-mini">
-                    CT
+
                 </a>
                 <a href="javascript:void(0)" class="simple-text logo-normal">
-                    Creative Tim
+                    {{ app.user.username }}
                 </a>
             </div>
             <ul class="nav">
@@ -104,6 +104,18 @@
                     <a href="./rtl.html">
                         <i class="tim-icons icon-world"></i>
                         <p>RTL Support</p>
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ path('qanda_Redirection') }}">
+                        <i class="tim-icons icon-notes"></i>
+                        <p>Questions signaled</p>
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ path('qanda_Stats') }}">
+                        <i class="tim-icons icon-notes"></i>
+                        <p>Questions STAT</p>
                     </a>
                 </li>
                 <li class="active-pro">
@@ -183,9 +195,6 @@
                                 <li class="nav-link">
                                     <a href="javascript:void(0)" class="nav-item dropdown-item">Profile</a>
                                 </li>
-                                <li class="nav-link">
-                                    <a href="javascript:void(0)" class="nav-item dropdown-item">Settings</a>
-                                </li>
                                 <li class="dropdown-divider"></li>
                                 <li class="nav-link">
                                     <a href="{{  path('fos_user_security_logout')}}" class="nav-item dropdown-item">Log out</a>
@@ -204,7 +213,7 @@
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <input type="text" class="form-control" id="inlineFormInputGroup" placeholder="SEARCH">
+                        <input type="text" class="form-control" id="myInput" placeholder="SEARCH">
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <i class="tim-icons icon-simple-remove"></i>
                         </button>
@@ -386,6 +395,18 @@
             // Javascript method's body can be found in assets/js/demos.js
             demo.initDashboardPageCharts();
 
+        });
+    </script>
+
+    <script>
+        //reserch
+        $(document).ready(function(){
+            $("#myInput").on("keyup", function() {
+                var value = $(this).val().toLowerCase();
+                $("#myTable tr").filter(function() {
+                    $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+                });
+            });
         });
     </script>
 {% endblock %}

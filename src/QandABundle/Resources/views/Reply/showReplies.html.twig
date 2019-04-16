@@ -1,0 +1,40 @@
+{% extends "home.html.twig" %}
+{% block title %}list my replies{% endblock %}
+{% block body %}
+    <!-- Title Page -->
+    <section class="bg-title-page flex-c-m p-t-160 p-b-80 p-l-15 p-r-15" style="background-image: url({{ asset('assets/images/blog-banner.png') }});">
+        <h2 class="tit6 t-center">
+        </h2>
+    </section>
+    <section>
+        <center>
+
+
+            <table border="2">
+                <h1> List my replies </h1>
+
+                <tr> <th>id  </th><th>content  </th><th>datereply  </th><th>theanswer</th><th> user </th><th> idQ </th><th> question </th></tr>
+
+                {% for m in rep  %}
+                    <tr>
+                        <td> {{ m.id }} </td>
+                        <td> {{ m.content }} </td>
+                        <td> {{ m.replydate|date }} </td>
+                        <td> {{ m.theanswer|date }} </td>
+                        <td> {{ m.idu.id }} </td>
+                        <td> {{ m.idq.id }} </td>
+                        <td> {{ m.idq.question }} </td>
+                        <td> <a href="{{ path('update_reply',{'id':m.id}) }}"> <button> update </button> </a> </td>
+                        <td> <a href="{{ path('delete_reply',{'id':m.id}) }}"> <button> delete </button> </a> </td>
+                    </tr>
+                {% endfor %}
+
+
+            </table>
+
+            <a href="{{ path('qand_a_homepage' ) }}" > <button>home</button> </a>
+
+
+        </center>
+    </section>
+{% endblock %}

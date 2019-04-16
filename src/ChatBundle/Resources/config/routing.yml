@@ -1,3 +1,13 @@
 chat_homepage:
     path:     /mySpace
     defaults: { _controller: ChatBundle:Default:index }
+addMsg:
+    path:     /add/{idT}
+    defaults: { _controller: ChatBundle:Default:send }
+initMsg:
+    path:     /init
+    defaults: { _controller: ChatBundle:Default:getInitMessages }
+changeDisc:
+    path:     /selectedThread
+    defaults: { _controller: ChatBundle:Default:change }
+

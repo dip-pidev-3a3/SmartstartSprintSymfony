@@ -10,6 +10,7 @@ use AppBundle\Entity\QVotes;
 use QandABundle\Form\QCloudsType;
 use QandABundle\Form\QReplyType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 
 class ReplyController extends Controller
@@ -18,42 +19,8 @@ class ReplyController extends Controller
         $em=$this->getDoctrine()->getManager();
         $quest=$em->getRepository(QQuestions::class)->find($idq);
 
-        $reply=new QReply();
-        $cloud=new QClouds();
-
-        $fr=$this->createForm(QReplyType::class,$reply);
-        $fc=$this->createForm(QCloudsType::class,$cloud);
-
-        $fr=$fr->handleRequest($request);
-        $fc=$fc->handleRequest($request);
-
-       if( $fr->isValid()){
-           if( $fc->isValid()){
-               $cloud->setPosted(new \DateTime('now'));
-               $em->persist($cloud);
-               $reply->setIdc($cloud);
-           }
-
-           $reply->setIdq($quest);
-           $reply->setIdu($this->container->get('security.token_storage')->getToken()->getUser());
-           $reply->setReplydate(new \DateTime('now'));
-
-           $em->persist($reply);
-           $em->flush();
-           // delete this line after testing the notification
-           // =========notify the question'owner ==========
-         /*  $notif=new QNotification();
-           $notif->setDeclanched(new \DateTime('now'));
-           $notif->setIdu($quest->getIdu());
-           $notif->setType(2);
-           $notif->getIdtype($reply->getId());
-           $em->persist($notif);
-           $em->flush(); */
-           // ===============                       ==========
-       }
        $responses=$em->getRepository(QReply::class)->findBy(['idq'=>$idq]);
-    return $this->render('@QandA/Reply/replyQuestion.html.twig',array('fr'=>$fr->createView()
-    ,'cl'=>$fc->createView(),'responses'=>$responses,'quest'=>$quest));
+    return $this->render('@QandA/Reply/showQuestion.html.twig',array('responses'=>$responses,'quest'=>$quest));
 
     }
 
@@ -71,13 +38,13 @@ if($reply->getIdc()==null) {
         $fc=$fc->handleRequest($request);
 
         if($fr->isValid()){
-            if($fc->isValid()){
+           /* if($fc->isValid()){
                 if($cloud->getPosted()==null) {
                     $cloud->setPosted(new \DateTime('now'));
                     $em->persist($cloud);
                 }
                 $reply->setIdc($cloud);
-            }
+            }*/
             $em->flush();
             return $this->redirectToRoute('reply_question',array('idq'=>$reply->getIdq()->getId()));
         }
@@ -120,8 +87,6 @@ $quest=$reply->getIdq()->getId();
         {
             $vote=new QVotes();
             $em->getRepository('AppBundle:QReply')-> upVote($idr);
-
-            $user = $this->container->get('security.token_storage')->getToken()->getUser();
             $vote->setType(1);
             $vote->setIdu($user);
             $vote->setIdr($reply);
@@ -136,7 +101,7 @@ $quest=$reply->getIdq()->getId();
             $em->flush();
             }
         }
-        return $this->json(['code'=>200, 'message'=>'voteup', 'votes'=>$reply->getScore()],200);
+        return new JsonResponse(['votes' => $reply->getScore()]);
     }
 
     public function downVoteAction($idr){
@@ -149,7 +114,6 @@ $quest=$reply->getIdq()->getId();
         {
             $vote=new QVotes();
             $em->getRepository('AppBundle:QReply')-> downVote($idr);
-            $user = $this->container->get('security.token_storage')->getToken()->getUser();
             $vote->setType(2);
             $vote->setIdu($user);
             $vote->setIdr($reply);
@@ -164,6 +128,27 @@ $quest=$reply->getIdq()->getId();
                 $em->flush();
             }
         }
-        return $this->json(array('votes'=>$reply->getScore()));
+        return new JsonResponse(['votes' => $reply->getScore()]);
+
+    }
+
+    public function signalReplyAction($id){
+        $em=$this->getDoctrine()->getManager();
+        $user=$this->container->get('security.token_storage')->getToken()->getUser();
+        $reply=$this->getDoctrine()->getRepository(QReply::class)->find($id);
+        $hasSignaled=$this->getDoctrine()->getRepository(QVotes::class)->findOneBy(['idr' => $id,'type'=>3,'idu'=>$user->getId()]);
+        if($hasSignaled==null)
+        {
+            $vote=new QVotes();
+            $vote->setType(3);
+            $vote->setIdu($user);
+            $vote->setIdr($reply);
+            $reply->incrementSignal();
+            $em->persist($vote);
+            $em->persist($reply);
+            $em->flush();
+        }
+
+        return $this->redirectToRoute('reply_question',array('idq'=>$reply->getIdq()->getId()));
     }
 }

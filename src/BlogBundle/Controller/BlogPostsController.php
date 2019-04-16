@@ -29,7 +29,10 @@ class BlogPostsController extends Controller
         $form=$this->createForm(ApplicationType::class,$Blogposts);
         $form=$form->handleRequest($request);
         if($form->isValid())
-        { $notif=$manager->createNotification('Blog Added', 'Some random text', 'https://google.fr/');
+        { $manager = $this->get('mgilet.notification');
+            $notif = $manager->createNotification('Hello world!');
+            $notif->setMessage('This a notification.');
+            $notif->setLink('https://symfony.com/');
             $manager->addNotification(array($this->getUser()), $notif, true);
             $em=$this->getDoctrine()->getManager();
             $user = $this->container->get('security.token_storage')->getToken()->getUser();
@@ -110,29 +113,27 @@ class BlogPostsController extends Controller
         $form=$this->createForm(ApplicationType::class,$Blogposts);
         $form=$form->handleRequest($request);
         $popular=$this->getDoctrine()->getRepository(Blogposts::class)->findMostPopularPosts(10);
-        $author=$this->getDoctrine()->getRepository(Blogposts::class)->findmostpopularAuthor();
         if($form->isValid())
-        { $manager = $this->get('mgilet.notification');
-            $notif = $manager->createNotification('Hello world !');
-            $notif->setMessage('This a notification.');
-            $notif->setLink('http://symfony.com/');
-            // or the one-line method :
-            // $manager->createNotification('Notification subject','Some random text','http://google.fr');
-
-            // you can add a notification to a list of entities
-            // the third parameter ``$flush`` allows you to directly flush the entities
-            $manager->addNotification(array($this->getUser()), $notif, true);
+        {
             $file=$Blogposts->getImage();
             $fileName=md5(uniqid()).'.'.$file->guessExtension();
             $file->move($this->getParameter('image_directory'),$fileName);
             $em=$this->getDoctrine()->getManager();
             $user = $this->container->get('security.token_storage')->getToken()->getUser();
             $em->persist($Blogposts);
+            $manager = $this->get('mgilet.notification');
+            $notif = $manager->createNotification('Post Ajouté Avec succes');
+            $notif->setMessage('Vous venez de bien avoir ajouté la publication dont le titre est :'.$Blogposts->getArticleTitle());
+            $notif->setLink('https://symfony.com/');
+
+
 
             $Blogposts->setAuthor($user);
             $Blogposts->setPostDate($D);
             $Blogposts->setImage($fileName);
+            $Blogposts->setPostStatus("Posted");
             $Blogposts->setPostLikesCount(0);
+            $manager->addNotification(array($user), $notif, true);
             $em->flush();
             return $this->redirect($request->getUri());
 
@@ -153,6 +154,31 @@ class BlogPostsController extends Controller
 
 
     }
+    /*public function addtodraftAction()
+    { $Blogposts=new Blogposts();
+        $D=new \DateTime();
+        $form=$this->createForm(BlogpostsType::class,$Blogposts);
+        $form=$form->handleRequest($request);
+        if($form->isValid())
+        {
+            $file=$Blogposts->getImage();
+            $fileName=md5(uniqid()).'.'.$file->guessExtension();
+            $file->move($this->getParameter('image_directory'),$fileName);
+            $em=$this->getDoctrine()->getManager();
+            $user = $this->container->get('security.token_storage')->getToken()->getUser();
+            $em->persist($Blogposts);
+
+            $Blogposts->setAuthor($user);
+            $Blogposts->setPostDate($D);
+            $Blogposts->setImage($fileName);
+            $Blogposts->setPostStatus("Posted");
+            $Blogposts->setPostLikesCount(0);
+            $em->flush();
+            return $this->redirect($request->getUri());
+
+        }
+
+    }*/
     public function DeleteAction($postId)
     {
         $em=$this->getDoctrine()->getManager();

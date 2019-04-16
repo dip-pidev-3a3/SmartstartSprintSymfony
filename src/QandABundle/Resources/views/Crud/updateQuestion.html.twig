@@ -1,25 +1,28 @@
-{% extends "SmartStartBase.html.twig" %}
+{% extends "home.html.twig" %}
 {% block content %}
-    <div class="content-wrapper">
+<div class="content-wrapper">
         <section class="content-header">
-            <h1>
+            <h2>
                 Update this question
-            </h1>
+            </h2>
         </section>
         {{ form_start(form) }}
         <section class="content">
             <div class="box">
                 <div class="box-header with-border">
-                    <h3 class="box-title"> {{ form_widget(form.question) }} </h3>
-                    <div class="box-tools pull-right"><button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="Collapse">
-                            {{ form_widget(form.Add) }}</button>
-                    </div>
+                    <h3 class="box-title"> question </h3>
+                    {{ form_widget(form.question) }}
                 </div>
                 <div class="box-body">
+                    <h3 class="box-title"> description </h3>
                     {{ form_widget(form.description) }}
                 </div>
                 <div class="box-footer">
+                    <h3 class="box-title"> subject </h3>
                     {{ form_widget(form.subject) }}
+                </div>
+                <div class="box-tools pull-right"><button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="Collapse">
+                        {{ form_widget(form.Add) }}</button>
                 </div>
             </div>
         </section>

@@ -1,0 +1,60 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Opportunity</h1>
+
+    <table>
+        <tbody>
+            <tr>
+                <th>Idopp</th>
+                <td>{{ opportunity.idOpp }}</td>
+            </tr>
+            <tr>
+                <th>Jobtitle</th>
+                <td>{{ opportunity.jobTitle }}</td>
+            </tr>
+            <tr>
+                <th>Jobcategory</th>
+                <td>{{ opportunity.jobCategory }}</td>
+            </tr>
+            <tr>
+                <th>Jobdescription</th>
+                <td>{{ opportunity.jobDescription }}</td>
+            </tr>
+            <tr>
+                <th>Budget</th>
+                <td>{{ opportunity.budget }}</td>
+            </tr>
+            <tr>
+                <th>Jobdraft</th>
+                <td>{{ opportunity.jobDraft }}</td>
+            </tr>
+            <tr>
+                <th>Jobduration</th>
+                <td>{{ opportunity.jobDuration }}</td>
+            </tr>
+            <tr>
+                <th>Expirydate</th>
+                <td>{% if opportunity.expiryDate %}{{ opportunity.expiryDate|date('Y-m-d') }}{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Addeddate</th>
+                <td>{% if opportunity.addedDate %}{{ opportunity.addedDate|date('Y-m-d') }}{% endif %}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('opportunity_index') }}">Back to the list</a>
+        </li>
+        <li>
+            <a href="{{ path('opportunity_edit', { 'idOpp': opportunity.idOpp }) }}">Edit</a>
+        </li>
+        <li>
+            {{ form_start(delete_form) }}
+                <input type="submit" value="Delete">
+            {{ form_end(delete_form) }}
+        </li>
+    </ul>
+{% endblock %}

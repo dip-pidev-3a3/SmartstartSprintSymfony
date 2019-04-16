@@ -16,6 +16,7 @@ class DefaultController extends Controller
 {
     public function indexAction()
     {
+
         return $this->render('@Complaints/Default/index.html.twig');
     }
     public function addAction(Request $request)
@@ -53,12 +54,22 @@ class DefaultController extends Controller
         return $this->redirectToRoute('complaints_homepage');
 
     }
-    public function afficherAction()
+    public function afficherAction(Request $request)
     {
         $user=new FosUser();
         $user = $this->container->get('security.token_storage')->getToken()->getUser();
         $complaints = $this->getDoctrine()->getRepository(Complaints::class)->findBy(array('idUser' => $user->getId()));
-        return $this->render('@Complaints/Default/afficher.html.twig',array('con'=>$complaints));
+
+
+        $db = $this->getDoctrine()->getManager();
+        $payment = $db->getRepository(Complaints::class)->findByPage(
+            $request->query->getInt('page', 1),
+            3,$user->getId());
+
+
+
+        return $this->render('@Complaints/Default/afficher.html.twig',array('con'=>$payment));
+
     }
 
     public function removeAction($id)
@@ -68,5 +79,6 @@ class DefaultController extends Controller
         $em->remove($complaints);
         $em->flush();
         return $this->redirectToRoute('afficher_complaint');
+
     }
 }

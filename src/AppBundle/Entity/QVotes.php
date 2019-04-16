@@ -44,6 +44,15 @@ class QVotes
      * })
      */
     private $idr;
+    /**
+     * @var \QQuestions
+     *
+     * @ORM\ManyToOne(targetEntity="QQuestions")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="idQ", referencedColumnName="id")
+     * })
+     */
+    private $idq;
 
     /**
      * @var \FosUser
@@ -142,6 +151,29 @@ class QVotes
         return $this->idr;
     }
 
+    /**
+     * Set idq
+     *
+     * @param \AppBundle\Entity\QQuestions $idq
+     *
+     * @return QVotes
+     */
+    public function setIdq(\AppBundle\Entity\QQuestions $idq = null)
+    {
+        $this->idq = $idq;
+
+        return $this;
+    }
+
+    /**
+     * Get idq
+     *
+     * @return \AppBundle\Entity\QQuestions
+     */
+    public function getIdq()
+    {
+        return $this->idq;
+    }
     /**
      * Set idu
      *

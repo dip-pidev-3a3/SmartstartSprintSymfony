@@ -65,7 +65,12 @@ public function upVote($idr){
     }
 
     public function notifReplies($idu){
-        $query=$this->getEntityManager()->createQuery("SELECT r FROM AppBundle:QReply r,AppBundle:QNotification n WHERE r.id=n.idType AND n.type=2 AND n.idu='$idu' ORDER BY r.declanched DESC");
+        $query=$this->getEntityManager()->createQuery("SELECT r FROM AppBundle:QReply r,AppBundle:QNotification n WHERE r.id=n.idtype AND n.type=2 AND n.idu='$idu' ORDER BY r.declanched DESC");
+        return $query->getResult();
+
+    }
+    public function repliesNotViewed($idq){
+        $query=$this->getEntityManager()->createQuery("SELECT r FROM AppBundle:QReply r,AppBundle:QNotification n WHERE r.idq='$idq' AND r.id=n.idtype AND n.type=2 ORDER BY r.score DESC");
         return $query->getResult();
 
     }

@@ -1,0 +1,46 @@
+{
+    "name": "rollerworks/search",
+    "description": "RollerworksSearch provides you with a powerful search system",
+    "keywords": ["rollerworks", "filter", "search"],
+    "homepage": "https://rollerworks.github.io/",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Sebastiaan Stok",
+            "email": "s.stok@rollercapes.net"
+        },
+        {
+            "name": "Community contributions",
+            "homepage": "https://github.com/Rollerworks/RollerworksSearch/contributors"
+        }
+    ],
+    "require": {
+        "php": ">=5.4",
+        "symfony/options-resolver": "~2.8|~3.0",
+        "symfony/property-access": "~2.3|~3.0",
+        "symfony/intl": "~2.3|~3.0",
+        "seld/jsonlint": "^1.3.1",
+        "doctrine/lexer": "^1.0.1"
+    },
+    "require-dev": {
+        "symfony/phpunit-bridge": "~2.8|~3.0",
+        "phpspec/phpspec": "^2.2.1",
+        "sllh/php-cs-fixer-styleci-bridge": "^2.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Rollerworks\\Component\\Search\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Rollerworks\\Component\\Search\\Tests\\": "tests/"
+        }
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "1.2-dev"
+        }
+    }
+}

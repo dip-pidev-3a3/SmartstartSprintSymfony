@@ -13,4 +13,15 @@ public function NotViewedNotif($idu){
     return $query->getResult();
 
 }
+    public function setViewed($idr){
+        $qb = $this->createQueryBuilder('notif')
+            ->update()
+            ->set('notif.viwed', '?1')
+            ->where('notif.idtype=' . $idr)
+       // ->andWhere('notif.type= 2')
+        ->setParameters(1, new \DateTime());
+      //  $query=$this->getEntityManager()->createQuery("UPDATE AppBundle:QNotification q SET q.viwed='$now' WHERE q.idtype='$idr' AND q.type=2");
+
+    }
+
 }

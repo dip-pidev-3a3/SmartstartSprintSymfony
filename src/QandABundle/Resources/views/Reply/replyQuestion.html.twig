@@ -1,145 +1,216 @@
-{% extends "SmartStartBase.html.twig" %}
-        {% block body %}
-            <style>
-                .accordion {
-                    background-color: #eee;
-                    color: #444;
-                    cursor: pointer;
-                    padding: 18px;
-                    width: 100%;
-                    border: none;
-                    text-align: left;
-                    outline: none;
-                    font-size: 15px;
-                    transition: 0.4s;
-                }
+{% extends "home.html.twig" %}
+        {% block title %} reply a questipn {% endblock %}
 
-                .active, .accordion:hover {
-                    background-color: #ccc;
-                }
-
-                .panel {
-                    padding: 0 18px;
-                    display: none;
-                    background-color: white;
-                    overflow: hidden;
-                }
-            </style>
-            <section class="bg-title-page flex-c-m p-t-160 p-b-80 p-l-15 p-r-15" style="background-image: url({{ asset('assets/images/blog-banner.png') }});">
-
-
-            </section>
-
-
-            <!-- Content page -->
-            <section>
-
-            <div class="bread-crumb bo5-b p-t-17 p-b-17">
-
-
-                <div class="container">
-
-                    <a href="{{ path('blog_ListPosts') }}" class="txt27">
-                        Home
-                    </a>
-
-                    <span class="txt29 m-l-10 m-r-10">/</span>
-
-                    <a href="{{ path('blog_ListPosts') }}" class="txt27">
-                        BLOG
-                    </a>
-                </div>
-            </div>
-
-
-
+             {% block head %}
+             {% endblock %}
+                    {% block content %}
 
             <div class="container">
             <div class="content-wrapper">
-                <section class="content-header">
-                    <h1>
-                        reply this question
-                        <small> if you answer it you get bonus </small>
-                    </h1>
-                </section>
                 <section class="content">
-                    <div class="callout callout-info">
-                        <h4> {{ quest.question }} ?</h4>
-                        <p> {{ quest.description }}  </p>
+                    <div class="callout callout-info" style="{% if quest.answered is not null %} background-color: #1eff27;
+                         {% else %} background-color: coral; {% endif %}">
+                        <h3> {{ quest.idu.name }} <small><i style="font-family: Montserrat-SemiBold;font-size: 12px">{{ quest.postdate|date('l jS \f F Y h:i:s A') }}</i></small></h3>
+                           <h2> <i class="material-icons">  question_answer  </i> {{ quest.question|raw }}</h2>
+                            <i class="material-icons"> description </i>  {{ quest.description|raw }}
+
                     </div>
+                    <br>
                     {% for r in responses %}
                             <div class="box">
                                 <div class="box-header with-border">
-                                    <h3 class="box-title"> {{ r.idu.name }}</h3>
-                                    <div class="box-tools pull-right"><button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="Collapse">
-                                            <i class="fa fa-minus"></i>  {{ r.replydate|date("m/d/Y")}} </button>
-                                        <button type="button" class="btn btn-box-tool" data-widget="remove" data-toggle="tooltip" title="Remove">
+                                    <h3 class="box-title"> {{ r.idu.name }}
+                                    <div class="box-tools pull-right"><button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="replied on">
+                                            {{ r.replydate|date("m/d/Y")}} </button>
+                                        <button type="button" class="btn btn-box-tool" data-widget="remove" data-toggle="tooltip" title="hide">
                                             <i class="fa fa-times"></i></button>
                                     </div>
+                                    </h3>
                                 </div>
-                                <div class="box-body">
+
+                                <div class="box-body with-border">
                                     <ul class="box-tools pull-left">
-    <li>{% if app.user!=null and r.idu!=app.user %}
-        <a href="{{ path('vote_up',{('idr'):r.id}) }}" class="link">{% endif %}
-            <i class="fa fa-chevron-up"></i> </a>  </li>
-    <li><span id="score" class="js-likes">{{ r.score }} </span>  </li>
-    <li>{% if app.user!=null and r.idu!=app.user %}
-       <a href="{{ path('vote_down',{('idr'):r.id}) }}" class="link"> {% endif %}
-              <i class="fa fa-chevron-down"></i> </a>  </li>
+                                         <li>{% if app.user!=null and r.idu!=app.user %}
+                                               <a href="{{ path('vote_up',{('idr'):r.id}) }}" class="link" id="up">
+                                                  {% endif %}
+                                              <i class="fa fa-chevron-up"></i> </a>  </li>
+
+                                         <li><span class="js-likes"  id="score">{{ r.score }}  </span> </li>
+                                         <li>{% if app.user!=null and r.idu!=app.user %}
+                                                  <a href="{{ path('vote_down',{('idr'):r.id}) }}" class="link" id="down"> {% endif %}
+                                               <i class="fa fa-chevron-down"></i> </a>  </li>
                                     </ul>
-                                    <ul>   {{ r.content|raw }}  </ul>
+                                       <ul class="pull-left">   {{ r.content|raw }}  </ul>
                                 </div>
-                                <div class="box-footer">
-                                    {% if r.theanswer is not null  %}
-                                        <button type="button" class="btn btn-box-tool">
-                                            <i class="fa fa-check"></i> {{ r.theanswer|date("m/d/Y") }} </button>
-                                    {% elseif r.idu!=app.user %}
-                                            <a href="{{ path('satisfy_me',{'idr':r.id}) }}" > <button type="button" class="btn btn-box-tool" >
-                                                    <i class="fa fa-times"></i> satisfied </button> </a>
+                            <div class="box-footer">
+                                  <div class="text-blo4 p-t-33">
+                                    {% if app.user==r.idu and r.theanswer is null%}
+                                        <div id="RDelete" class="modal fade">
+                                            <div class="modal-dialog modal-confirm">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <div class="icon-box">
+                                                            <i class="material-icons">delete_forever</i>
+                                                        </div>
+                                                        <h4 class="modal-title">Are you sure?</h4>
+                                                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <p>Do you really want to delete this reply ?</p>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-info" data-dismiss="modal">Cancel</button>
+                                                        <a href="{{ path('delete_reply',{'idr':r.id}) }}" type="button" class="btn btn-danger"><label style="color:white;">Delete</label></a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div id="RUpdate" class="modal fade">
+                                            <div class="modal-dialog modal-confirm">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <div class="icon-box">
+                                                            <i class="material-icons">warning</i>
+                                                        </div>
+                                                        <h4 class="modal-title">Are you sure?</h4>
+                                                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <p>Do you really want to modify this reply ? </p>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-info" data-dismiss="modal">Cancel</button>
+                                                        <a href="{{ path('update_reply',{'idr':r.id}) }}" type="button" class="btn btn-danger"><label style="color:white;">Update</label></a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- delete alert-->
+                                        <div class="left">
+                                            <a href="#RDelete" class="delete" data-toggle="modal"><i class="fas fa-trash-alt" data-toggle="tooltip" title="Delete"></i></a>
+                                            <a href="#RUpdate" class="edit" data-toggle="modal"><i class="fas fa-edit" data-toggle="tooltip" title="Edit"></i></a>
+                                    </div>
                                     {% endif %}
-                                    {% if app.user==r.idu %}
-                                        <a href="{{ path('delete_reply',{'idr':r.id}) }}" > <button type="button" class="btn btn-box-tool" >
-                                                <i class="fa fa-times"></i> delete </button> </a>
-                                        <a href="{{ path('update_reply',{'idr':r.id}) }}" > <button type="button" class="btn btn-box-tool">
-                                                <i class="fa fa-times"></i> Modify </button> </a>
-                                    {% endif %}
-                                </div>
+
+                                      <div class="right">
+                                      {% if r.theanswer is not null  %}
+                                          <button type="button" class="btn btn-box-tool">
+                                              <i class="fa fa-check"></i> {{ r.theanswer|date("m/d/Y") }} </button>
+                                          {% endif %}
+                                          {% if r.idu!=quest.idu and r.idu!=app.user%}
+                                              <div id="QSignal" class="modal fade">
+                                                  <div class="modal-dialog modal-confirm">
+                                                      <div class="modal-content">
+                                                          <div class="modal-header">
+                                                              <div class="icon-box">
+                                                                  <i class="material-icons">report</i>
+                                                              </div>
+                                                              <h4 class="modal-title">Are you sure?</h4>
+                                                              <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                                          </div>
+                                                          <div class="modal-body">
+                                                              <p>Something wrong with this question!! thanks for reporting us. </p>
+                                                          </div>
+                                                          <div class="modal-footer">
+                                                              <button type="button" class="btn btn-info" data-dismiss="modal">Cancel</button>
+                                                              <a href="{{ path('signal_reply',{'id':r.id}) }}" type="button" class="btn btn-danger"><label style="color:white;">Signal</label></a>
+                                                          </div>
+                                                      </div>
+                                                  </div>
+                                              </div>
+                                              <a href="#QSignal" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Signal it"> report_off </i></a>
+                                          {% endif %}
+                                      {% if r.idu!=quest.idu and quest.answered is null and app.user!=r.idu%}
+                                            <div id="answer" class="modal fade">
+                                                  <div class="modal-dialog modal-confirm">
+                                                      <div class="modal-content">
+                                                          <div class="modal-header">
+                                                              <div class="icon-box">
+                                                                  <i class="material-icons">delete_forever</i>
+                                                              </div>
+                                                              <h4 class="modal-title">Are you sure?</h4>
+                                                              <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                                          </div>
+                                                          <div class="modal-body">
+                                                              <p>Does this satisfy you ?</p>
+                                                          </div>
+                                                          <div class="modal-footer">
+                                                              <button type="button" class="btn btn-info" data-dismiss="modal">Cancel</button>
+                                                              <a href="{{ path('satisfy_me',{'idr':r.id}) }}" type="button" class="btn btn-danger" id="satisfied"><label style="color:white;">satisfied</label></a>
+                                                          </div>
+                                                      </div>
+                                                  </div>
+                                              </div>
+                                          <a href="#answer" class="edit" data-toggle="modal"> <button type="button" class="btn btn-box-tool">
+                                                  <i class="material-icons"> thumb_up_alt </i> satisfied </button> </a>
+                                      {% endif %}
+                                      </div>
+                                    </div>
+                            </div>
                              </div>
+                        <br><br>
                     {% endfor %}
                 </section>
-                <section>
-                    <div class="box-body">  {% if app.user!=null %}    {{ form_start(fr) }}
-                             {{ form_widget(fr.Add) }}
+                {% if app.user!=null %}
+                    {{ form_start(fr) }}
+                <section class="content">
+                    <div class="box-body">
                     <div class="input-group input-group-sm">
                              {{ form_widget(fr.content) }}
-
-                    </div>  {{ form_end(fr) }} {% endif %}
                     </div>
-                </section>
+                        <div class="box-tools pull-right"><button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="Collapse">
+                                {{ form_widget(fr.Add) }}</button>
+                        </div>
+                    </div>
+                </section>{{ form_end(fr) }}
+                {% endif %}
             </div>
+
             </div>
             </section>
+                           <script>
+                            $(document).ready(function() {
+                                $('.limk').on('click', function(e) {
+                                    e.preventDefault();
+                                    var $link = $(e.currentTarget);
+                                    $link.toggleClass('fa-heart-o').toggleClass('fa-heart');
+                                    $.ajax({
+                                        method: 'POST',
+                                        url: $link.attr('href')
+                                    }).done(function(data) {  $('#idscore').html(data.votes);   })
+                                });
+                            });
+                        </script>
+  <!--
+   <script> $(document).ready(function () {
+                            $('#up').on('click',function () {
+                                $.ajax({
+                                    method: 'POST',
+                                    url: $link.attr('href')
+                                }).done(function(data) {  $('#idscore').html(data.votes);   })
+                               // alert($('#score').innerText('5'));
+                            });
+                            });
 
-            <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-            <script>
-                var likelink=document.querySelectorAll('.link')
-                document.querySelectorAll('.link').forEach(function(link){
-                    link.addEventListener('click',onClickBtnLlike)
-                })
-                function onClickBtnLlike(event) {
-                    event.preventDefault();
-                    const url=this.href;
-                    const spanCount=this.querySelector('span.js-likes');
-                    console.log("qqq");
-                    axios.get(url).then(function (response) {
-                        console.log(response);
-                        console.log(response.data.votes);
-                        spanCount.textContent=response.data.votes;
-                        console.log("qqq");
-                    })
-                }
-            </script>
+                        </script>
 
+   <script>
+        var likelink=document.querySelectorAll('link')
+        document.querySelectorAll('.link').forEach(function(link){
+            link.addEventListener('click',onClickBtnLlike)
+        })
+        function onClickBtnLlike(event) {
+            event.preventDefault();
+            const url=this.href;
+            const spanCount=this.querySelector('span.js-likes')
+            console.log("biiij");
+            axios.get(url).then(function (response) {
+                console.log(response);
 
-
+                console.log(response.data.likes);
+                spanCount.textContent=response.data.likes;
+                console.log("biiij");
+            })}
+    </script>
+-->
         {% endblock %}

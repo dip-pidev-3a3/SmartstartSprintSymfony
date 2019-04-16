@@ -38,3 +38,12 @@ Admin_PaymentsBlogListAccept:
 Admin_Redirection:
     path:     /Verify
     defaults: { _controller: AdminBundle:Security:redirect }
+Admin_opportunities:
+    path:     /opportunities
+    defaults: { _controller: AdminBundle:Opportunity:listopp }
+Admin_UpdateOpportunity:
+    path:     /Update/{id}
+    defaults: { _controller: AdminBundle:Opportunity:Update }
+Admin_deleteOpportunity:
+    path:     /deleteOpportunity/{id}
+    defaults: { _controller: AdminBundle:Opportunity:Delete }

@@ -8,7 +8,7 @@
                 <div class="row">
                     <div class="col-sm-6">
                         <h2>Manage <b>Payments</b></h2>
-                        <input type="text" id="myInput" class="search form-control" placeholder="What you looking for?">                    </div>
+                                           </div>
                     <div class="col-sm-6">
 
                     </div>
@@ -40,7 +40,7 @@
                     <td>{{ blogposts.postCommentCount}}</td>
                     <td>{{ blogposts.payment}}</td>
                     {% if blogposts.Status==1 %}
-                    <td style="color: darkred">Submitted</td>
+                    <td> <a href="{{ path('Admin_PaymentsBlogListAccept',{('id'):blogposts.author.id,('idpayment'):blogposts.Id}) }}" class="view" title="Accept" data-toggle="tooltip"><i class="tim-icons icon-check-2"></i></a></td>
                     {% endif %}
                     {% if blogposts.Status==2 %}
                     <td style="color: midnightblue">Payment Ongoing</td>
@@ -52,7 +52,7 @@
 
                     <td>
                         {% if blogposts.Status==0 %}
-                        <a href="{{ path('Admin_PaymentsBlogListAccept',{('id'):blogposts.author.id,('idpayment'):blogposts.Id}) }}" class="view" title="Accept" data-toggle="tooltip"><i class="tim-icons icon-check-2"></i></a>
+                       Next Month Entry For {{ blogposts.author.username }}
                         {% endif %}
                     </td>
                 </tr>

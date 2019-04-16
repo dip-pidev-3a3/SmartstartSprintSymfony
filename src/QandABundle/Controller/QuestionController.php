@@ -6,10 +6,12 @@ use AppBundle\Entity\QClouds;
 use AppBundle\Entity\QNotification;
 use AppBundle\Entity\QQuestions;
 use AppBundle\Entity\QReply;
+use AppBundle\Entity\QVotes;
 use QandABundle\Form\QCloudsType;
 use QandABundle\Form\QQuestionsType;
 use QandABundle\Form\QReplyType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 
 class QuestionController extends Controller
@@ -34,12 +36,12 @@ class QuestionController extends Controller
             $em->flush();
             return $this->redirectToRoute('qand_a_homepage');
         }
-
+        $notif=$this->getDoctrine()->getRepository(QNotification::class)->NotViewedNotif($userId->getId());
         $nbrquest=$this->getDoctrine()->getRepository(QQuestions::class)->getNBRQuestions($userId->getId());
         $nbrreplies=$this->getDoctrine()->getRepository(QReply::class)->getNBRReplies($userId->getId());
 
         return $this->render('@QandA/Crud/addQuestion.html.twig',array('form'=>$fq->createView(),'cl'=>$cl->createView(),
-            'nq'=>$nbrquest,'nr'=>$nbrreplies));
+            'nq'=>$nbrquest,'nr'=>$nbrreplies, 'notifs' => $notif));
     }
     
     public function updateQuestionAction(Request $request,$id){
@@ -66,10 +68,11 @@ class QuestionController extends Controller
             return $this->redirectToRoute('qand_a_homepage');
         }
 
+        $notif=$this->getDoctrine()->getRepository(QNotification::class)->NotViewedNotif($userId->getId());
         $nbrquest=$this->getDoctrine()->getRepository(QQuestions::class)->getNBRQuestions($userId->getId());
         $nbrreplies=$this->getDoctrine()->getRepository(QReply::class)->getNBRReplies($userId->getId());
         return $this->render('@QandA/Crud/updateQuestion.html.twig',array('form'=>$fq->createView(),'cl'=>$fc->createView(),
-            'nq'=>$nbrquest,'nr'=>$nbrreplies));
+            'nq'=>$nbrquest,'nr'=>$nbrreplies, 'notifs' => $notif));
     }
 
     public function deleteQuestionAction(Request $request,$id){
@@ -81,6 +84,7 @@ class QuestionController extends Controller
         }
         $em->remove($question);
         $em->flush();
+
         return $this->redirectToRoute('show_myquestions');
     }
 
@@ -99,17 +103,12 @@ class QuestionController extends Controller
 
         $userId= $this->container->get('security.token_storage')->getToken()->getUser();
         $reply=new QReply();
-       // $cloud=new QClouds();
 
         $fr=$this->createForm(QReplyType::class,$reply);
-        //$fc=$this->createForm(QCloudsType::class,$cloud);
 
         $fr=$fr->handleRequest($request);
-       // $fc=$fc->handleRequest($request);
 
         if( $fr->isValid()){
-
-
             $reply->setIdq($quest);
             $reply->setIdu($userId);
             $quest->incrementReplies();
@@ -117,24 +116,44 @@ class QuestionController extends Controller
             $em->flush();
             // delete this line after testing the notification
             // =========notify the question'owner ==========
-            if($userId!=$reply->getIdq()) {
-                $notif = new QNotification();
-                $notif->setDeclanched(new \DateTime('now'));
-                $notif->setIdu($quest->getIdu());
-                $notif->setType(2);
-                $notif->setIdtype($reply->getId());
+                if($userId != $quest->getIdu()) {
+                    $not = new QNotification();
+                    $not->setDeclanched(new \DateTime('now'));
+                    $not->setIdu($quest->getIdu());
+                    $not->setType(2);
+                    $not->setIdtype($reply->getId());
 
-                $em->persist($notif);
-                $em->flush();
-            }
+                    $em->persist($not);
+                }
             // ===============                       ==========
+            $em->flush();
         }
+        $notif=$this->getDoctrine()->getRepository(QNotification::class)->NotViewedNotif($userId->getId());
         $responses=$em->getRepository(QReply::class)->findBy(['idq'=>$idq]);
         $nbrquest=$this->getDoctrine()->getRepository(QQuestions::class)->getNBRQuestions($userId->getId());
         $nbrreplies=$this->getDoctrine()->getRepository(QReply::class)->getNBRReplies($userId->getId());
         return $this->render('@QandA/Reply/replyQuestion.html.twig',array('fr'=>$fr->createView()
         ,'responses'=>$responses,'quest'=>$quest,'nq'=>$nbrquest,
-            'nr'=>$nbrreplies));
+            'nr'=>$nbrreplies, 'notifs' => $notif));
 
     }
+
+    public function signalQuestionAction($id){
+            $em=$this->getDoctrine()->getManager();
+            $user=$this->container->get('security.token_storage')->getToken()->getUser();
+        $quest=$em->getRepository(QQuestions::class)->find($id);
+            $hasSignaled=$this->getDoctrine()->getRepository(QVotes::class)->findOneBy(['idq' => $id,'type'=>4,'idu'=>$user->getId()]);
+            if($hasSignaled==null)
+            {
+                $vote=new QVotes();
+                $vote->setType(4);
+                $vote->setIdu($user);
+                $vote->setIdq($quest);
+                $quest->incrementSignal();
+                $em->persist($vote);
+                $em->persist($quest);
+                $em->flush();
+            }
+        return $this->redirectToRoute('qand_a_homepage');
+        }
 }

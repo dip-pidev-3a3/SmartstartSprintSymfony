@@ -24,7 +24,7 @@
             <input type="text" placeholder="Search contacts..." />
         </div>
 
-        <div id="contacts" onclick="lodMessages()">
+        <div id="contacts">
             <ul>
                 {% for i in threads %}
                 {% for j in i.metadata %}
@@ -34,7 +34,7 @@
                         <span class="contact-status online"></span>
                         <img src="https://img.icons8.com/bubbles/2x/administrator-male.png" alt="" />
                         <div class="meta">
-                            <p class="name">{{ j.participant }}</p>
+                            <p class="name" onclick="changeDisc({{ i.id }})">{{ j.participant }}</p>
                             <p class="preview">Wrong. You take the gun, or you pull out a bigger one. Or, you call their bluff. Or, you do any one of a hundred and forty six other things.</p>
                         </div>
                     </div>
@@ -48,29 +48,18 @@
     <div class="content">
         <div class="contact-profile">
             <img src="https://img.icons8.com/bubbles/2x/administrator-male.png" alt="" />
-            <p>{{ app.user.name }} {{ app.user.lastName }} ( {{ app.user.username }} )</p>
+            <p id="participant">{{ app.user.name }} {{ app.user.lastName }} ( {{ app.user.username }} )</p>
         </div>
-        <div class="messages">
-            <ul>
-             {% for j in messages %}
-             {% if j.sender == app.user %}
-                <li class="sent">
-                    <img src="https://img.icons8.com/bubbles/2x/administrator-male.png" alt="" />
-                    <p>{{ j.body }}</p>
-                </li>
-             {% endif %}
-             {% if j.sender != app.user %}
-                <li class="replies">
-                    <img src="https://img.icons8.com/bubbles/2x/administrator-male.png" alt="" />
-                    <p>{{ j.body }}</p>
-                </li>
-             {% endif %}
-             {% endfor %}
+        <div class="messages" id="variable">
+            <ul id="messages">
+
             </ul>
         </div>
         <div class="message-input">
             <div class="wrap">
+
                 <input type="text" placeholder="Write your message..." />
+
                 <i class="fa fa-paperclip attachment" aria-hidden="true"></i>
                 <button class="submit"><i class="fa fa-paper-plane" aria-hidden="true"></i></button>
             </div>
@@ -79,7 +68,66 @@
 </div>
     </div>
 <script src='//production-assets.codepen.io/assets/common/stopExecutionOnTimeout-b2a7b3fe212eaa732349046d8416e00a9dec26eb7fd347590fbced3ab38af52e.js'></script><script src='https://code.jquery.com/jquery-2.2.4.min.js'></script>
-<script >$(".messages").animate({ scrollTop: $(document).height() }, "fast");
+<script >
+    //# sourceURL=pen.js
+
+    window.onload = function() {
+        var thread = {{ idT }};
+        $.ajax({
+            url:        '{{ path("initMsg") }}',
+            type:       'POST',
+            dataType:   'json',
+            async:      true,
+            success: function(data, status) {
+
+                for(i = 0; i < data.length; i++) {
+                    msg = data[i];
+                    if (msg['sender']=={{ app.user.id }}){
+                        $('<li class="sent"><img src="https://img.icons8.com/bubbles/2x/administrator-male.png" alt="" /><p>' + msg['body'] + '</p></li>').appendTo($('.messages ul'));
+                    }
+                    else{
+                        $('<li class="replies"><img src="https://img.icons8.com/bubbles/2x/administrator-male.png" alt="" /><p>' + msg['body'] + '</p></li>').appendTo($('.messages ul'));
+                    }
+
+                }
+            },
+            error : function(xhr, textStatus, errorThrown) {
+                $('<li ><p style="color:red;">You have not any message yet</p></li>').appendTo($('.messages ul'));
+            }
+        });
+    }
+
+    function changeDisc(id) {
+            idT = id;
+        var request = $.ajax({
+            url:        '{{ path("changeDisc") }}',
+            type:       'POST',
+            dataType:   'json',
+            async:      true,
+            data: {"id" : id},
+
+            success: function(data, status) {
+                $('.messages ul').empty();
+                for(i = 0; i < data.length; i++) {
+                    msg = data[i];
+                    if (msg['sender']=={{ app.user.id }}){
+                        $('<li class="sent"><img src="https://img.icons8.com/bubbles/2x/administrator-male.png" alt="" /><p>' + msg['body'] + '</p></li>').appendTo($('.messages ul'));
+                    }
+                    else{
+                        $('<li class="replies"><img src="https://img.icons8.com/bubbles/2x/administrator-male.png" alt="" /><p>' + msg['body'] + '</p></li>').appendTo($('.messages ul'));
+                    }
+
+                }
+            },
+            error : function(xhr, textStatus, errorThrown) {
+                alert('Ajax request failed.');
+            }
+        });
+
+    }
+    var webSocket = new WebSocket("ws://127.0.0.1:7777");
+
+    $(".messages").animate({ scrollTop: $(document).height() }, "fast");
 
     $("#profile-img").click(function() {
         $("#status-options").toggleClass("active");
@@ -112,16 +160,33 @@
 
         $("#status-options").removeClass("active");
     });
+    webSocket.onmessage = function(event) {
+        var msg = JSON.parse(event.data);
+        if(msg.idThread==idT){
+            $('<li class="replies"><img src="https://img.icons8.com/bubbles/2x/administrator-male.png" alt="" /><p>' + msg.text + '</p></li>').appendTo($('.messages ul'));
+        }
+    }
 
     function newMessage() {
         message = $(".message-input input").val();
         if($.trim(message) == '') {
             return false;
         }
-        $('<li class="sent"><img src="http://emilcarlsson.se/assets/mikeross.png" alt="" /><p>' + message + '</p></li>').appendTo($('.messages ul'));
+        $('<li class="sent"><img src="https://img.icons8.com/bubbles/2x/administrator-male.png" alt="" /><p>' + message + '</p></li>').appendTo($('.messages ul'));
         $('.message-input input').val(null);
         $('.contact.active .preview').html('<span>You: </span>' + message);
         $(".messages").animate({ scrollTop: $(document).height() }, "fast");
+        $.ajax({
+            url : '{{ path("addMsg",{'idT':idT}) }}', // La ressource ciblée
+            type : 'POST', // Le type de la requête HTTP.
+            data: {"msg" : message, "idT" : idT}
+        });
+        var msg = {
+            text: message,
+            idThread: idT,
+
+        };
+        webSocket.send(JSON.stringify(msg));
     };
 
     $('.submit').click(function() {
@@ -134,8 +199,10 @@
             return false;
         }
     });
-    //# sourceURL=pen.js
-</script>
+
+    </script>
+
+
     <script src='//production-assets.codepen.io/assets/editor/live/console_runner-079c09a0e3b9ff743e39ee2d5637b9216b3545af0de366d4b9aad9dc87e26bfd.js'></script><script src='//production-assets.codepen.io/assets/editor/live/events_runner-73716630c22bbc8cff4bd0f07b135f00a0bdc5d14629260c3ec49e5606f98fdd.js'></script><script src='//production-assets.codepen.io/assets/editor/live/css_live_reload_init-2c0dc5167d60a5af3ee189d570b1835129687ea2a61bee3513dee3a50c115a77.js'></script><meta charset='UTF-8'><meta name="robots" content="noindex"><link rel="shortcut icon" type="image/x-icon" href="//production-assets.codepen.io/assets/favicon/favicon-8ea04875e70c4b0bb41da869e81236e54394d63638a1ef12fa558a4a835f1164.ico" /><link rel="mask-icon" type="" href="//production-assets.codepen.io/assets/favicon/logo-pin-f2d2b6d2c61838f7e76325261b7195c27224080bc099486ddd6dccb469b8e8e6.svg" color="#111" /><link rel="canonical" href="https://codepen.io/emilcarlsson/pen/ZOQZaV?limit=all&page=74&q=contact+" />
     <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600,700,300' rel='stylesheet' type='text/css'>
 

@@ -1,8 +1,7 @@
-{% extends "SmartStartBase.html.twig" %}
+{% extends "home.html.twig" %}
 {% block title %}add question{% endblock %}
 
-{% block body %}
-    <!-- Content Wrapper. Contains page content -->
+{% block content %}
     <div class="content-wrapper">
         <!-- Content Header (Page header) -->
         <section class="content-header">
@@ -16,9 +15,6 @@
                         <div class="box-header with-border">
                             <h3 class="box-title"> {{ form_widget(form.question, { 'attr': {'class': 'form-control', 'type' : 'textarea'} }) }} </h3>
 
-                            <div class="box-tools pull-right"><button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="Collapse">
-                                     {{ form_widget(form.Add) }}</button>
-                            </div>
                         </div>
 
                         <div class="box-body">
@@ -26,8 +22,11 @@
                             {{ form_widget(form.description) }}
                         </div>
                         <div class="box-footer">
-                            {{ form_widget(form.subject) }}
+                          Subject :  {{ form_widget(form.subject) }}
                         </div>
+                    <div class="box-tools pull-right"><button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="post the question">
+                            {{ form_widget(form.Add) }}</button>
+                    </div>
                 </div>
         </section>
         {{ form_end(form) }}

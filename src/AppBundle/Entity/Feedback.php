@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * Feedback
  *
  * @ORM\Table(name="feedback", indexes={@ORM\Index(name="id_user", columns={"id_user"}), @ORM\Index(name="id_application", columns={"id_application"})})
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="FeedbackBundle\Repository\FeedbackRepository")
  */
 class Feedback
 {
@@ -61,6 +61,102 @@ class Feedback
      * })
      */
     private $idApplication;
+
+    /**
+     * @return int
+     */
+    public function getIdFeedback()
+    {
+        return $this->idFeedback;
+    }
+
+    /**
+     * @param int $idFeedback
+     */
+    public function setIdFeedback($idFeedback)
+    {
+        $this->idFeedback = $idFeedback;
+    }
+
+    /**
+     * @return float
+     */
+    public function getRating()
+    {
+        return $this->rating;
+    }
+
+    /**
+     * @param float $rating
+     */
+    public function setRating($rating)
+    {
+        $this->rating = $rating;
+    }
+
+    /**
+     * @return string
+     */
+    public function getComment()
+    {
+        return $this->comment;
+    }
+
+    /**
+     * @param string $comment
+     */
+    public function setComment($comment)
+    {
+        $this->comment = $comment;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getAddedDate()
+    {
+        return $this->addedDate;
+    }
+
+    /**
+     * @param \DateTime $addedDate
+     */
+    public function setAddedDate($addedDate)
+    {
+        $this->addedDate = $addedDate;
+    }
+
+    /**
+     * @return \FosUser
+     */
+    public function getIdUser()
+    {
+        return $this->idUser;
+    }
+
+    /**
+     * @param \FosUser $idUser
+     */
+    public function setIdUser($idUser)
+    {
+        $this->idUser = $idUser;
+    }
+
+    /**
+     * @return \Application
+     */
+    public function getIdApplication()
+    {
+        return $this->idApplication;
+    }
+
+    /**
+     * @param \Application $idApplication
+     */
+    public function setIdApplication($idApplication)
+    {
+        $this->idApplication = $idApplication;
+    }
 
 
 }

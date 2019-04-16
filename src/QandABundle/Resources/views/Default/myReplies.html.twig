@@ -1,41 +1,117 @@
-{% extends "SmartStartBase.html.twig" %}
+{% extends "home.html.twig" %}
 {% block title %} My replies {% endblock %}
-{% block content %}
-    <div class="content-wrapper">
-        <section class="content-header">
-            <h1>
-                Top of My replies
-                <small>  </small>
-            </h1>
-        </section>
-        <section class="content">
-            {% for r in responses %}
-                <div class="box">
-                    <div class="box-header with-border">
-                        <h3 class="box-title"> {{ r.idq.question }}</h3>
-                        <div class="box-tools pull-right"><button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="Collapse">
-                                <i class="fa fa-minus"></i>  {{ r.replydate|date("m/d/Y")}} </button>
-                            <button type="button" class="btn btn-box-tool" data-widget="remove" data-toggle="tooltip" title="Remove">
+
+    {% block content %}
+        {% for r in responses %}
+            <div class="box">
+                <div class="box-header with-border">
+                    <h3 class="box-title"> {{ r.idu.name }}
+                        <div class="box-tools pull-right"><button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="replied on">
+                                {{ r.replydate|date("m/d/Y")}} </button>
+                            <button type="button" class="btn btn-box-tool" data-widget="remove" data-toggle="tooltip" title="hide">
                                 <i class="fa fa-times"></i></button>
                         </div>
-                    </div>
-                    <div class="box-body">
-                        <ul class="box-tools pull-left">
-                            <li><span id="score" class="js-likes">{{ r.score }} </span>  </li>
-                              </ul>
-                        <ul>   {{ r.content }}  </ul>
-                    </div>
-                    <div class="box-footer">
-                        {% if r.theanswer != null %}
-                            <button type="button" class="btn btn-box-tool">
-                                <i class="fa fa-check"></i> {{ r.theanswer|date("m/d/Y") }} </button> {% endif %}
-                            <a href="{{ path('delete_reply',{'idr':r.id}) }}" > <button type="button" class="btn btn-box-tool" >
-                                    <i class="fa fa-times"></i> delete </button> </a>
-                            <a href="{{ path('update_reply',{'idr':r.id}) }}" > <button type="button" class="btn btn-box-tool">
-                                    <i class="fa fa-times"></i> Modify </button> </a>
+                    </h3>
+                </div>
+
+                <div class="box-body with-border">
+                    <ul class="box-tools pull-left">
+                        <li>{% if app.user!=null and r.idu!=app.user %}
+                            <a href="{{ path('vote_up',{('idr'):r.id}) }}" class="link">{% endif %}
+                                <i class="fa fa-chevron-up"></i> </a>  </li>
+                        <li><span id="score" class="js-likes">{{ r.score }} </span>  </li>
+                        <li>{% if app.user!=null and r.idu!=app.user %}
+                            <a href="{{ path('vote_down',{('idr'):r.id}) }}" class="link"> {% endif %}
+                                <i class="fa fa-chevron-down"></i> </a>  </li>
+                    </ul>
+                    <ul class="pull-left">   {{ r.content|raw }}  </ul>
+                </div>
+                <div class="box-footer">
+                    <div class="text-blo4 p-t-33">
+                        {% if app.user==r.idu %}
+                            <div id="RDelete" class="modal fade">
+                                <div class="modal-dialog modal-confirm">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <div class="icon-box">
+                                                <i class="material-icons">delete_forever</i>
+                                            </div>
+                                            <h4 class="modal-title">Are you sure?</h4>
+                                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <p>Do you really want to delete this reply ?</p>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-info" data-dismiss="modal">Cancel</button>
+                                            <a href="{{ path('delete_reply',{'idr':r.id}) }}" type="button" class="btn btn-danger"><label style="color:white;">Delete</label></a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="RUpdate" class="modal fade">
+                                <div class="modal-dialog modal-confirm">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <div class="icon-box">
+                                                <i class="material-icons">warning</i>
+                                            </div>
+                                            <h4 class="modal-title">Are you sure?</h4>
+                                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <p>Do you really want to modify this reply ? </p>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-info" data-dismiss="modal">Cancel</button>
+                                            <a href="{{ path('update_reply',{'idr':r.id}) }}" type="button" class="btn btn-danger"><label style="color:white;">Update</label></a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- delete alert-->
+                            <div class="left">
+                                <a href="#RDelete" class="delete" data-toggle="modal"><i class="fas fa-trash-alt" data-toggle="tooltip" title="Delete"></i></a>
+                                <a href="#RUpdate" class="edit" data-toggle="modal"><i class="fas fa-edit" data-toggle="tooltip" title="Edit"></i></a>
+                            </div>
+                        {% endif %}
+
+                        <div class="right">
+                            {% if r.theanswer is not null  %}
+                                <button type="button" class="btn btn-box-tool">
+                                    <i class="fa fa-check"></i> {{ r.theanswer|date("m/d/Y") }} </button>
+                            {% elseif r.idu!=app.user and r.theanswer is null%}
+                                <div id="answer" class="modal fade">
+                                    <div class="modal-dialog modal-confirm">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <div class="icon-box">
+                                                    <i class="material-icons">delete_forever</i>
+                                                </div>
+                                                <h4 class="modal-title">Are you sure?</h4>
+                                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <p>Does this satisfy you ?</p>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-info" data-dismiss="modal">Cancel</button>
+                                                <a href="{{ path('satisfy_me',{'idr':r.id}) }}" type="button" class="btn btn-danger"><label style="color:white;">Delete</label></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <a href="#answer" > <button type="button" class="btn btn-box-tool" >
+                                        <i class="material-icons"> thumb_up_alt </i> satisfied </button> </a>
+
+                            {% endif %}
+
+                        </div>
                     </div>
                 </div>
-            {% endfor %}
+            </div>
+            <br><br>
+        {% endfor %}
         </section>
     </div>
 
