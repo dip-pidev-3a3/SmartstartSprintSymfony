@@ -8,7 +8,7 @@ use AppBundle\Entity\Comments;
 use AppBundle\Entity\FosUser;
 use AppBundle\Entity\PostLike;
 use AppBundle\Entity\ViewCounter;
-use BlogBundle\Form\ApplicationType;
+use BlogBundle\Form\BlogpostsType;
 use BlogBundle\Form\CommentsType;
 use BlogBundle\Form\AdvertType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -26,7 +26,7 @@ class BlogPostsController extends Controller
         $D=new \DateTime();
         $manager = $this->get('mgilet.notification');
         //form
-        $form=$this->createForm(ApplicationType::class,$Blogposts);
+        $form=$this->createForm(BlogpostsType::class,$Blogposts);
         $form=$form->handleRequest($request);
         if($form->isValid())
         { $manager = $this->get('mgilet.notification');
@@ -110,7 +110,7 @@ class BlogPostsController extends Controller
         $Blogposts=new Blogposts();
         $D=new \DateTime();
         //form
-        $form=$this->createForm(ApplicationType::class,$Blogposts);
+        $form=$this->createForm(BlogpostsType::class,$Blogposts);
         $form=$form->handleRequest($request);
         $popular=$this->getDoctrine()->getRepository(Blogposts::class)->findMostPopularPosts(10);
         if($form->isValid())
@@ -274,7 +274,7 @@ class BlogPostsController extends Controller
         $B=new Blogposts();
         $D=new \DateTime();
         $Blogposts->setImage(null);
-        $form=$this->createForm(ApplicationType::class,$Blogposts);
+        $form=$this->createForm(BlogpostsType::class,$Blogposts);
         $form=$form->handleRequest($request);
         if($form->isValid())
         {
@@ -371,7 +371,7 @@ class BlogPostsController extends Controller
         $Blogposts=new Blogposts();
         $D=new \DateTime();
         //form
-        $form=$this->createForm(ApplicationType::class,$Blogposts);
+        $form=$this->createForm(BlogpostsType::class,$Blogposts);
         $form=$form->handleRequest($request);
         $post=$this->getDoctrine()->getRepository(Blogposts::class)->findBy(array('postType'=>$cat));
         $popular=$this->getDoctrine()->getRepository(Blogposts::class)->findMostPopularByCat($cat);

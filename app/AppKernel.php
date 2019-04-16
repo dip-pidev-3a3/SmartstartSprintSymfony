@@ -38,6 +38,7 @@ class AppKernel extends Kernel
             new Knp\Bundle\MenuBundle\KnpMenuBundle(),
             new CMEN\GoogleChartsBundle\CMENGoogleChartsBundle(),
             new Ob\HighchartsBundle\ObHighchartsBundle(),
+            new ApplicationBundle\ApplicationBundle(),
         ];
 
         if (in_array($this->getEnvironment(), ['dev', 'test'], true)) {
