@@ -11,12 +11,20 @@ class DefaultController extends Controller
 {
     public function indexAction()
     {
+        $threads = array();
+        $idT = 0;
         $provider = $this->container->get('fos_message.provider');
+        if ($this->get('security.authorization_checker')->isGranted('ROLE_ENTREPRISE')){
         $threads = $provider->getSentThreads();
-        $messages=$threads[0]->getMessages();
-        $idT=$threads[0]->getId();
-        $msg="";
-        return $this->render('@Chat/Default/index.html.twig', array('threads'=>$threads, 'messages'=>$messages, 'idT'=>$idT,'msg'=>$msg));
+        }
+        if ($this->get('security.authorization_checker')->isGranted('ROLE_FREELANCER')){
+            $threads = $provider->getInboxThreads();
+        }
+        if(sizeof($threads)!=0){
+            $idT=$threads[0]->getId();
+        }
+
+        return $this->render('@Chat/Default/index.html.twig', array('threads'=>$threads, 'idT'=>$idT));
     }
     public function sendAction(Request $request)
     {
@@ -34,12 +42,20 @@ class DefaultController extends Controller
     public function getInitMessagesAction(Request $request){
 
         $provider = $this->container->get('fos_message.provider');
-        $threads = $provider->getSentThreads();
+        if ($this->get('security.authorization_checker')->isGranted('ROLE_ENTREPRISE')){
+            $threads = $provider->getSentThreads();
+        }
+        if ($this->get('security.authorization_checker')->isGranted('ROLE_FREELANCER')){
+            $threads = $provider->getInboxThreads();
+        }
+        if (sizeof($threads)!=0){
         $messages=$threads[0]->getMessages();
+        }
 
         if ($request->isXmlHttpRequest() || $request->query->get('showJson') == 1) {
             $jsonData = array();
             $idx = 0;
+            if (sizeof($messages)!=0){
             foreach($messages as $msg) {
                 $data = array(
                     'body' => $msg->getBody(),
@@ -48,6 +64,14 @@ class DefaultController extends Controller
                 $jsonData[$idx++] = $data;
             }
             return new JsonResponse($jsonData);
+            }
+            else{
+                $jsonData[0] = array(
+                    'body' => "you don't have any message",
+                    'sender' => 0,
+                );
+                return new JsonResponse($jsonData);
+            }
         }
     }
     public function changeAction(Request $request){
