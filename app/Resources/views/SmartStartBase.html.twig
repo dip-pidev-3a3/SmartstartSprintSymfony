@@ -104,6 +104,11 @@
 
             <div class="wrap_header trans-0-3">
 
+                {% if app.user!=null %}
+                    {{ mgilet_notification_render(app.user,{ 'template': '@Blog/BlogViews/notification.html.twig'}) }}
+                {% endif %}
+
+
                 <div class="logo">
                     <a href="">
                         <img src="{{ asset('assets/images/icons/logo.png') }}" alt="IMG-LOGO" data-logofixed="{{ asset('assets/images/icons/fileStart.png') }}" width="100" height="100">

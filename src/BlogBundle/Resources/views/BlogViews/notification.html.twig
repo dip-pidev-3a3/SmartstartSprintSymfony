@@ -114,15 +114,8 @@
                             <li>
                                 <b>{{ item.notification }}</b>
                                 <br>
-                                seen : {{ item.seen }}
-                                <form action="{{ mgilet_notification_generate_path('notification_mark_as_seen', item.notifiableEntity, item.notification) }}"
-                                      method="post">
-                                    <button type="submit">Mark as seen</button>
-                                </form>
-                                <form action="{{ mgilet_notification_generate_path('notification_mark_as_unseen', item.notifiableEntity, item.notification) }}"
-                                      method="post">
-                                    <button type="submit">Mark as unseen</button>
-                                </form>
+                                <hr>
+
                             </li>
                         {% endfor %}
                     </ul>
@@ -141,7 +134,7 @@
         // ANIMATEDLY DISPLAY THE NOTIFICATION COUNTER.
         $('#noti_Counter')
             .css({ opacity: 0 })
-            .text('7')      // ADD DYNAMIC VALUE (YOU CAN EXTRACT DATA FROM DATABASE OR XML).
+            .text('')      // ADD DYNAMIC VALUE (YOU CAN EXTRACT DATA FROM DATABASE OR XML).
             .css({ top: '-10px' })
             .animate({ top: '-2px', opacity: 1 }, 500);
 
@@ -168,7 +161,7 @@
             // CHECK IF NOTIFICATION COUNTER IS HIDDEN.
             if ($('#noti_Counter').is(':hidden')) {
                 // CHANGE BACKGROUND COLOR OF THE BUTTON.
-                $('#noti_Button').css('background-color', '#2E467C');
+                $('#noti_Button').css('background-color', '#fff');
             }
         });
 

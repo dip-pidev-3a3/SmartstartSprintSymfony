@@ -121,12 +121,19 @@ class BlogPostsController extends Controller
             $em=$this->getDoctrine()->getManager();
             $user = $this->container->get('security.token_storage')->getToken()->getUser();
             $em->persist($Blogposts);
+            $manager = $this->get('mgilet.notification');
+            $notif = $manager->createNotification('Post Ajouté Avec succes');
+            $notif->setMessage('Vous venez de bien avoir ajouté la publication dont le titre est :'.$Blogposts->getArticleTitle());
+            $notif->setLink('https://symfony.com/');
+
+
 
             $Blogposts->setAuthor($user);
             $Blogposts->setPostDate($D);
             $Blogposts->setImage($fileName);
             $Blogposts->setPostStatus("Posted");
             $Blogposts->setPostLikesCount(0);
+            $manager->addNotification(array($user), $notif, true);
             $em->flush();
             return $this->redirect($request->getUri());
 
