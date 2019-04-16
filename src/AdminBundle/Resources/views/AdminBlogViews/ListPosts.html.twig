@@ -7,8 +7,7 @@
             <div class="table-title">
                 <div class="row">
                     <div class="col-sm-6">
-                        <h2>Manage <b>Posts</b></h2>
-                        <input type="text" id="myInput" class="search form-control" placeholder="What you looking for?">                    </div>
+                        <h2>Manage <b>Posts</b></h2></div>
                     <div class="col-sm-6">
 
                         <a href="#addEmployeeModal" class="btn btn-success" data-toggle="modal"><i class="tim-icons icon-simple-add"></i>     Add Admin Post</a>
@@ -42,7 +41,7 @@
                     <td>
                         <a href="{{ path('Admin_DetailPost',{('postId'):blogposts.postId}) }}" class="view" title="View" data-toggle="tooltip"><i class="tim-icons icon-notes"></i></a>
                         <a href="{{ path('Admin_UpdatePost',{('postId'):blogposts.postId}) }}" class="edit"><i class="tim-icons icon-pencil" data-toggle="tooltip" title="Edit"></i></a>
-                        <a href="{{ path('Admin_deletePost',{('postId'):blogposts.postId}) }}" class="delete"><i class="tim-icons icon-trash-simple" data-toggle="tooltip" title="Delete"></i></a>
+                        <a href="{{ path('Admin_deletePost',{('postId'):blogposts.postId}) }}" class="delete" onclick="return confirm('Are you sure')"><i class="tim-icons icon-trash-simple" data-toggle="tooltip" title="Delete"></i></a>
                     </td>
                 </tr>
                     <div id="deleteEmployeeModal" class="modal fade">

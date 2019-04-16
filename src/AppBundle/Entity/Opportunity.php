@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * Opportunity
  *
  * @ORM\Table(name="opportunity", indexes={@ORM\Index(name="id_entreprise", columns={"id_entreprise"})})
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="OpportunityBundle\Repository\OpportunityRepository")
  */
 class Opportunity
 {
@@ -117,6 +117,8 @@ class Opportunity
         $this->idSkill = new \Doctrine\Common\Collections\ArrayCollection();
         $this->freelancerid = new \Doctrine\Common\Collections\ArrayCollection();
     }
+
+
 
 
     /**
@@ -412,4 +414,8 @@ class Opportunity
     {
         return $this->freelancerid;
     }
+
+
+
+
 }

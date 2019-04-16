@@ -66,7 +66,7 @@
 
                                 {% if app.user!=null %}
                                 {% if app.user.id==blogposts.author.id %}
-                                <a href="{{ path('blog_delete',{('postId'):blogposts.postId}) }}" class="delete"><i class="fas fa-trash-alt" data-toggle="tooltip" title="Delete"></i></a>
+                                <a href="{{ path('blog_delete',{('postId'):blogposts.postId}) }}" class="delete" onclick="return confirm('Are you sure')"><i class="fas fa-trash-alt" data-toggle="tooltip" title="Delete"></i></a>
 
                                 <a href="{{ path('Update_BlogPost',{('postId'):blogposts.postId}) }}"><i class="fas fa-edit" data-toggle="tooltip" title="Edit"></i></a>
                                 {% endif %}
@@ -106,10 +106,33 @@
 										<i class="fas fa-quote-left"style="color: midnightblue"></i> {{ blogposts.postType }}
 										<span class="m-r-6 m-l-4">|</span>
 									</span>
+                                    {% if blogposts.postCommentCount==1 %}
+                                        <span>
+										<i class="fas fa-comments" style="color:midnightblue"></i> {{ blogposts.postCommentCount }} Comment
+                                        <span class="m-r-6 m-l-4">|</span>
+									</span>
+
+                                    {% endif %}
+                                    {% if blogposts.postCommentCount!=1 %}
                                     <span>
 										<i class="fas fa-comments" style="color:midnightblue"></i> {{ blogposts.postCommentCount }} Comments
                                         <span class="m-r-6 m-l-4">|</span>
 									</span>
+                                    {% endif %}
+
+                                        {% if blogposts.views==1 %}
+                                            <span>
+										<i class="fas fa-eye" style="color: midnightblue"></i> {{ blogposts.views }} View
+                                        <span class="m-r-6 m-l-4">|</span>
+									</span>
+
+                                        {% endif %}
+                                    {% if blogposts.views!=1 %}
+                                    <span>
+										<i class="fas fa-eye" style="color: midnightblue"></i> {{ blogposts.views }} Views
+                                        <span class="m-r-6 m-l-4">|</span>
+									</span>
+                                    {% endif %}
 
 
                                     {% if app.user!=null %}
@@ -195,6 +218,7 @@
 
                         <!-- Pagination -->
 
+
                         <div class="pagination flex-l-m flex-w m-l--6 p-t-25">
                             {{ pagination(v, 'page') }}
 
@@ -229,7 +253,8 @@
                                             <div class="modal-body">
                                                 <div class="form-group">
                                                     <label>Post Content</label>
-                                                    {{ form_widget(form.postContent, { 'attr': {'class': 'form-control', 'type' : 'textarea'} }) }}
+                                                    {{ form_widget(form.postContent, { 'attr': {'class': 'form-control', 'type' : 'textarea','onkeyup' : 'countTextAreaChar(this, 60)', 'id': 'smallword'} }) }}
+                                                    <div id="charNum"></div>
 
                                                 </div>
                                                 <div class="form-group">
@@ -239,12 +264,15 @@
                                                 </div>
                                                 <div class="form-group">
                                                     <label>Article Title</label>
-                                                    {{ form_widget(form.articleTitle, { 'attr': {'class': 'form-control', 'type' : 'textarea'} }) }}
+                                                    {{ form_widget(form.articleTitle, { 'attr': {'class': 'form-control', 'type' : 'textarea','onkeyup' : 'countTextAreaCharS(this, 60)', 'id': 'smallwordS'} }) }}
+                                                    <div id="charNumS"></div>
+
 
                                                 </div>
                                                 <div class="form-group">
                                                     <label>Article Content</label>
-                                                    {{ form_widget(form.articleContent)}}
+                                                    {{ form_widget(form.articleContent,{'attr':{'onkeyup':'countTextAreaCharT(this, 60)','id':'swallowordT'} }) }}
+                                                    <div id="charNumT"></div>
 
                                                 </div>
                                                 <div class="form-group">
@@ -383,10 +411,19 @@
     <script src="//cdn.ckeditor.com/4.11.3/full/ckeditor.js"></script><script>
     CKEDITOR.replace('editor1');
 </script>
-
+    <script>
+        $(function(){
+            $('#posti').keyup(function(){
+                var charsno = $(this).val().length;
+                $('#char_namb').html("500 : " + charsno);
+            });
+        });
+    </script>
 
 
 {% endblock %}
+
+
 
 
 

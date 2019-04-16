@@ -1,6 +1,21 @@
 opportunity_homepage:
     path:     /home
-    defaults: { _controller: OpportunityBundle:Default:index }
-opportunity_detailblog:
-    path:     /detail
-    defaults: { _controller: OpportunityBundle:Default:detail }
+    defaults: { _controller: OpportunityBundle:Default:recherche }
+opportunity_detailopp:
+    path:     /detailopp/{id}
+    defaults: { _controller: OpportunityBundle:Default:detailopp }
+opportunity_AcceptApplicant:
+    path:     /detailopp/{id}
+    defaults: { _controller: OpportunityBundle:Default:AcceptApplicant }
+opportunity_create:
+     path:     /new
+     defaults: { _controller: OpportunityBundle:Default:create }
+opportunity_edit:
+     path:     /edit/{idop}
+     defaults: { _controller: OpportunityBundle:Default:edit }
+opportunity_DeleteOpp:
+     path:     /DeleteOpp/{id}
+     defaults: { _controller: OpportunityBundle:Default:DeleteOpp }
+opportunity_sendmail:
+     path:     /sendmail/{to}{MailObject}{mailContent}
+     defaults: { _controller: OpportunityBundle:Default:sendmail }

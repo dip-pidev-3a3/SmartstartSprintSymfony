@@ -48,6 +48,10 @@ class Application
      */
     private $idFreelancer;
 
+    /**
+     * Application constructor.
+     */
+
 
     /**
      * Get idApplication
@@ -92,12 +96,14 @@ class Application
      *
      * @return Application
      */
-    public function setIdOpportunity(\AppBundle\Entity\Opportunity $idOpportunity = null)
+    public function setIdOpportunity(\AppBundle\Entity\Opportunity $idOpportunity=null )
     {
         $this->idOpportunity = $idOpportunity;
-    
-        return $this;
+
+     return $this;
     }
+    
+
 
     /**
      * Get idOpportunity
@@ -116,11 +122,11 @@ class Application
      *
      * @return Application
      */
-    public function setIdFreelancer(\AppBundle\Entity\FosUser $idFreelancer = null)
+    public function setIdFreelancer(\AppBundle\Entity\FosUser $idFreelancer=null )
     {
         $this->idFreelancer = $idFreelancer;
     
-        return $this;
+    return $this;
     }
 
     /**

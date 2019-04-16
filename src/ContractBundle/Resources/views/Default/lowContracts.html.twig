@@ -49,7 +49,7 @@
                             <div class="modal-header">
                                 <h4 class="modal-title">Complete Your Contract...
                                     <br/>
-                                    <small style="color: red">pls notice that all fields are required *</small>
+                                    <small style="color: red">pls notice that all fields are required * and the Start Date must be chosen before the Finish Date</small>
                                 </h4>
                                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                             </div>
@@ -67,24 +67,24 @@
                                 </div>
                                 <div class="form-group">
                                     <label>Start Date</label>
-                                    <input type="date" id="start" name="start" class="form-control" onblur="validStart()">
-                                    <label name="err1" id="err1" hidden><small style="color: red">Pls notice that the Start Date can't be in the past or more than the Finish Date</small></label>
+                                    <input type="date" id="start" name="start" class="form-control">
+                                    <div id="errors1" class="help-block" role="alert" style="color: red"></div>
 
                                 </div>
                                 <div class="form-group">
                                     <label>Finish Date</label>
-                                    <input type="date" id="finish" name="finish" class="form-control" onblur="validFinish()">
-                                    <label><small name="err2" id="err2" hidden style="color: red">Pls notice that the Finish Date must be after the Start Date</small></label>
+                                    <input type="date" id="finish" name="finish" class="form-control">
+                                    <div id="errors2" class="help-block" role="alert" style="color: red"></div>
 
                                 </div>
                                 <div class="form-group">
                                     <label>Sum</label>
-                                    <input type="number" step="0.01" id="sum" name="sum" min="100" class="form-control" onblur="validSum()" placeholder="Type The Sum Here">
-                                    <label name="err3" id="err3" hidden><small style="color: red">Pls notice that the sum field is required and can't be null or negative</small></label>
+                                    <input type="number" step="0.01" id="sum" name="sum" min="100" class="form-control" placeholder="Type The Sum Here">
+                                    <div id="errors3" class="help-block" role="alert" style="color: red"></div>
 
                                 </div>
                                 <div class="form-group">
-                                    <label>Payment Method</label>
+                                    <label>Payment Method (Default is Online)</label>
                                     <select id="paymentMethod" name="paymentMethod" class="form-control">
                                         <option value="En Ligne">Online</option>
                                         <option value="Cash">Cash</option>
@@ -104,5 +104,65 @@
         {% endfor %}
     </div>
     <script src="{{ asset('assets/js/jquery-3.3.1.js') }}"></script>
-    <script src="{{ asset('assets/js/contract.js') }}"></script>
+    <script type="text/javascript">
+        document.getElementById('sum').addEventListener('change', function() {
+            var error3 = document.getElementById('errors3');
+            var re = new RegExp('^(?=.+)(?:[1-9]\d*|0)?(?:\.\d+)?');
+
+            if ((document.getElementById('sum').value.match(re)==false)||(document.getElementById('sum').value=="")) {
+                error3.textContent = "The Sum field is required and can't be null or negative";
+                document.getElementById('addForm').classList.add('has-error');
+                document.getElementById('valider').setAttribute("disabled",null);
+            } else {
+                error3.textContent = '';
+                document.getElementById('addForm').classList.remove('has-error');
+                if((document.getElementById('finish').value!="")&&(document.getElementById('start').value!="")&&(document.getElementById('sum').value!="")){
+                    document.getElementById('valider').removeAttribute("disabled");
+                }
+                else{
+                    document.getElementById('valider').setAttribute("disabled",null);
+                }
+            }
+        });
+        document.getElementById('start').addEventListener('change', function() {
+            var error1 = document.getElementById('errors1');
+            var myDate = new Date(document.getElementById('start').value.toString());
+            var now = new Date();
+            if ((myDate<now)||(document.getElementById('start').value=="")) {
+                error1.textContent = "The Start Date is required and can't be in the past or more than the Finish Date";
+                document.getElementById('addForm').classList.add('has-error');
+                document.getElementById('valider').setAttribute("disabled",null);
+            } else {
+                error1.textContent = '';
+                document.getElementById('addForm').classList.remove('has-error');
+                if((document.getElementById('finish').value!="")&&(document.getElementById('start').value!="")&&(document.getElementById('sum').value!="")){
+                    document.getElementById('valider').removeAttribute("disabled");
+                }
+                else{
+                    document.getElementById('valider').setAttribute("disabled",null);
+                }
+            }
+        });
+        document.getElementById('finish').addEventListener('change', function() {
+            var error2 = document.getElementById('errors2');
+            var startDate = new Date(document.getElementById('start').value.toString());
+            var finishDate = new Date(document.getElementById('finish').value.toString());
+
+            if ((finishDate<startDate)||(document.getElementById('finish').value=="")||(document.getElementById('start').value=="")) {
+                error2.textContent = "The Finish Date is required and must be more then the Start Date and you must Select the Start Date at first";
+                document.getElementById('addForm').classList.add('has-error');
+                document.getElementById('valider').setAttribute("disabled",null);
+            } else {
+                error2.textContent = '';
+                document.getElementById('addForm').classList.remove('has-error');
+                if((document.getElementById('finish').value!="")&&(document.getElementById('start').value!="")&&(document.getElementById('sum').value!="")){
+                    document.getElementById('valider').removeAttribute("disabled");
+                }
+                else{
+                    document.getElementById('valider').setAttribute("disabled",null);
+                }
+            }
+        });
+
+    </script>
 {% endblock %}

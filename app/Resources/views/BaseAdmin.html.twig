@@ -21,6 +21,7 @@
         <!-- CSS Just for demo purpose, don't include it in your project -->
         <link href="{{ asset ('AdminAssets/assets/demo/demo.css') }}" rel="stylesheet" />
 
+
     {% endblock %}
 
 
@@ -35,37 +36,52 @@
         <div class="sidebar-wrapper">
             <div class="logo">
                 <a href="javascript:void(0)" class="simple-text logo-mini">
-                    CT
+
                 </a>
                 <a href="javascript:void(0)" class="simple-text logo-normal">
-                    Creative Tim
+                    {{ app.user.username }}
                 </a>
             </div>
             <ul class="nav">
-                <li class="active ">
+
+
+                <li class="active">
                     <a href="{{ path('admin_homepage') }}">
                         <i class="tim-icons icon-chart-pie-36"></i>
                         <p>Home</p>
                     </a>
                 </li>
-                <li>
-                    <a href="{{ path('admin_listPosts') }}">
+                <li class="sidebar-dropdown">
+                    <a href="#" data-toggle="collapse" data-target="#submenu-1">
                         <i class="tim-icons icon-atom"></i>
-                        <p>Posts</p>
+                        <p>Blog</p>
                     </a>
+
+                        <ul id="submenu-1" class="collapse">
+                            <li>
+                                <a href="{{ path('admin_listPosts') }}">
+                                    <i class="tim-icons icon-atom"></i>
+                                    <p>Posts</p>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{{ path('admin_listComments') }}">
+                                    <i class="tim-icons icon-pin"></i>
+                                    <p>Comments</p>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{{ path('Admin_PaymentsBlogList') }}">
+                                    <i class="tim-icons icon-coins"></i>
+                                    <p>Payments</p>
+                                </a>
+                            </li>
+                        </ul>
+
                 </li>
-                <li>
-                    <a href="{{ path('admin_listComments') }}">
-                        <i class="tim-icons icon-pin"></i>
-                        <p>Comments</p>
-                    </a>
-                </li>
-                <li>
-                    <a href="{{ path('Admin_PaymentsBlogList') }}">
-                        <i class="tim-icons icon-coins"></i>
-                        <p>Payments</p>
-                    </a>
-                </li>
+
+
+
                 <li>
                     <a href="./user.html">
                         <i class="tim-icons icon-single-02"></i>
@@ -179,9 +195,6 @@
                                 <li class="nav-link">
                                     <a href="javascript:void(0)" class="nav-item dropdown-item">Profile</a>
                                 </li>
-                                <li class="nav-link">
-                                    <a href="javascript:void(0)" class="nav-item dropdown-item">Settings</a>
-                                </li>
                                 <li class="dropdown-divider"></li>
                                 <li class="nav-link">
                                     <a href="{{  path('fos_user_security_logout')}}" class="nav-item dropdown-item">Log out</a>
@@ -200,7 +213,7 @@
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <input type="text" class="form-control" id="inlineFormInputGroup" placeholder="SEARCH">
+                        <input type="text" class="form-control" id="myInput" placeholder="SEARCH">
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <i class="tim-icons icon-simple-remove"></i>
                         </button>
@@ -384,7 +397,20 @@
 
         });
     </script>
+
+    <script>
+        //reserch
+        $(document).ready(function(){
+            $("#myInput").on("keyup", function() {
+                var value = $(this).val().toLowerCase();
+                $("#myTable tr").filter(function() {
+                    $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+                });
+            });
+        });
+    </script>
 {% endblock %}
+
 </body>
 
 </html>

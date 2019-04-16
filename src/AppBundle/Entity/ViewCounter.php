@@ -28,7 +28,7 @@ class ViewCounter extends BaseViewCounter
      *
      * @ORM\ManyToOne(targetEntity="Blogposts")
      * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="article", referencedColumnName="post_ID")
+     *   @ORM\JoinColumn(name="article", referencedColumnName="post_ID",onDelete="CASCADE")
      * })
      */
     private $article;

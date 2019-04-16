@@ -1,6 +1,10 @@
 {% extends "SmartStartBase.html.twig" %}
 {% block title %}My Contracts{% endblock %}
 {% block body %}
+    <script src ="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/stripe.css') }}">
+    <script src="https://js.stripe.com/v3/"></script>
+    <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/stripe.css') }}">
     <section class="bg-title-page flex-c-m p-t-160 p-b-80 p-l-15 p-r-15" style="background-image: url(https://www.insidehighered.com/sites/default/server_files/media/contracts%20finkelstein.jpg);">
         <h2 class="tit6 t-center">
         </h2>
@@ -24,7 +28,7 @@
     <div class="container">
         {% for i in con %}
 
-            <div class="modal-dialog modal-lg" role="document" style="display: inline-block" style="width: 100%">
+            <div class="modal-dialog modal-lg col-md-6" role="document" style="display: inline-block" style="width: 100%">
                 <div class="modal-content">
                     <div class="modal-body">
                         <div class="row">
@@ -45,7 +49,7 @@
                                 <h2 class="h2-responsive product-name">
                                     <strong>{{ i.idApplication.idFreelancer.name }} {{ i.idApplication.idFreelancer.lastName }}</strong>
                                 </h2>
-                                <h4 class="h4-responsive">
+                                <h4 class="h4-responsive" id="sum">
               <span class="green-text">
                 <strong>${{ i.sum }}</strong>
               </span>
@@ -151,7 +155,7 @@
                                         <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
                                         <span><strong>Delete</strong></span>
                                     </a>
-                                    <a href="#" class="btn btn-primary a-btn-slide-text">
+                                    <a href="#modalConfirmPayment" class="btn btn-primary a-btn-slide-text" data-toggle="modal" data-target="#modalConfirmPayment" onclick="remplir({{ i.sum }},{{ i.idContract }})">
                                         <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
                                         <span><strong>Pay</strong></span>
                                     </a>
@@ -196,11 +200,83 @@
                 </div>
             </div>
         {% endfor %}
+        <!-- Add Modal HTML -->
+        <div id="modalConfirmPayment" class="modal fade">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title">Complete Your Payment Action...</h4>
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    </div>
+
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label for="sumAff">
+                                The Sum To Pay in $
+                            </label>
+                            <input type="text" id="sumAff" class="form-control" disabled="true">
+                        </div>
+                        <div class="form-group">
+
+                            {{ form_start(form, {attr: {id: form.vars.id}}) }}
+                            <div class="form-group">
+                                <label for="card-element">
+                                    Credit or Debit Card
+                                </label>
+                                <div id="card-element" class="form-control card"></div>
+                                <div id="card-errors" class="help-block err" role="alert" style="color: red"></div>
+                            </div>
+                            {{ form_widget(form.token) }}
+                            {{ form_widget(form.idCon) }}
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
+                        <input type="submit" id="valider" name="valider" class="btn btn-success" id="addb" value="Pay">
+                    </div>
+                    {{ form_end(form) }}
+                </div>
+            </div>
+        </div>
+        <script type="text/javascript">
+            var form = document.getElementById('{{ form.vars.id }}');
+            var errors = document.getElementsByClassName('err');
+            var stripe = Stripe('{{ stripe_public_key }}');
+            var elements = stripe.elements();
+            var card = elements.create('card');
+            card.mount('#card-element');
+            card.addEventListener('change', function(event) {
+                if (event.error) {
+                    for (i = 0; i < errors.length; i++) {
+                        errors[i].textContent = event.error.message;
+                    }
+                    form.classList.add('has-error');
+                } else {
+                    for (i = 0; i < errors.length; i++) {
+                        errors[i].textContent = '';
+                    }
+                    form.classList.remove('has-error');
+                }
+            });
+            form.addEventListener('submit', function(event) {
+                event.preventDefault();
+                stripe.createToken(card).then(function(result) {
+                    if (result.error) {
+                        for (i = 0; i < errors.length; i++) {
+                            errors[i].textContent = result.error.message;
+                        }
+                        form.classList.add('has-error');
+                    } else {
+                        document.getElementById('{{ form.children.token.vars.id }}').setAttribute('value', result.token.id);
+                        form.submit();
+                    }
+                });
+            });
+            function remplir(sum,id) {
+                document.getElementById("sumAff").value=sum;
+                document.getElementById("{{ form.children.idCon.vars.id }}").value=id;
+            }
+        </script>
+
     </div>
-
-
-
-
-
-
 {% endblock %}

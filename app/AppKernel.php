@@ -28,10 +28,12 @@ class AppKernel extends Kernel
             new ComplaintsBundle\ComplaintsBundle(),
             new FeedbackBundle\FeedbackBundle(),
             new QandABundle\QandABundle(),
-            new FOS\CKEditorBundle\FOSCKEditorBundle(),
-            new Knp\Bundle\MenuBundle\KnpMenuBundle(),
             new Tchoulom\ViewCounterBundle\TchoulomViewCounterBundle(),
-            new CMEN\GoogleChartsBundle\CMENGoogleChartsBundle(),
+            new Flosch\Bundle\StripeBundle\FloschStripeBundle(),
+            new FOS\MessageBundle\FOSMessageBundle(),
+            new ChatBundle\ChatBundle(),
+            new Gos\Bundle\WebSocketBundle\GosWebSocketBundle(),
+            new Gos\Bundle\PubSubRouterBundle\GosPubSubRouterBundle(),
         ];
 
         if (in_array($this->getEnvironment(), ['dev', 'test'], true)) {
