@@ -142,4 +142,6 @@ class Application
     {
         return (string) $this->getIdOpportunity()->getJobTitle();
     }
+
+
 }

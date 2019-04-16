@@ -3,7 +3,7 @@
 namespace AdminBundle\Controller;
 
 use AppBundle\Entity\Blogposts;
-use BlogBundle\Form\BlogpostsType;
+use BlogBundle\Form\ApplicationType;
 use BlogBundle\Repository\BlogPostsRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -14,7 +14,7 @@ class PostController extends Controller
     {$Blogposts=new Blogposts();
         $D=new \DateTime();
         //form
-        $form=$this->createForm(BlogpostsType::class,$Blogposts);
+        $form=$this->createForm(ApplicationType::class,$Blogposts);
         $form=$form->handleRequest($request);
         if($form->isValid())
         {
@@ -63,7 +63,7 @@ class PostController extends Controller
         $B=new Blogposts();
         $D=new \DateTime();
         $Blogposts->setImage(null);
-        $form=$this->createForm(BlogpostsType::class,$Blogposts);
+        $form=$this->createForm(ApplicationType::class,$Blogposts);
         $form=$form->handleRequest($request);
         if($form->isValid())
         {

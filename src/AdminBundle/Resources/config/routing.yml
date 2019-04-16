@@ -4,6 +4,16 @@ admin_homepage:
 admin_listPosts:
     path:     /Posts
     defaults: { _controller: AdminBundle:Post:Listposts }
+admin_apps:
+    path:     /Apps
+    defaults: { _controller: AdminBundle:Application:listApps }
+Admindelete_apps:
+    path:     /Apps/delete{id}
+    defaults: { _controller: AdminBundle:Application:delete }
+AdminUpdate_apps:
+    path:     /Apps/Update{id}
+    defaults: { _controller: AdminBundle:Application:Update }
+
 Admin_deletePost:
     path:     /deletepost/{postId}
     defaults: { _controller: AdminBundle:Post:Delete }

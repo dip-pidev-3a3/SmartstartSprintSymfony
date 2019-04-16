@@ -32,6 +32,8 @@ class AppKernel extends Kernel
             new Flosch\Bundle\StripeBundle\FloschStripeBundle(),
             new FOS\MessageBundle\FOSMessageBundle(),
             new ChatBundle\ChatBundle(),
+            new ApplicationBundle\ApplicationBundle(),
+
         ];
 
         if (in_array($this->getEnvironment(), ['dev', 'test'], true)) {

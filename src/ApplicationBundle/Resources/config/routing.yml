@@ -1,0 +1,17 @@
+application_homepage:
+    path:     /allOpps
+    defaults: { _controller: ApplicationBundle:Default:search }
+apply_opp:
+      path:   /apply
+      defaults: { _controller: ApplicationBundle:Default:apply }
+my_apps:
+      path:   /myApps
+      defaults: { _controller: ApplicationBundle:Default:myApps }
+delete_app:
+      path:   /delete/{id}
+      defaults: { _controller: ApplicationBundle:Default:delete }
+pdf:
+      path:   /pdf/{searched}
+      defaults: { _controller: ApplicationBundle:Default:pdf }
+
+

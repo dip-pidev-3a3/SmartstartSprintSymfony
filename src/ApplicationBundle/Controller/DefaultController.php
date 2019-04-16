@@ -10,15 +10,21 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Component\DependencyInjection\ContainerInterface;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 
 
+
 class DefaultController extends Controller
 {
+
+
+
     public function indexAction()
     {
+        $alertMsg="alerte";
         return $this->render('ApplicationBundle:Default:index.html.twig');
     }
 
@@ -35,7 +41,9 @@ class DefaultController extends Controller
 
 
 
-    public function applyAction($idOpportunity){
+
+
+    public function applyAction(Request $request){
 
         //reçu de l'objet avec l'id
         $app=new Application();
@@ -45,53 +53,91 @@ class DefaultController extends Controller
         //entity manager
         $em=$this->getDoctrine()->getManager();
 
-        //DELETE OBJECT FROM ORM  NB: REMOVE TE5ETH OBJECT NOT ID
-        if ($this->getDoctrine()->getRepository(Application::class)->hasApplied($idOpportunity,$connectedUser->getId())==null)
+        if ($request->isXmlHttpRequest() || $request->query->get('showJson') == 1) {
+            $json=array();
+        if ($this->getDoctrine()->getRepository(Application::class)->hasApplied($request->request->get('id'),$connectedUser->getId())==null)
         {$app->setState("APPLIED");
-        $app->setIdOpportunity($this->getDoctrine()->getRepository(Opportunity::class)->find($idOpportunity));
+        $app->setIdOpportunity($this->getDoctrine()->getRepository(Opportunity::class)->find($request->request->get('id')));
 
         $app->setIdFreelancer($connectedUser);
         $em->persist($app);
         $em->flush();
+            $alertMsg="Success:Your Application Has been sent";
 
         }
+        else
+        {
+            $alertMsg="You have Already Applied, You can't apply twice";
+        } $data=array(
+            'msg'=> $alertMsg,
 
 
-        return $this->redirectToRoute('application_homepage');
+            );$json[0]=$data;          }
+        return new JsonResponse($json);
+    }
 
+    public function searchAction(Request $request){
+
+$alertMsg = "";
+        $searched=$request->get('searched');
+        $wage=$request->get('wage');
+        if( (isset($searched)) OR (isset($wage)) )  {
+            $opps=$this->getDoctrine()->getRepository(Application::class)->chercher($searched,$wage);
+            return $this->render('@Application/Default/index.html.twig',
+                array('opps' => $opps,'msg'=>$alertMsg));
+        }
+        $opps = $this->getDoctrine()->getRepository(Opportunity::class)->findAll();
+        return $this->render('@Application/Default/index.html.twig',
+            array('opps' => $opps,'msg'=>$alertMsg));
     }
 
 
 
-
-
-
-    /**
-     * Creates a new ActionItem entity.
-     *
-     * @Route("/search", name="ajax_search")
-     * @Method("GET")
-     */
-    public function searchAction(Request $request)
+    public function myAppsAction()
     {
-        $em = $this->getDoctrine()->getManager();
-        $requestString = $request->get('q');
-        $entities =  $em->getRepository('Application::class')->findEntitiesByString($requestString);
-        if(!$entities) {
-            $result['entities']['error'] = "No entries found";
-        } else {
-            $result['entities'] = $this->getRealEntities($entities);
-        }
-        return new Response(json_encode($result));
+        $connectedUser=$this->container->get('security.token_storage')->getToken()->getUser();
+        $apps = $this->getDoctrine()->getRepository(Application::class)->userOpps($connectedUser->getId());
+        return $this->render('@Application/Default/myApps.html.twig',
+            array('apps' => $apps));
+
     }
 
-    public function getRealEntities($entities){
-        foreach ($entities as $entity){
-            $realEntities[$entity->getId()] = $entity->getFoo();
-        }
-        return $realEntities;
+
+    public function deleteAction($id){
+        //entity manager
+        $em=$this->getDoctrine()->getManager();
+        //reçu de l'objet avec l'id
+        $app=$this->getDoctrine()->getRepository(Application::class)->find($id);
+        //DELETE OBJECT FROM ORM  NB: REMOVE TE5ETH OBJECT NOT ID
+        $em->remove($app);
+        //delete from the DB
+        $em->flush();
+        return $this->redirectToRoute('my_apps');
     }
 
+
+    public function pdfAction($searched)
+    {
+
+
+        $app=$this->getDoctrine()->getRepository(Application::class)->find($searched);
+
+        $snappy = $this->get('knp_snappy.pdf');
+
+        $html = $this->renderView('@Application/Default/test.html.twig', ['app'=>$app]
+           );
+
+        $filename = 'myFirstSnappyPDF';
+
+        return new Response(
+            $snappy->getOutputFromHtml($html),
+            200,
+            array(
+                'Content-Type'          => 'application/pdf',
+                'Content-Disposition'   => 'inline; filename="'.$filename.'.pdf"'
+            )
+        );
+    }
 
 
 }

@@ -1,0 +1,107 @@
+
+{% extends "SmartStartBase.html.twig" %}
+{% block title %}My applications{% endblock %}
+{% block body %}
+
+
+
+
+
+    <script>
+        jQuery(function ($) {
+          elements = document.getElementsByClassName("info-item-mainmenu txt23");
+          elements2= document.getElementsByClassName("btn3 flex-c-m size18 txt11 trans-0-4 m-10");
+            elements3= document.getElementsByClassName("btn-outline-primary");
+            for (var i = 0; i < elements.length; i++) {
+          if (elements[i].innerText=="ACCEPTED")
+          {elements[i].style.color="green";
+                elements2[i].style.visibility='hidden';}
+
+                if (elements[i].innerText=="REJECTED")
+                {elements[i].style.color="red";
+                    elements3[i].style.visibility='hidden';
+                }
+
+
+                if (elements[i].innerText=="APPLIED")
+                { elements[i].style.color="blue";
+                elements2[i].style.visibility='hidden';
+                    elements3[i].style.visibility='hidden';
+
+                }
+
+
+            }
+
+        });
+    </script>
+
+
+
+    <section class="section-mainmenu p-t-110 p-b-70 bg1-pattern" >
+        <div class="container">
+            <div class="row">
+                <div class="col-md-10 col-lg-6 p-r-35 p-r-15-lg m-l-r-auto">
+                    <div class="wrap-item-mainmenu p-b-22">
+                        <h3 class="tit-mainmenu tit10 p-b-25">
+                            My Applications
+                        </h3>
+
+
+                        <!-- Item mainmenu -->
+
+    {% for i in apps %}
+
+                        <div class="item-mainmenu m-b-36">
+                            <div class="flex-w flex-b m-b-3">
+                                <a href="#" class="name-item-mainmenu txt21">
+                                    {{ i.idOpportunity.jobTitle }} at {{ i.idOpportunity.idEntreprise.name }}
+                                </a>
+
+                                <div class="line-item-mainmenu bg3-pattern"></div>
+
+                                <div class="price-item-mainmenu txt22">
+                                    <a  href="{{ path('delete_app',{'id':i.idApplication})}}">
+
+                                    <button type="button"  class="btn3 flex-c-m size18 txt11 trans-0-4 m-10"  >
+                                        Delete
+                                    </button> </a>
+                                </div>
+
+
+                            </div>
+
+                            <span  id="demo"  class="info-item-mainmenu txt23">
+
+								 {{ i.state }}
+
+							</span>
+
+                            <div class="price-item-mainmenu txt22">
+                            <a  href="{{ path('pdf',{'searched':i.idApplication})}}">
+
+                                <button type="button"  class="btn-outline-primary"  >
+                                    Click here to generate your acceptance note
+                                </button> </a>
+                            </div>
+                        </div>
+
+    {% endfor %}
+
+                    </div>
+
+
+                </div>
+
+
+            </div>
+        </div>
+    </section>
+
+
+
+
+
+
+{% endblock %}
+
