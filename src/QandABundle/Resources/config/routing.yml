@@ -4,11 +4,12 @@ qand_a_homepage:
 qanda_homepage:
     path:     /home
     defaults: { _controller: QandABundle:Default:home }
+
 display_as:
     path:     /displayas/{as}
     defaults: { _controller: QandABundle:Default:displayAS }
 display_qas:
-    path:     /displayas/{as}
+    path:     /displayqas/{as}
     defaults: { _controller: QandABundle:Default:displayQAS }
 display_ras:
     path:     /displayras/{as}
@@ -26,10 +27,17 @@ qanda_Qdelete:
 show_myquestions:
     path:     /showmyquestions
     defaults: { _controller: QandABundle:Question:showMyQuestions }
+
 reply_question:
     path:     /qreply/{idq}
     defaults: { _controller: QandABundle:Question:replyQuestion }
+show_question:
+    path:     /ahowQ/{idq}
+    defaults: { _controller: QandABundle:Default:showQuestion }
 
+show_reply:
+    path:     /rreply/{idq}
+    defaults: { _controller: QandABundle:Question:showReply }
 update_reply:
     path:     /updatereply/{idr}
     defaults: { _controller: QandABundle:Reply:updateReply }
@@ -45,7 +53,16 @@ vote_down:
 satisfy_me:
     path:     /satisfied/{idr}
     defaults: { _controller: QandABundle:Reply:satisfyMe }
-reply_viewed:
-    path:     /notifViewed/{idr}
-    defaults: { _controller: QandABundle:Reply:notifViewed }
 
+notified_replies:
+    path:     /shownotif/{idq}
+    defaults: { _controller: QandABundle:Notify:notifViewed }
+
+
+signal_reply:
+    path:     /Rsignal/{id}
+    defaults: { _controller: QandABundle:Reply:signalReply }
+
+signal_question:
+    path:     /Qsignal/{id}
+    defaults: { _controller: QandABundle:Question:signalQuestion }

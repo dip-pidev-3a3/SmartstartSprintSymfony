@@ -1,45 +1,45 @@
-{% extends "SmartStartBase.html.twig" %}
+{% extends "home.html.twig" %}
+{% block head %}{% endblock %}
         {% block content %}
-            <div class="content-wrapper">
+<div class="col-md-8 col-lg-9">
+    <div class="p-t-80 p-b-124 bo5-r p-r-50 h-full p-r-0-md bo-none-md">
+    <div class="content-wrapper">
                 <section class="content-header">
-                    <h1>
+                    <h3>
                         Update this reply
                         <small> if you answer it you get bonus </small>
-                    </h1>
+                    </h3>
+                    <hr/>
                 </section>
                 <section class="content">
                     <div class="callout callout-info">
-                        <h4> {{ quest.question }} ?</h4>
+                        <h3><i class="material-icons">
+                                question_answer
+                            </i> {{ quest.question|raw }} </h3>
 
-                        <p> {{ quest.description }}  </p>
+                        <i class="material-icons">
+                            description
+                        </i>  {{ quest.description|raw }}
 
                     </div>
+                    <hr/>
+                    <br/>
                     {{ form_start(form) }}
                         <div class="box">
                             <div class="box-header with-border">
                                 <h3 class="box-title"> modify content reply </h3>
-
-                                <div class="box-tools pull-right">
-                                    <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="Collapse">
-                                         {{ form_widget(form.Add) }} </button>
-                                </div>
                             </div>
                             <div class="box-body">
                                 {{ form_widget(form.content) }}
                             </div>
-                            <div class="box-footer">
+                            <div class="box-tools pull-right">
+                                 {{ form_widget(form.Add) }}
                             </div>
                         </div>
                     {{ form_end(form) }}
                 </section>
             </div>
-
-
-
-            <script>
-
-
-            </script>
+    </div></div>
         {% endblock %}
 
 

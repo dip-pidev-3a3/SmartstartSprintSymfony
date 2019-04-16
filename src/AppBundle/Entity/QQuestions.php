@@ -24,7 +24,7 @@ class QQuestions
     /**
      * @var string
      *
-     * @ORM\Column(name="question", type="string", length=50, nullable=false)
+     * @ORM\Column(name="question", type="string", length=256, nullable=false)
      */
     private $question;
 
@@ -62,6 +62,18 @@ class QQuestions
      * @ORM\Column(name="replies", type="integer", nullable=true)
      */
     private $replies;
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="views", type="integer", nullable=true)
+     */
+    private $views;
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="signaler", type="integer", nullable=true)
+     */
+    private $signaler;
 
     /**
      * @var \QClouds
@@ -89,6 +101,8 @@ public function __construct()
     {
         $this->postdate=new \DateTime('now');
         $this->replies=0;
+        $this->signaler=0;
+        $this->views=0;
     }
 
     /**
@@ -226,7 +240,7 @@ public function __construct()
      *
      * @param integer $replies
      *
-     * @return QReply
+     * @return QQuestions
      */
     public function setReplies($replies)
     {
@@ -244,9 +258,62 @@ public function __construct()
     {
         return $this->replies;
     }
+
+    /**
+     * Set signaler
+     *
+     * @param integer $signaler
+     *
+     * @return QQuestions
+     */
+    public function setSignaler($signaler)
+    {
+        $this->signaler = $signaler;
+
+        return $this;
+    }
+
+    /**
+     * Get signaler
+     *
+     * @return integer
+     */
+    public function getSignaler()
+    {
+        return $this->signaler;
+    }
+
+    /**
+     * Set views
+     *
+     * @param integer $views
+     *
+     * @return QReply
+     */
+    public function setViews($views)
+    {
+        $this->views = $views;
+
+        return $this;
+    }
+
+    /**
+     * Get views
+     *
+     * @return integer
+     */
+    public function getViews()
+    {
+        return $this->views;
+    }
+
     public function incrementReplies(){
         $this->replies +=1;
         return $this->replies;
+    }
+    public function incrementSignal(){
+        $this->signaler +=1;
+        return $this;
     }
 
     /**

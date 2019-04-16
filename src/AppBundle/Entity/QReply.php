@@ -70,7 +70,12 @@ class QReply
      * @ORM\Column(name="score", type="integer", nullable=true)
      */
     private $score;
-
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="signaler", type="integer", nullable=true)
+     */
+    private $signaler;
     /**
      * @var \QClouds
      *
@@ -85,13 +90,18 @@ public function __construct()
 {
     $this->replydate=new \DateTime('now');
     $this->score=0;
+    $this->signaler=0;
 }
 
-public function upScore(){
+    public function upScore(){
     $this->score+=1;
-}
+    }
     public function downScore(){
         $this->score-=1;
+    }
+    public function incrementSignal(){
+        $this->signaler+=1;
+        return $this;
     }
 
     /**
@@ -246,6 +256,30 @@ public function upScore(){
     public function getScore()
     {
         return $this->score;
+    }
+    /**
+     * Set signaler
+     *
+     * @param integer $signaler
+     *
+     * @return QReply
+     */
+    public function setSignaler($signaler)
+    {
+        $this->signaler = $signaler;
+
+        return $this;
+    }
+
+
+    /**
+     * Get signaler
+     *
+     * @return integer
+     */
+    public function getSignaler()
+    {
+        return $this->signaler;
     }
 
     /**

@@ -1,60 +1,198 @@
-{% extends "SmartStartBase.html.twig" %}
-{% block title %}list my replies{% endblock %}
+{% extends "home.html.twig" %}
+{% block title %}Detail questions{% endblock %}
 {% block body %}
-    <!-- Title Page -->
+
     <section class="bg-title-page flex-c-m p-t-160 p-b-80 p-l-15 p-r-15" style="background-image: url({{ asset('assets/images/blog-banner.png') }});">
         <h2 class="tit6 t-center">
+            Q & A
         </h2>
     </section>
-    <section class="content-header">
-        <h1>
-            choose display mode
-        </h1>
-        <ol class="breadcrumb">
-            <li><a href="{{ path('display_as',{'as':1}) }}"> <button class="android-checkbox" > answered </button> </a></li>
-            <li><a href="{{ path('display_as',{'as':2}) }}"> <button class="android-checkbox" > not answered </button> </a></li>
-            <li><a href="{{ path('display_as',{'as':3}) }}"> <button class="select2-selection__choice" id=""> subject </button> </a></li>
-        </ol>
-    </section>
-    <section class="content">
-        {% for m in questions %}
-            <div class="box"> <a href="{{ path('reply_question',{'idq':m.id} ) }}" >
-                    <div class="box-header with-border">
-                        <h3 class="box-title"> {{ m.question }}</h3>
 
-                        <div class="box-tools pull-right"><button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="Collapse">
-                                <i class="fa fa-minus"></i>  {{ m.postdate|date("m/d/Y") }} </button>
-                            <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="Collapse">
-                                <i class="fa fa-minus"></i> {{ m.replies }} </button>
-                            <button type="button" class="btn btn-box-tool" data-widget="remove" data-toggle="tooltip" title="Remove">
-                                <i class="fa fa-times"></i></button>
+
+    <!-- Content page -->
+    <section>
+        <div class="bread-crumb bo5-b p-t-17 p-b-17">
+            {% block head %}
+                <div class="container">
+                    <a href="{{ path('blog_ListPosts') }}" class="txt27">
+                        <i class="material-icons">dashboard</i>
+                    </a>
+
+                    <span class="txt29 m-l-10 m-r-10">/</span>
+                    <a href="{{ path('display_as',{'as':1}) }}">
+                        <label class="checkbox-inline"><input type="checkbox" value="Answered" id="answered">Answered</label>
+                    </a>
+                    <a href="{{ path('display_as',{'as':2}) }}">
+                        <label href="{{ path('blog_ListPosts') }}" class="checkbox-inline"><input type="checkbox" value="Not Answered" id="notanswered"> Not Answered</label>
+                    </a>
+                    <span class="txt29">
+				</span>
+
+                </div>
+
+            {% endblock %}
+        </div>
+
+        <div class="container">
+            <div class="row">
+                {% block aside %}
+                    {% if app.user!=null %}
+                        <div class="col-md-4 col-lg-3">
+                            <div class="sidebar2 p-t-80 p-b-80 p-l-20 p-l-0-md p-t-0-md">
+                                <div>
+                                    <div class="right">
+                                        <a href="{{ path('qand_a_homepage') }}">
+                                            <i class="material-icons">dashboard</i>
+                                            <span style="color: black;font-family: Montserrat-Regular"> Q & A DashBord </span></a>
+                                    </div>
+                                </div>
+
+                                <div class="categories">
+                                    <ul>
+                                        <li class="bo5-b p-t-8 p-b-8">
+                                            <a href="{{ path('qanda_Qadd') }}" class="txt27">
+                                                <i class="material-icons">
+                                                    create
+                                                </i>  post a question
+                                            </a>
+                                        </li>
+                                        <li class="bo5-b p-t-8 p-b-8">
+                                            My Questions
+                                            <span class="pull-right-container">
+                                          <span class="label label-primary pull-right"> {{ nq }} </span>    </span>
+                                            {{ knp_menu_render('QandABundle:MyQuestionsMenu:mainMenu') }}
+
+                                        </li>
+
+                                        <li class="bo5-b p-t-8 p-b-8">
+                                            My Responses
+                                            <span class="pull-right-container">
+                         <span class="label label-primary pull-right"> {{ nr }} </span>
+                             </span>
+
+                                            {{ knp_menu_render('QandABundle:MyResponsesMenu:mainMenu') }}
+                                        </li>
+
+
+
+
+
+                                        <li class="bo5-b p-t-8 p-b-8">
+                                            <a href="" class="txt27">
+                                                Quiz
+                                            </a>
+                                        </li>
+
+                                    </ul>
+                                </div>
+                            </div>
                         </div>
-                    </div>
+                    {% endif %}
+                {% endblock %}
+                <div class="col-md-8 col-lg-9">
+                    <div class="p-t-80 p-b-124 bo5-r p-r-50 h-full p-r-0-md bo-none-md">
+                        {% block content %}
+                            {% for r in questions %}
+                                <div class="text-blo4 p-t-33" style="{% if r.answered is not null %}background-color: green;{% endif %} word-wrap:break-word">
+                                    <a href="{{ path('reply_question',{'idq':r.id} ) }}" >
+                                        {{ r.question|raw }}</a>
+                                    <div class="box">
+                                        <div class="box-header with-border">
+                                            <h3 class="box-title"> {{ r.idu.name }}<small><i style="font-family: Montserrat-SemiBold;font-size: 12px">{{ r.postdate|date('l jS \f F Y h:i:s A') }}</i></small>
 
-                    <div class="box-body">
-                        {{ m.description }}
-                    </div>
-                    <!-- /.box-body -->
-                    <div class="box-footer">
-                        <button type="button" class="btn btn-box-tool">
-                            <i class="fa fa-times"></i> {{ m.idu.name }} </button>
-                        {% if m.answered is not null %}
-                            <button type="button" class="btn btn-box-tool">
-                                <i class="fa fa-check"></i> {{ m.answered|date("m/d/Y") }} </button>
-                        {% endif %}
-                        {% if app.user==m.idu %}
-                            <a href="{{ path('qanda_Qdelete',{'id':m.id}) }}" > <button type="button" class="btn btn-box-tool" >
-                                    <i class="fa fa-times"></i> delete </button> </a>
+                                                <div class="box-tools pull-right">
+                                                    <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="hide">
+                                                        <i class="material-icons">
+                                                            maximize
+                                                        </i> </button>
+                                                </div>
+                                            </h3>
+                                        </div>
 
-                            <a href="{{ path('qanda_Qupdate',{'id':m.id}) }}" > <button type="button" class="btn btn-box-tool">
-                                    <i class="fa fa-times"></i> Modify </button> </a>
-                        {% endif %}
-                    </div>
-                    <!-- /.box-footer-->
-                </a>  </div>
+                                        <div class="box-body with-border">
+                                            {{ r.description|raw }}
+                                        </div>
+                                        <div class="box-footer">
 
-        {% endfor %}
-        <!-- /.box -->
 
+
+
+                                            <div class="text-blo4 p-t-33">
+                                                {% if r.answered is not null %}
+                                                    <button type="button" class="btn btn-box-tool">
+                                                        <i class="material-icons">
+                                                            spellcheck
+                                                        </i> {{ r.answered|date("m/d/Y") }} </button>
+                                                {% endif %}
+                                                <div id="QDelete" class="modal fade">
+                                                    <div class="modal-dialog modal-confirm">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <div class="icon-box">
+                                                                    <i class="material-icons">delete_forever</i>
+                                                                </div>
+                                                                <h4 class="modal-title">Are you sure?</h4>
+                                                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                                            </div>
+                                                            <div class="modal-body">
+                                                                <p>Do you really want to delete this question? </p>
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                <button type="button" class="btn btn-info" data-dismiss="modal">Cancel</button>
+                                                                <a href="{{ path('qanda_Qdelete',{'id':r.id}) }}" type="button" class="btn btn-danger"><label style="color:white;">Delete</label></a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div id="QUpdate" class="modal fade">
+                                                    <div class="modal-dialog modal-confirm">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <div class="icon-box">
+                                                                    <i class="material-icons">add_alert</i>
+                                                                </div>
+                                                                <h4 class="modal-title">Are you sure?</h4>
+                                                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                                            </div>
+                                                            <div class="modal-body">
+                                                                <p>Do you really want to modify this question? </p>
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                <button type="button" class="btn btn-info" data-dismiss="modal">Cancel</button>
+                                                                <a href="{{ path('qanda_Qupdate',{'id':r.id}) }}" type="button" class="btn btn-danger"><label style="color:white;">Update</label></a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <!-- delete alert-->
+                                                <div class="right">
+                                                    <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="views count">
+                                                        <i class="material-icons">
+                                                            visibility
+                                                        </i> <span>views : {{ r.views }}</span> </button>
+                                                    <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="replies count">
+                                                        <i class="material-icons">
+                                                            toc
+                                                        </i><span>responses : {{ r.replies }}</span> </button>
+
+                                                    {% if app.user==r.idu %}
+                                                        <a href="#QDelete" class="delete" data-toggle="modal"><i class="fas fa-trash-alt" data-toggle="tooltip" title="Delete"></i></a>
+                                                        <a href="#QUpdate" class="edit" data-toggle="modal"><i class="fas fa-edit" data-toggle="tooltip" title="Edit"></i></a>
+                                                    {% endif %}
+                                                </div>
+
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <br><br>
+                            {% endfor %}
+
+                        {% endblock %}  </div>
+                </div>
+            </div>
+        </div>
     </section>
+
 {% endblock %}

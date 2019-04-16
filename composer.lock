@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "03977abcb3497fc8034b85b22212ef01",
+    "content-hash": "25a6103763993347f6195aacc154f1e6",
     "packages": [
         {
             "name": "aws/aws-sdk-php",
@@ -135,6 +135,54 @@
             "description": "CKFinder 3 bundle for Symfony 3",
             "abandoned": "ckfinder/ckfinder-symfony-bundle",
             "time": "2018-07-13T19:13:54+00:00"
+        },
+        {
+            "name": "cmen/google-charts-bundle",
+            "version": "3.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/cmen/CMENGoogleChartsBundle.git",
+                "reference": "b07b2348f7f8883de8864cf67976bf42fa3415c5"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/cmen/CMENGoogleChartsBundle/zipball/b07b2348f7f8883de8864cf67976bf42fa3415c5",
+                "reference": "b07b2348f7f8883de8864cf67976bf42fa3415c5",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^5.6 || ^7.0",
+                "symfony/framework-bundle": "^2.7 || ^3.0 || ^4.0"
+            },
+            "require-dev": {
+                "friendsofphp/php-cs-fixer": "^2.9",
+                "phpunit/phpunit": "^5.7"
+            },
+            "type": "symfony-bundle",
+            "autoload": {
+                "psr-4": {
+                    "CMEN\\GoogleChartsBundle\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Christophe Meneses"
+                }
+            ],
+            "description": "This Bundle provides a Twig extension and PHP objects to display Google charts in your Symfony application.",
+            "keywords": [
+                "chart",
+                "charts",
+                "google",
+                "graph",
+                "graphs",
+                "map"
+            ],
+            "time": "2019-03-02T09:54:25+00:00"
         },
         {
             "name": "composer/ca-bundle",
@@ -3449,6 +3497,61 @@
                 "framework"
             ],
             "time": "2019-04-02T13:48:13+00:00"
+        },
+        {
+            "name": "tchoulom/view-counter-bundle",
+            "version": "2.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/tchoulom/ViewCounterBundle.git",
+                "reference": "8a76d87dccc83d2533196e43a9a0974f27822b71"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/tchoulom/ViewCounterBundle/zipball/8a76d87dccc83d2533196e43a9a0974f27822b71",
+                "reference": "8a76d87dccc83d2533196e43a9a0974f27822b71",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.5.9",
+                "symfony/framework-bundle": "^2.7 || ^3.0 || ^4.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": ">5.7"
+            },
+            "type": "symfony-bundle",
+            "autoload": {
+                "psr-4": {
+                    "Tchoulom\\ViewCounterBundle\\": ""
+                },
+                "exclude-from-classmap": [
+                    "/Tests/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Ernest TCHOULOM",
+                    "email": "tchoulomernest@yahoo.fr",
+                    "homepage": "http://www.tchoulom.com"
+                }
+            ],
+            "description": "The \"View Counter\" bundle",
+            "keywords": [
+                "Count the number of views of a page",
+                "page view count",
+                "page views",
+                "pages views counter",
+                "view count",
+                "view counter",
+                "view counter bundle",
+                "view counter interface",
+                "viewership measurement"
+            ],
+            "time": "2019-01-29T13:33:48+00:00"
         },
         {
             "name": "tiloweb/pagination-bundle",

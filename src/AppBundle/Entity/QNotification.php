@@ -62,6 +62,11 @@ class QNotification
     {
         $this->declanched=new \DateTime('now');
     }
+    public function viewed()
+    {
+        $this->viwed = new \DateTime('now');
+
+    }
 
     /**
      * Get id

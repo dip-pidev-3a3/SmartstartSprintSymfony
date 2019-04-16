@@ -1,0 +1,109 @@
+{% extends "home.html.twig" %}
+        {% block body %}
+            <script>
+                var likelink=document.querySelectorAll('link')
+                document.querySelectorAll('.link').forEach(function(link){
+                    link.addEventListener('click',onClickBtnLlike)
+
+                })
+                function onClickBtnLlike(event) {
+                    event.preventDefault();
+                    const url=this.href;
+                    const spanCount=this.querySelector('span.js-likes')
+                    console.log("biiij");
+                    axios.get(url).then(function (response) {
+                        console.log(response);
+
+                        console.log(response.data.likes);
+                        spanCount.textContent=response.data.likes;
+                        console.log("biiij");
+                    })}
+            </script>
+            <script>
+                $(document).ready(function() {
+                    $('.link').on('click', function(e) {
+                        e.preventDefault();
+                        var $link = $(e.currentTarget);
+                        $link.toggleClass('fa-heart-o').toggleClass('fa-heart');
+                        $.ajax({
+                            method: 'POST',
+                            url: $link.attr('href')
+                        }).done(function(data) {
+                            $('span.js-likes').html(data.votes);
+                        })
+                    });
+                });
+            </script>
+
+
+            <section class="bg-title-page flex-c-m p-t-160 p-b-80 p-l-15 p-r-15" style="background-image: url({{ asset('assets/images/blog-banner.png') }});">
+
+
+            </section>
+
+
+            <!-- Content page -->
+            <section>
+
+                <div class="bread-crumb bo5-b p-t-17 p-b-17">
+                    <div class="container">
+                        <a href="{{ path('qanda_homepage') }}" class="txt27">
+                            <i class="material-icons">dashboard</i>
+                        </a>
+                        <span class="txt29 m-l-10 m-r-10">/</span>
+                    </div>
+                </div>
+
+                <div class="container">
+                    <div class="content-wrapper">
+                        <section class="content">
+                            <div class="callout callout-info" style="{% if quest.answered is not null %} background-color: #1eff27;
+                         {% else %} background-color: coral; {% endif %}">
+                                <h4><i class="material-icons">  question_answer  </i> {{ quest.question|raw }}</h4>
+                                <i class="material-icons"> description </i>  {{ quest.description|raw }}
+                            </div><br>
+                            {% for r in responses %}
+                                <div class="box">
+                                    <div class="box-header with-border">
+                                        <h3 class="box-title"> {{ r.idu.name }}
+                                            <div class="box-tools pull-right"><button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="replied on">
+                                                    {{ r.replydate|date("m/d/Y")}} </button>
+                                                <button type="button" class="btn btn-box-tool" data-widget="remove" data-toggle="tooltip" title="hide">
+                                                    <i class="fa fa-times"></i></button>
+                                            </div>
+                                        </h3>
+                                    </div>
+
+                                    <div class="box-body with-border">
+                                        <ul class="box-tools pull-left">
+                                            <li>{% if app.user!=null and r.idu!=app.user %}
+                                                <a href="{{ path('vote_up',{('idr'):r.id}) }}" class="link">{% endif %}
+                                                    <i class="fa fa-chevron-up"></i> </a>  </li>
+                                            <li><span id="score" class="js-likes">{{ r.score }} </span>  </li>
+                                            <li>{% if app.user!=null and r.idu!=app.user %}
+                                                <a href="{{ path('vote_down',{('idr'):r.id}) }}" class="link"> {% endif %}
+                                                    <i class="fa fa-chevron-down"></i> </a>  </li>
+                                        </ul>
+                                        <ul class="pull-left">   {{ r.content|raw }}  </ul>
+                                    </div>
+                                    <div class="box-footer">
+                                        <div class="text-blo4 p-t-33">
+
+                                            <div class="right">
+                                                {% if r.theanswer is not null  %}
+                                                    <button type="button" class="btn btn-box-tool">
+                                                        <i class="fa fa-check"></i> {{ r.theanswer|date("m/d/Y") }} </button>
+                                                    {% endif %}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <br><br>
+                            {% endfor %}
+                        </section>
+                    </div>
+
+                </div>
+            </section>
+
+        {% endblock %}

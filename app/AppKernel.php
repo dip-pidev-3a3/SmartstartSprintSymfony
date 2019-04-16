@@ -30,6 +30,8 @@ class AppKernel extends Kernel
             new QandABundle\QandABundle(),
             new FOS\CKEditorBundle\FOSCKEditorBundle(),
             new Knp\Bundle\MenuBundle\KnpMenuBundle(),
+            new Tchoulom\ViewCounterBundle\TchoulomViewCounterBundle(),
+            new CMEN\GoogleChartsBundle\CMENGoogleChartsBundle(),
         ];
 
         if (in_array($this->getEnvironment(), ['dev', 'test'], true)) {

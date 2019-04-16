@@ -9,6 +9,9 @@
 namespace QandABundle\Repository;
 
 
+use Doctrine\ORM\Tools\Pagination\Paginator;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+
 class QuestionRepository extends \Doctrine\ORM\EntityRepository
 {
     public function getNewestQuestions(){
@@ -87,6 +90,29 @@ public function getAQBySubject($user, $sub){
 public function getQuestionsBySubject($sub){
     $query = $this->getEntityManager()->createQuery("SELECT q FROM AppBundle:QQuestions q WHERE q.subject='$sub' ORDER BY q.postdate DESC");
     return $query->getResult();
+}
+
+public function getSignaled($page = 1, $max = 10){
+
+    $qb=$this->getEntityManager()->createQueryBuilder();
+    $qb->select('q');
+    $qb->from('AppBundle:QQuestions','q');
+    $qb->where($qb->expr()->gte('q.signaler',6));
+
+    $firstResult = ($page - 1) * $max;
+
+    $query = $qb->getQuery();
+    $query->setFirstResult($firstResult);
+    $query->setMaxResults($max);
+
+    $paginator = new Paginator($query);
+
+    if(($paginator->count() <=  $firstResult) && $page != 1) {
+        throw new NotFoundHttpException('Page not found');
+    }
+
+    return $paginator;
+
 }
 
 }

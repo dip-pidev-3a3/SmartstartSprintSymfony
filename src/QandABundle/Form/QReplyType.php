@@ -20,7 +20,7 @@ class QReplyType extends AbstractType
        /* ->add('replydate')
             ->add('theanswer')
             ->add('score')*/
-       ->add('Add',SubmitType::class);
+       ->add('Add',SubmitType::class, array('attr'=>array('class'=>'btn3 flex-c-m size31 txt11 trans-0-4')));
     }
     /**
      * {@inheritdoc}

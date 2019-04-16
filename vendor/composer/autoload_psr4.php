@@ -59,6 +59,7 @@ return array(
     'Doctrine\\Bundle\\DoctrineCacheBundle\\' => array($vendorDir . '/doctrine/doctrine-cache-bundle'),
     'Doctrine\\Bundle\\DoctrineBundle\\' => array($vendorDir . '/doctrine/doctrine-bundle'),
     'Composer\\CaBundle\\' => array($vendorDir . '/composer/ca-bundle/src'),
+    'CMEN\\GoogleChartsBundle\\' => array($vendorDir . '/cmen/google-charts-bundle'),
     'CKSource\\CKFinder\\' => array($vendorDir . '/ckfinder/ckfinder-symfony3-bundle/_connector'),
     'CKSource\\Bundle\\CKFinderBundle\\' => array($vendorDir . '/ckfinder/ckfinder-symfony3-bundle'),
     'Aws\\' => array($vendorDir . '/aws/aws-sdk-php/src'),

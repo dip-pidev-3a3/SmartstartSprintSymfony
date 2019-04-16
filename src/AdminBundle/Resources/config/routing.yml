@@ -28,3 +28,13 @@ Admin_PaymentsBlogListAccept:
 Admin_Redirection:
     path:     /Verify
     defaults: { _controller: AdminBundle:Security:redirect }
+
+qanda_Redirection:
+    path:     /adminQanda
+    defaults: { _controller: AdminBundle:QandA:index }
+qanda_Delete:
+    path:     /deleteQanda/{idq}
+    defaults: { _controller: AdminBundle:QandA:delete }
+qanda_Stats:
+    path:     /QandaStats
+    defaults: { _controller: AdminBundle:QandA:stats }
