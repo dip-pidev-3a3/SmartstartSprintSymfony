@@ -10,7 +10,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * Complaints
  *
  * @ORM\Table(name="complaints", indexes={@ORM\Index(name="id_user", columns={"id_user"}), @ORM\Index(name="id_opp", columns={"id_opp"})})
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="ComplaintsBundle\Repository\ComplaintsRepository")
  */
 class Complaints
 {

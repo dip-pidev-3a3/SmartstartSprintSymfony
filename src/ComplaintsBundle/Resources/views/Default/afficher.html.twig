@@ -7,28 +7,38 @@
         </h2>
     </section>
 
-    <div class="container">
+    <div class="row justify-content-center align-items-center ">
     {% for i in con %}
-        <div class="modal-dialog modal-notify modal-info" role="document" style="width: 100%" style="display: inline-block" >
+        <div class="modal-dialog col-md-6 modal-notify modal-info" role="document" style="width: 100%" style="display: inline-block" >
             <!--Content-->
             <div class="modal-content text-center">
                 <!--Header-->
-                <div class="modal-header d-flex justify-content-center">
-                    <p class="heading">{{ i.subject }}</p>
-                </div>
+        {% if i.idOpp != null %}
 
+            <div class="modal-header d-flex justify-content-center">
+                    <p class="heading">{{ i.idOpp.JobTitle }}</p>
+                </div>
+        {% endif %}
                 <!--Body-->
                 <div class="modal-body">
 
                     <i class="fas fa-bell fa-4x animated rotateIn mb-4"></i>
 
-                    <p>{{ i.content }}</p>
+                    <p>{{ i.subject }}</p>
 
                 </div>
 
                 <!--Footer-->
                 <div class="modal-footer flex-center">
-                    <a href="#modalConfirmDelete{{ i.idComplaint }}" class="btn btn-info" data-toggle="modal" data-target="#modalConfirmDelete{{ i.idComplaint }}">Remove</a>
+
+                    {% set leftDays=i.addedDate.diff(date("now")).format('%a')%}
+                    {% if leftDays <= 1 %}
+                     <a href="#modalConfirmDelete{{ i.idComplaint }}" class="btn btn-info" data-toggle="modal" data-target="#modalConfirmDelete{{ i.idComplaint }}">Remove</a>
+                    {% endif %}
+
+                    {% if leftDays > 1 %}
+                        <p class="btn btn-info">CAN'T REMOVE AFTER 1 day </p>
+                    {% endif %}
                     <a href="#updateContract{{ i.idComplaint }}" data-toggle="modal" class="btn btn-outline-info waves-effect" data-dismiss="modal">Details</a>
                 </div>
             </div>
@@ -58,8 +68,7 @@
                         {% if i.idOpp != null %}
                            <div class="form-group">
                             <label>Opportunity</label>
-                            <input type="text" id="idApplication" name="idApplication" class="form-control" disabled="true" value="{{ i.idOpp.jobTitle }}">
-
+                            <input type="text" id="idApplication" name="idApplication" class="form-control" disabled="true" value="{{ i.idOpp.JobTitle }}">
                         </div>
                         {% endif %}
                         <div class="form-group">
@@ -108,11 +117,21 @@
                 <div class="modal-footer flex-center">
                     <a href="{{ path("remove_complaint",{'id': i.idComplaint})}}" class="btn  btn-outline-danger">Yes</a>
                     <a type="button" class="btn  btn-danger waves-effect" data-dismiss="modal">No</a>
+
                 </div>
             </div>
             <!--/.Content-->
         </div>
     </div>
+
     {% endfor %}
+
+
+
     </div>
+    <div class="pagination flex-l-m flex-w m-l--6 p-t-25">
+
+    {{ pagination(con, 'page') }}
+    </div>
+
 {% endblock %}

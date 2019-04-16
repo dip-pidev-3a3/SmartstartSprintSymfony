@@ -89,6 +89,9 @@
 
 
     {% endblock %}
+    <script type='text/javascript'
+            src='http://www.bing.com/api/maps/mapcontrol?callback=GetMap'
+            async defer></script>
 
 </head>
 <body class="animsition">
@@ -559,6 +562,18 @@
             var len = $(txtarea).val().length;
             if (len > l) $(txtarea).val($(txtarea).val().slice(0, l));
             else $('#charNumT').text(l - len);
+        }
+    </script>
+    <script type='text/javascript'>
+        function GetMap()
+        {  let map = new Microsoft.Maps.Map('#map', {
+            credentials: 'AhiPIrbCo-CstO4SyV9qAuBaJSRq3Db6mId2_hkvlRch1AM-K1DEg-bDKNyq1fad ',
+            center: new Microsoft.Maps.Location(36.899097, 10.189113),
+            mapTypeId: Microsoft.Maps.MapTypeId.route,
+            zoom: 12
+        });
+
+            //Add your post map load code here.
         }
     </script>
 

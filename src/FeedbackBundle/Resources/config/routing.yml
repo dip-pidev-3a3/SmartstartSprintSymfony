@@ -1,3 +1,12 @@
 feedback_homepage:
     path:     /home
     defaults: { _controller: FeedbackBundle:Default:index }
+affiche_homepage:
+    path:     /affiche
+    defaults: { _controller: FeedbackBundle:Default:affiche }
+remove_feedback:
+    path:     /remove/{id}
+    defaults: { _controller: FeedbackBundle:Default:remove }
+Dashboard_feedback:
+    path:     /Dashboard
+    defaults: { _controller: FeedbackBundle:Default:Dashboard }
